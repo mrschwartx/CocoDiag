@@ -113,6 +113,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_lock_30"
+                    android:drawablePadding="@dimen/_4sdp"
                     android:drawableTint="@color/black"
                     android:inputType="textPassword" />
 
