@@ -36,4 +36,6 @@
     <string name="title_main">Coconut Plant</string>
     <string name="sub_title_main">Detect Your Coconut Plant Diseases</string>
     <string name="article">Article</string>
+    <string name="gambar_1">Gambar 1</string>
+    <string name="gambar_2">Gambar 2</string>
 </resources>

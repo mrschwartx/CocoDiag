@@ -40,7 +40,7 @@
        android:id="@+id/exampleImg1"
        android:layout_width="@dimen/_100sdp"
        android:layout_height="@dimen/_100sdp"
-       android:contentDescription="Gambar 1"
+       android:contentDescription="@string/gambar_1"
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintTop_toBottomOf="@id/sub_title_main_tv"
        android:layout_marginStart="@dimen/_20sdp"
@@ -50,7 +50,7 @@
        />
    <ImageView
        android:id="@+id/exampleImg2"
-       android:contentDescription="Gambar 2"
+       android:contentDescription="@string/gambar_2"
        android:layout_width="@dimen/_100sdp"
        android:layout_height="@dimen/_100sdp"
        app:layout_constraintStart_toEndOf="@id/exampleImg1"
