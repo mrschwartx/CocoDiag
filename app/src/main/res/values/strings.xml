@@ -26,5 +26,14 @@
     <string name="type_your_email_address">Type your email address</string>
     <string name="type_your_full_name">Type your full name</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="home">Home</string>
+    <string name="camera">Camera</string>
+    <string name="forum">Forum</string>
+    <string name="setting">Setting</string>
+
+    <string name="title_main">Coconut Plant</string>
+    <string name="sub_title_main">Detect Your Coconut Plant Diseases</string>
+    <string name="article">Article</string>
 </resources>
