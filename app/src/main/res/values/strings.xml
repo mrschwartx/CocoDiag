@@ -42,4 +42,10 @@
     <string name="class_prediction">Label Class : 90%</string>
     <string name="share_text">Share</string>
     <string name="next_text">Next</string>
+    <string name="profil_name">John Doe</string>
+    <string name="account_settings">Account Setting</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="change_password">Change Password</string>
+    <string name="history">History</string>
+    <string name="about_us">About Us</string>
 </resources>
