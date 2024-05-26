@@ -1,8 +1,10 @@
 package com.dicoding.capstone.cocodiag.features.classification
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.dicoding.capstone.cocodiag.common.showToast
 import com.dicoding.capstone.cocodiag.databinding.ActivityClassificationResultBinding
 
 class ClassificationResultActivity : AppCompatActivity() {
@@ -14,10 +16,20 @@ class ClassificationResultActivity : AppCompatActivity() {
         binding = ActivityClassificationResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val imageUri = intent.getStringExtra(EXTRA_IMAGE)
-        Glide.with(this)
-            .load(imageUri)
-            .into(binding.resultImageView)
+        showImage()
+    }
+
+    private fun showImage() {
+        val ivImageResult = binding.ivClassImage
+        val imageUriString = intent.getStringExtra(EXTRA_IMAGE)
+        if (imageUriString != null) {
+            val imageUri = Uri.parse(imageUriString)
+            Glide.with(this)
+                .load(imageUri)
+                .into(ivImageResult)
+        } else {
+            showToast(this, "No Image")
+        }
     }
 
     companion object {

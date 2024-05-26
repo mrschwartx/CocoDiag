@@ -113,8 +113,8 @@ class CameraActivity : AppCompatActivity() {
                     intent.putExtra(EXTRA_IMAGE_URI, savedUri.toString())
                     setResult(Activity.RESULT_OK, intent)
 
-                    val imageUri = Uri.parse(savedUri.toString())
-
+                    imageUrl = savedUri.toString()
+                    val imageUri = Uri.parse(imageUrl)
                     imageBitmap = if (Build.VERSION.SDK_INT < 28) {
                         MediaStore.Images.Media.getBitmap(
                             this@CameraActivity.contentResolver,
