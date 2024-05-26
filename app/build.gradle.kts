@@ -53,4 +53,15 @@ dependencies {
     // Responsive layout
     implementation(libs.sdp.android)
     implementation(libs.ssp.android)
+
+    // Camera X
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
+
+    // Image
+    implementation(libs.glide)
+
+    // Animation
+    implementation(libs.lottie)
 }
