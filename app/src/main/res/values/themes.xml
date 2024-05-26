@@ -10,6 +10,6 @@
     <style name="Theme.CocoDiag" parent="Base.Theme.CocoDiag" />
 
     <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/green</item>
+        <item name="android:color">#98E80A</item>
     </style>
 </resources>

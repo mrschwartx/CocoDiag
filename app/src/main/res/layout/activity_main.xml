@@ -83,13 +83,15 @@
         android:layout_height="wrap_content"
         android:background="@color/green"
         app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
-        app:itemIconSize="30dp"
+        app:itemIconSize="@dimen/_20sdp"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/navbar" />
+        app:menu="@menu/navbar"
+        app:activeIndicatorLabelPadding="@dimen/_5sdp"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

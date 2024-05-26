@@ -24,6 +24,9 @@
         android:theme="@style/Theme.CocoDiag"
         tools:targetApi="31">
         <activity
+            android:name=".features.settings.SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".features.classification.ClassificationResultActivity"
             android:exported="false" />
         <activity
@@ -57,7 +60,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.dicoding.capstone.cocodiag.features.classification"
