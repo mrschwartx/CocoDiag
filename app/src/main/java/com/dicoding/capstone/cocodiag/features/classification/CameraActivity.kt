@@ -3,6 +3,7 @@ package com.dicoding.capstone.cocodiag.features.classification
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.Intent.ACTION_PICK
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
@@ -17,6 +18,7 @@ import android.view.Surface
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -51,6 +53,11 @@ class CameraActivity : AppCompatActivity() {
         binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setBottomNavBar(this@CameraActivity, binding.bottomNavigation, R.id.nav_camera)
+
+        // Use Image
+        binding.btnGallery.setOnClickListener {
+            startGallery()
+        }
 
         // Use Camera
         if (!allPermissionsGranted()) {
@@ -131,6 +138,34 @@ class CameraActivity : AppCompatActivity() {
                     moveToResult()
                 }
             })
+    }
+
+    private fun startGallery() {
+        val intent = Intent()
+        intent.action = ACTION_PICK /* or ACTION_GET_CONTENT */
+        intent.type = "image/*"
+        val chooser = Intent.createChooser(intent, "Choose a Picture")
+        launcherIntentGallery.launch(chooser)
+    }
+
+    private val launcherIntentGallery = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val selectedImg: Uri = result.data?.data as Uri
+            imageUrl = selectedImg.toString()
+            val imageUri = Uri.parse(imageUrl)
+
+            // TODO: use bitmap for upload image
+            val bitmap = if (Build.VERSION.SDK_INT < 28) {
+                MediaStore.Images.Media.getBitmap(this@CameraActivity.contentResolver, imageUri)
+            } else {
+                val src = ImageDecoder.createSource(this@CameraActivity.contentResolver, imageUri)
+                ImageDecoder.decodeBitmap(src).copy(Bitmap.Config.RGBA_F16, true)
+            }
+
+            moveToResult()
+        }
     }
 
     private fun moveToResult() {

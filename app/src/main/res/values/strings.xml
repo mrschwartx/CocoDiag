@@ -49,4 +49,6 @@
     <string name="history">History</string>
     <string name="about_us">About Us</string>
     <string name="retake_text">Retake</string>
+    <string name="care_instructions_title">Care Instructions</string>
+    <string name="care_instructions_subtitle">Your coconut plant diseases</string>
 </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,132 +7,160 @@
     android:layout_height="match_parent"
     tools:context=".features.classification.ClassificationResultActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_sc_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:text="@string/class_screen_title"
+        android:textSize="@dimen/_16ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tv_sc_subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_sc_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:text="@string/class_screen_title"
-            android:textSize="@dimen/_16ssp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/tv_sc_subtitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/tv_sc_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:text="@string/class_screen_subtitle"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sc_title" />
 
-        <TextView
-            android:id="@+id/tv_sc_subtitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:text="@string/class_screen_subtitle"
-            android:textSize="@dimen/_11ssp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_sc_title" />
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sc_subtitle">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_image"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_16sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            app:cardCornerRadius="@dimen/_8sdp"
-            app:cardElevation="@dimen/_4sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_class_label"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_sc_subtitle">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/iv_class_image"
-                android:layout_width="match_parent"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_image"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter" />
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:cardElevation="@dimen/_4sdp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_class_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/iv_class_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_place_holder" />
 
-        <TextView
-            android:id="@+id/tv_class_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:background="@color/green"
-            android:paddingStart="@dimen/_8sdp"
-            android:paddingEnd="@dimen/_8sdp"
-            android:text="@string/class_prediction"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_11ssp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_image" />
+            </androidx.cardview.widget.CardView>
 
+            <TextView
+                android:id="@+id/tv_class_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:background="@color/green"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:text="@string/class_prediction"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_11ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_image" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_24sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:elevation="@dimen/_2sdp"
-            android:scaleType="fitCenter"
-            android:text="@string/share_text"
-            app:icon="@drawable/ic_share_30"
-            app:iconGravity="start"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_retake"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_class_label" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:elevation="@dimen/_2sdp"
+                android:scaleType="fitCenter"
+                android:text="@string/share_text"
+                app:icon="@drawable/ic_share_30"
+                app:iconGravity="start"
+                app:layout_constraintEnd_toStartOf="@+id/btn_retake"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_class_label" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_retake"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_24sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:text="@string/retake_text"
-            app:icon="@drawable/ic_camera"
-            app:iconGravity="start"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/btn_share"
-            app:layout_constraintStart_toStartOf="@+id/btn_next"
-            app:layout_constraintTop_toBottomOf="@+id/tv_class_label"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_retake"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:scaleType="fitCenter"
+                android:text="@string/retake_text"
+                app:icon="@drawable/ic_camera"
+                app:iconGravity="start"
+                app:layout_constraintEnd_toEndOf="@+id/tv_class_label"
+                app:layout_constraintStart_toStartOf="@+id/tv_class_label"
+                app:layout_constraintTop_toBottomOf="@+id/tv_class_label" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_24sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:text="@string/next_text"
-            app:icon="@drawable/ic_info_30"
-            app:iconGravity="start"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_retake"
-            app:layout_constraintTop_toBottomOf="@+id/tv_class_label" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:text="@string/next_text"
+                app:icon="@drawable/ic_info_30"
+                app:iconGravity="start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_retake"
+                app:layout_constraintTop_toBottomOf="@+id/tv_class_label" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_Bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green"
+        app:activeIndicatorLabelPadding="@dimen/_5sdp"
+        app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
+        app:itemIconSize="@dimen/_20sdp"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:menu="@menu/navbar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

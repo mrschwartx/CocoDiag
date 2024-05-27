@@ -30,6 +30,9 @@
             android:name=".features.forum.ForumActivity"
             android:exported="false" />
         <activity
+            android:name=".features.classification.CareInstructionActivity"
+            android:exported="false" />
+        <activity
             android:name=".features.classification.ClassificationResultActivity"
             android:exported="false" />
         <activity
