@@ -39,20 +39,20 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="@dimen/_20sdp"
         android:layout_weight="1"
         android:elevation="4dp"
-        android:layout_margin="@dimen/_20sdp"
         app:cardBackgroundColor="@color/green"
         app:cardCornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ic_setting"
-        >
+        app:layout_constraintTop_toBottomOf="@id/ic_setting">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/layout_profilename"
                 android:layout_width="match_parent"
@@ -60,78 +60,84 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:contentDescription="profil_img"
                     android:layout_width="@dimen/_50sdp"
                     android:layout_height="@dimen/_50sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/_15sdp"
                     android:background="@drawable/baseline_android_24"
                     android:backgroundTint="@color/white"
-                    android:layout_margin="@dimen/_15sdp"
-                    android:layout_gravity="center_vertical"
-                    />
+                    android:contentDescription="profil_img" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/profil_name"
-                    android:textSize="@dimen/_20sdp"
                     android:layout_gravity="center_vertical"
-                    android:textStyle="bold"
+                    android:layout_margin="@dimen/_15sdp"
+                    android:text="@string/profil_name"
                     android:textColor="@color/white"
-                    android:layout_margin="@dimen/_15sdp"/>
+                    android:textSize="@dimen/_20sdp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/white"/>
+                android:background="@color/white" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
+                    android:layout_margin="@dimen/_10sdp"
                     android:text="@string/account_settings"
                     android:textColor="@color/idk"
                     android:textSize="@dimen/_12sdp"
-                    android:layout_margin="@dimen/_10sdp"/>
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
+                    android:layout_margin="@dimen/_10sdp"
                     android:text="@string/edit_profile"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_12sdp"
-                    android:layout_margin="@dimen/_10sdp"/>
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
+                    android:layout_margin="@dimen/_10sdp"
                     android:text="@string/change_password"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_12sdp"
-                    android:layout_margin="@dimen/_10sdp"/>
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
+                    android:layout_margin="@dimen/_10sdp"
                     android:text="@string/history"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_12sdp"
-                    android:layout_margin="@dimen/_10sdp"/>
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
+                    android:layout_margin="@dimen/_10sdp"
                     android:text="@string/about_us"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_12sdp"
-                    android:layout_margin="@dimen/_10sdp"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
@@ -144,6 +150,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/navbar"/>
+        app:menu="@menu/navbar" />
 
 </LinearLayout>

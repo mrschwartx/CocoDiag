@@ -24,6 +24,12 @@
         android:theme="@style/Theme.CocoDiag"
         tools:targetApi="31">
         <activity
+            android:name=".features.settings.SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".features.forum.ForumActivity"
+            android:exported="false" />
+        <activity
             android:name=".features.classification.ClassificationResultActivity"
             android:exported="false" />
         <activity

@@ -82,6 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/green"
+        app:activeIndicatorLabelPadding="@dimen/_5sdp"
         app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
         app:itemIconSize="@dimen/_20sdp"
         app:itemIconTint="@color/white"
@@ -89,9 +90,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/navbar"
-        app:activeIndicatorLabelPadding="@dimen/_5sdp"
-        />
+        app:menu="@menu/navbar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

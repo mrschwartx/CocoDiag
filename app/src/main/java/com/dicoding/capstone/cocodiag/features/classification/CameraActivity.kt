@@ -26,6 +26,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.dicoding.capstone.cocodiag.R
+import com.dicoding.capstone.cocodiag.common.setBottomNavBar
 import com.dicoding.capstone.cocodiag.common.showToast
 import com.dicoding.capstone.cocodiag.databinding.ActivityCameraBinding
 import java.io.File
@@ -49,6 +50,7 @@ class CameraActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setBottomNavBar(this@CameraActivity, binding.bottomNavigation, R.id.nav_camera)
 
         // Use Camera
         if (!allPermissionsGranted()) {
