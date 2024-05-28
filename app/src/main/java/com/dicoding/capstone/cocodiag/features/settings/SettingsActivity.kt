@@ -1,5 +1,6 @@
 package com.dicoding.capstone.cocodiag.features.settings
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.capstone.cocodiag.R
@@ -15,5 +16,9 @@ class SettingsActivity : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setBottomNavBar(this@SettingsActivity, binding.bottomNavigation, R.id.nav_setting)
+        binding.tvEditProfile.setOnClickListener {
+            val intent = Intent(this,EditProfileActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

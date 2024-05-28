@@ -1,81 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:id="@+id/title_main_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/title_main"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_36ssp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/sub_title_main_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="17dp"
-        android:paddingBottom="@dimen/_4sdp"
-        android:text="@string/sub_title_main"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_12ssp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_main_tv" />
-
-    <ImageView
-        android:id="@+id/exampleImg1"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_100sdp"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:background="@drawable/penyakit1"
-        android:contentDescription="@string/gambar_1"
-        android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sub_title_main_tv" />
-
-    <ImageView
-        android:id="@+id/exampleImg2"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_100sdp"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:background="@drawable/penyakit1"
-        android:contentDescription="@string/gambar_2"
-        android:scaleType="fitXY"
-        app:layout_constraintStart_toEndOf="@id/exampleImg1"
-        app:layout_constraintTop_toBottomOf="@id/sub_title_main_tv" />
-
-    <TextView
-        android:id="@+id/article_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/article"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_30ssp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/exampleImg1" />
-
-    <androidx.recyclerview.widget.RecyclerView
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_12sdp"
-        app:layout_constraintTop_toBottomOf="@+id/article_tv" />
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/bottom_navigation">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/title_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_main"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="@dimen/_35ssp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"/>
+            <TextView
+                android:id="@+id/subtitle_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title_main"
+                android:text="@string/sub_title_main"
+                android:textColor="#858383"
+                android:textStyle="bold"
+                android:textSize="@dimen/_15ssp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_13sdp"
+                />
+
+            <ImageView
+                android:id="@+id/img_penyakit1"
+                android:contentDescription="penyakit1"
+                android:layout_below="@+id/subtitle_main"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_120sdp"
+                android:background="@drawable/penyakit1"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <ImageView
+                android:id="@+id/img_penyakit2"
+                android:contentDescription="penyakit1"
+                android:layout_below="@+id/subtitle_main"
+                android:layout_toEndOf="@+id/img_penyakit1"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_120sdp"
+                android:background="@drawable/penyaki2"
+                android:layout_marginStart="@dimen/_40sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"/>
+
+            <TextView
+                android:id="@+id/article_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img_penyakit1"
+                android:text="@string/article"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="@dimen/_25ssp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_13sdp"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/article_title"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_13sdp"
+                android:layout_marginEnd="@dimen/_13sdp"
+                />
+        </RelativeLayout>
+
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -87,10 +98,7 @@
         app:itemIconSize="@dimen/_20sdp"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/navbar" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:menu="@menu/navbar"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>
