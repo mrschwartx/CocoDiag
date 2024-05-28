@@ -42,13 +42,22 @@
     <string name="class_prediction">Label Class : 90%</string>
     <string name="share_text">Share</string>
     <string name="next_text">Next</string>
-    <string name="profil_name">John Doe</string>
+    <string name="retake_text">Retake</string>
+    <string name="care_instructions_title">Care Instructions</string>
+    <string name="care_instructions_subtitle">Your coconut plant diseases</string>
+
+    <string name="forum_title">Forum</string>
+    <string name="forum_subtitle">Share your experience</string>
+    <string name="tv_name">John Doe</string>
+    <string name="tv_email">johndoe@gmail.com</string>
+    <string name="tv_status">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+
+    <string name="profile_name">John Doe</string>
     <string name="account_settings">Account Setting</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="change_password">Change Password</string>
     <string name="history">History</string>
     <string name="about_us">About Us</string>
-    <string name="retake_text">Retake</string>
-    <string name="care_instructions_title">Care Instructions</string>
-    <string name="care_instructions_subtitle">Your coconut plant diseases</string>
+    <string name="like">Like</string>
+    <string name="comment">Comment</string>
 </resources>

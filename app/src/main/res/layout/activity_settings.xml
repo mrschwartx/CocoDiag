@@ -73,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="@dimen/_15sdp"
-                    android:text="@string/profil_name"
+                    android:text="@string/profile_name"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp"
                     android:textStyle="bold" />

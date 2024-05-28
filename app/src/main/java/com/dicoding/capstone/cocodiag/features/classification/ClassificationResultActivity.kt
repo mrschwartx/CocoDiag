@@ -61,6 +61,12 @@ class ClassificationResultActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this@ClassificationResultActivity, CameraActivity::class.java))
+        finish()
+    }
+
     companion object {
         const val EXTRA_IMAGE = "extra"
         private const val TAG = "ClassificationResultActivity"

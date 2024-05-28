@@ -1,6 +1,5 @@
 package com.dicoding.capstone.cocodiag.features.classification
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.data.dummy.CareInstruction
 
 class CareInstructionAdapter(
-    private val context: Context,
     private val careInstructions: List<CareInstruction>
 ) : RecyclerView.Adapter<CareInstructionAdapter.ViewHolder>() {
 

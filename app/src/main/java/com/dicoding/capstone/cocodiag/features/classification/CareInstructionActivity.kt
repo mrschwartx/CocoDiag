@@ -1,5 +1,6 @@
 package com.dicoding.capstone.cocodiag.features.classification
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +23,14 @@ class CareInstructionActivity : AppCompatActivity() {
         val rv: RecyclerView = binding.rvCareInstrctions
         rv.layoutManager = LinearLayoutManager(this)
 
-        val adapter = CareInstructionAdapter(this, dummyCareInstructions)
+        val adapter = CareInstructionAdapter(dummyCareInstructions)
         rv.adapter = adapter
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        // TODO: move to classification result
+        startActivity(Intent(this@CareInstructionActivity, CameraActivity::class.java))
+        finish()
     }
 }
