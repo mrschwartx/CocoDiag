@@ -30,9 +30,6 @@
             android:name=".features.settings.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".features.forum.ChangePassword"
-            android:exported="false" />
-        <activity
             android:name=".features.settings.EditProfileActivity"
             android:exported="false" />
         <activity
