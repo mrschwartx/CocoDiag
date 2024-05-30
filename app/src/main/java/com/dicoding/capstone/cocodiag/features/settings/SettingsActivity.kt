@@ -20,5 +20,15 @@ class SettingsActivity : AppCompatActivity() {
             val intent = Intent(this,EditProfileActivity::class.java)
             startActivity(intent)
         }
+
+        binding.tvChangePass.setOnClickListener {
+            val intent=Intent(this,ChangePasswordActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.tvAbout.setOnClickListener {
+            val intent=Intent(this,AboutActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -24,6 +24,15 @@
         android:theme="@style/Theme.CocoDiag"
         tools:targetApi="31">
         <activity
+            android:name=".features.settings.AboutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".features.settings.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".features.forum.ChangePassword"
+            android:exported="false" />
+        <activity
             android:name=".features.settings.EditProfileActivity"
             android:exported="false" />
         <activity

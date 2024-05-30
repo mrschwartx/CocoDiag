@@ -62,4 +62,10 @@
     <string name="comment">Comment</string>
     <string name="forum_add_posting">Add Posting</string>
     <string name="forum_post_created_at">Created at:</string>
+
+
+    <string name="reason_title">Reason</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
 </resources>
