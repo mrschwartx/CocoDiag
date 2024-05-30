@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_8sdp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_forum_post_profile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="@dimen/_25sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_forum_post_email"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_forum_post_name">
+
+            <ImageView
+                android:id="@+id/iv_forum_post_profile"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image_profile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_forum_post_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:text="@string/tv_name"
+            android:textSize="@dimen/_16ssp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cv_forum_post_profile"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_forum_post_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:text="@string/tv_email"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cv_forum_post_profile"
+            app:layout_constraintTop_toBottomOf="@+id/tv_forum_post_name" />
+
+
+        <LinearLayout
+            android:id="@+id/layout_forum_post_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_forum_post_email">
+
+            <TextView
+                android:id="@+id/tv_forum_post_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:maxLines="3"
+                android:text="@string/tv_status"
+                android:textSize="@dimen/_11ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_forum_post_email" />
+
+            <ImageView
+                android:id="@+id/iv_forum_post_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:src="@drawable/ic_place_holder"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@id/hl1_forum_post"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_forum_post_content" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/hl1_forum_post"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="8dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_forum_post_content" />
+
+        <LinearLayout
+            android:id="@+id/likeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hl1_forum_post">
+
+            <ImageView
+                android:id="@+id/iv_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_like_30" />
+
+            <TextView
+                android:id="@+id/tv_forum_post_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/like"
+                android:textSize="@dimen/_11ssp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/commentLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginStart="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toEndOf="@+id/likeLayout"
+            app:layout_constraintTop_toTopOf="@+id/likeLayout">
+
+            <ImageView
+                android:id="@+id/iv_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_comment_30" />
+
+            <TextView
+                android:id="@+id/tv_forum_post_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/comment"
+                android:textSize="@dimen/_11ssp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_forum_post_created_at"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:text="@string/forum_post_created_at"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/commentLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/commentLayout" />
+
+        <View
+            android:id="@+id/hl2_forum_post"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_28sdp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hl1_forum_post" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

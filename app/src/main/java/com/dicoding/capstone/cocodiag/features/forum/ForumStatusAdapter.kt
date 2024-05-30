@@ -1,7 +1,5 @@
 package com.dicoding.capstone.cocodiag.features.forum
 
-import com.dicoding.capstone.cocodiag.data.dummy.ForumStatus
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +10,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.capstone.cocodiag.R
+import com.dicoding.capstone.cocodiag.data.dummy.ForumStatus
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 class ForumStatusAdapter(
     private val statusList: List<ForumStatus>
@@ -21,7 +20,7 @@ class ForumStatusAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_status, parent, false)
+            .inflate(R.layout.item_forum_post, parent, false)
         return ViewHolder(itemView)
     }
 
@@ -57,13 +56,13 @@ class ForumStatusAdapter(
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nameText: TextView = itemView.findViewById(R.id.tv_status_name)
-        val emailText: TextView = itemView.findViewById(R.id.tv_status_email)
-        val profileImage: ImageView = itemView.findViewById(R.id.iv_status_profile)
-        val statusText: TextView = itemView.findViewById(R.id.tv_status_text)
-        val statusImage: ImageView = itemView.findViewById(R.id.iv_status_image)
-        val likeText: TextView = itemView.findViewById(R.id.tv_like)
-        val commentText: TextView = itemView.findViewById(R.id.tv_comment)
-        val createdAtText: TextView = itemView.findViewById(R.id.tv_created_at)
+        val nameText: TextView = itemView.findViewById(R.id.tv_forum_post_name)
+        val emailText: TextView = itemView.findViewById(R.id.tv_forum_post_email)
+        val profileImage: ImageView = itemView.findViewById(R.id.iv_forum_post_profile)
+        val statusText: TextView = itemView.findViewById(R.id.tv_forum_post_content)
+        val statusImage: ImageView = itemView.findViewById(R.id.iv_forum_post_content)
+        val likeText: TextView = itemView.findViewById(R.id.tv_forum_post_like)
+        val commentText: TextView = itemView.findViewById(R.id.tv_forum_post_comment)
+        val createdAtText: TextView = itemView.findViewById(R.id.tv_forum_post_created_at)
     }
 }

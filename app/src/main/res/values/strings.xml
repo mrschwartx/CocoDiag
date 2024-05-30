@@ -60,4 +60,6 @@
     <string name="about_us">About Us</string>
     <string name="like">Like</string>
     <string name="comment">Comment</string>
+    <string name="forum_add_posting">Add Posting</string>
+    <string name="forum_post_created_at">Created at:</string>
 </resources>
