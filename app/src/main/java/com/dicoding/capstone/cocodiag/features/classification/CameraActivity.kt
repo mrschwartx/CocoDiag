@@ -19,6 +19,7 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -28,9 +29,14 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.dicoding.capstone.cocodiag.R
+import com.dicoding.capstone.cocodiag.common.ResultState
+import com.dicoding.capstone.cocodiag.common.reduceFileImage
 import com.dicoding.capstone.cocodiag.common.setBottomNavBar
 import com.dicoding.capstone.cocodiag.common.showToast
+import com.dicoding.capstone.cocodiag.common.uriToFile
+import com.dicoding.capstone.cocodiag.data.remote.response.ClassificationResponse
 import com.dicoding.capstone.cocodiag.databinding.ActivityCameraBinding
+import com.dicoding.capstone.cocodiag.features.ViewModelFactory
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -47,6 +53,10 @@ class CameraActivity : AppCompatActivity() {
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var imageCapture: ImageCapture? = null
     private var imageUrl: String? = null
+
+    private val viewModel by viewModels<ClassificationViewModel> {
+        ViewModelFactory.getInstance()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -135,7 +145,7 @@ class CameraActivity : AppCompatActivity() {
                         ImageDecoder.decodeBitmap(src).copy(Bitmap.Config.RGBA_F16, true)
                     }
 
-                    moveToResult()
+                    predict()
                 }
             })
     }
@@ -164,15 +174,49 @@ class CameraActivity : AppCompatActivity() {
                 ImageDecoder.decodeBitmap(src).copy(Bitmap.Config.RGBA_F16, true)
             }
 
-            moveToResult()
+            predict()
         }
     }
 
-    private fun moveToResult() {
+    private fun predict() {
+        val imageUri = Uri.parse(imageUrl)
+        imageUri?.let { uri ->
+            val imageFile = uriToFile(uri, this).reduceFileImage()
+            Log.d("image file", "show : ${imageFile.path}")
+
+            viewModel.predict(imageFile).observe(this) { result ->
+                if (result != null) {
+                    when (result) {
+                        is ResultState.Loading -> {
+                            showLoading(true)
+                        }
+
+                        is ResultState.Success -> {
+                            moveToResult(result.data)
+                            showLoading(false)
+                        }
+
+                        is ResultState.Error -> {
+                            showToast(this, result.error)
+                            showLoading(false)
+                        }
+                    }
+                }
+            }
+        } ?: showToast(this, "no image selected")
+    }
+
+    private fun moveToResult(result: ClassificationResponse) {
         val moveIntent = Intent(this@CameraActivity, ClassificationResultActivity::class.java)
         moveIntent.putExtra(ClassificationResultActivity.EXTRA_IMAGE, imageUrl)
+        moveIntent.putExtra(ClassificationResultActivity.EXTRA_LABEL, result.label)
+        moveIntent.putExtra(ClassificationResultActivity.EXTRA_ACCURACY, result.accuracy)
         startActivity(moveIntent)
         finish()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     override fun onStart() {

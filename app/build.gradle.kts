@@ -59,14 +59,21 @@ dependencies {
     implementation(libs.sdp.android)
     implementation(libs.ssp.android)
 
-    // Camera X
     implementation(libs.androidx.camera.camera2)
     implementation(libs.androidx.camera.lifecycle)
     implementation(libs.androidx.camera.view)
 
-    // Image
     implementation(libs.glide)
-
-    // Animation
     implementation(libs.lottie)
+
+    implementation(libs.retrofit)
+    implementation(libs.retrofit2.converter.gson)
+    implementation(libs.logging.interceptor)
+
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    implementation(libs.androidx.exifinterface)
+
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.androidx.activity.ktx)
 }

@@ -27,6 +27,7 @@ class ClassificationResultActivity : AppCompatActivity() {
         setButtonMoved()
 
         showImage()
+        showResult()
     }
 
     private fun showImage() {
@@ -40,6 +41,14 @@ class ClassificationResultActivity : AppCompatActivity() {
         } else {
             showToast(this, "No Image")
         }
+    }
+
+    private fun showResult() {
+        val labelAndAcc = binding.tvClassLabel
+        val label = intent.getStringExtra(EXTRA_LABEL)
+        val acc = intent.getStringExtra(EXTRA_ACCURACY)
+
+        labelAndAcc.text = "$label $acc"
     }
 
     private fun setButtonMoved() {
@@ -69,6 +78,8 @@ class ClassificationResultActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_IMAGE = "extra"
+        const val EXTRA_LABEL = "extra"
+        const val EXTRA_ACCURACY = "extra"
         private const val TAG = "ClassificationResultActivity"
     }
 }
