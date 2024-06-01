@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.exifinterface.media.ExifInterface
 import com.dicoding.capstone.cocodiag.MainActivity
 import com.dicoding.capstone.cocodiag.R
+import com.dicoding.capstone.cocodiag.features.article.Article
 import com.dicoding.capstone.cocodiag.features.classification.CameraActivity
 import com.dicoding.capstone.cocodiag.features.forum.ForumActivity
 import com.dicoding.capstone.cocodiag.features.settings.SettingsActivity
@@ -56,6 +57,17 @@ fun AppCompatActivity.setBottomNavBar(
     }
 }
 
+
+fun getSampleArticles(): List<Article> {
+    return listOf(
+        Article("Artikel 1", "https://lindungihutan.com/blog/pohon-kelapa/"),
+        Article("Artikel 2", "https://ditjenbun.pertanian.go.id/mengenal-lebih-dekat-beberapa-varietas-tanaman-kelapa-genjah-di-indonesia/"),
+        Article("Artikel 3", "https://id.wikipedia.org/wiki/Kelapa"),
+        Article("Artikel 1", "https://lindungihutan.com/blog/pohon-kelapa/"),
+        Article("Artikel 2", "https://ditjenbun.pertanian.go.id/mengenal-lebih-dekat-beberapa-varietas-tanaman-kelapa-genjah-di-indonesia/"),
+        Article("Artikel 3", "https://id.wikipedia.org/wiki/Kelapa")
+    )
+}
 // File
 fun File.reduceFileImage(): File {
     val file = this
