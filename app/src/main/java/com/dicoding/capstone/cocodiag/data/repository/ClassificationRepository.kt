@@ -1,5 +1,6 @@
 package com.dicoding.capstone.cocodiag.data.repository
 
+import android.util.Log
 import androidx.lifecycle.liveData
 import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.data.remote.ApiService
@@ -24,6 +25,7 @@ class ClassificationRepository private constructor(
         )
         try {
             val successResponse = service.uploadImage(multipartBody)
+            Log.d("repository response", "$successResponse")
             emit(ResultState.Success(successResponse))
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()

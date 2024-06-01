@@ -30,7 +30,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.ResultState
-import com.dicoding.capstone.cocodiag.common.reduceFileImage
 import com.dicoding.capstone.cocodiag.common.setBottomNavBar
 import com.dicoding.capstone.cocodiag.common.showToast
 import com.dicoding.capstone.cocodiag.common.uriToFile
@@ -53,6 +52,7 @@ class CameraActivity : AppCompatActivity() {
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     private var imageCapture: ImageCapture? = null
     private var imageUrl: String? = null
+    private var savedUri: Uri? = null
 
     private val viewModel by viewModels<ClassificationViewModel> {
         ViewModelFactory.getInstance()
@@ -80,8 +80,6 @@ class CameraActivity : AppCompatActivity() {
             takePhoto()
             showToast(this, "Camera captured")
         }
-
-
         cameraExecutor = Executors.newSingleThreadExecutor()
     }
 
@@ -123,7 +121,7 @@ class CameraActivity : AppCompatActivity() {
                 }
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    val savedUri = Uri.fromFile(photoFile)
+                    savedUri = Uri.fromFile(photoFile)
                     val message = "Photo saved as: $savedUri"
                     showToast(baseContext, message)
                     Log.d(TAG, "$savedUri")
@@ -162,12 +160,11 @@ class CameraActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == RESULT_OK) {
-            val selectedImg: Uri = result.data?.data as Uri
-            imageUrl = selectedImg.toString()
+            savedUri = result.data?.data as Uri
+            imageUrl = savedUri.toString()
             val imageUri = Uri.parse(imageUrl)
 
-            // TODO: use bitmap for upload image
-            val bitmap = if (Build.VERSION.SDK_INT < 28) {
+            imageBitmap = if (Build.VERSION.SDK_INT < 28) {
                 MediaStore.Images.Media.getBitmap(this@CameraActivity.contentResolver, imageUri)
             } else {
                 val src = ImageDecoder.createSource(this@CameraActivity.contentResolver, imageUri)
@@ -179,11 +176,8 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun predict() {
-        val imageUri = Uri.parse(imageUrl)
-        imageUri?.let { uri ->
-            val imageFile = uriToFile(uri, this).reduceFileImage()
-            Log.d("image file", "show : ${imageFile.path}")
-
+        savedUri?.let { uri ->
+            val imageFile = uriToFile(uri, this)
             viewModel.predict(imageFile).observe(this) { result ->
                 if (result != null) {
                     when (result) {
@@ -207,10 +201,11 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun moveToResult(result: ClassificationResponse) {
+        Log.d("RESULT", "$result")
         val moveIntent = Intent(this@CameraActivity, ClassificationResultActivity::class.java)
         moveIntent.putExtra(ClassificationResultActivity.EXTRA_IMAGE, imageUrl)
-        moveIntent.putExtra(ClassificationResultActivity.EXTRA_LABEL, result.label)
-        moveIntent.putExtra(ClassificationResultActivity.EXTRA_ACCURACY, result.accuracy)
+        moveIntent.putExtra(ClassificationResultActivity.EXTRA_RESULT_LABEL, result.label)
+        moveIntent.putExtra(ClassificationResultActivity.EXTRA_RESULT_ACC, result.accuracy)
         startActivity(moveIntent)
         finish()
     }
@@ -283,7 +278,7 @@ class CameraActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_IMAGE_URI = "extra"
+        const val EXTRA_IMAGE_URI = "extra_img"
         private const val TAG = "CameraActivity"
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSIONS = 10

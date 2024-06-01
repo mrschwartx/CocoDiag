@@ -26,11 +26,10 @@ class ClassificationResultActivity : AppCompatActivity() {
         )
         setButtonMoved()
 
-        showImage()
         showResult()
     }
 
-    private fun showImage() {
+    private fun showResult() {
         val ivImageResult = binding.ivClassImage
         val imageUriString = intent.getStringExtra(EXTRA_IMAGE)
         if (imageUriString != null) {
@@ -41,14 +40,13 @@ class ClassificationResultActivity : AppCompatActivity() {
         } else {
             showToast(this, "No Image")
         }
-    }
 
-    private fun showResult() {
-        val labelAndAcc = binding.tvClassLabel
-        val label = intent.getStringExtra(EXTRA_LABEL)
-        val acc = intent.getStringExtra(EXTRA_ACCURACY)
-
-        labelAndAcc.text = "$label $acc"
+        val resultLabel = binding.tvClassLabel
+        val labelAndAcc: String =
+            intent.getStringExtra(EXTRA_RESULT_LABEL) + " " + intent.getStringExtra(
+                EXTRA_RESULT_LABEL
+            )
+        resultLabel.text = labelAndAcc
     }
 
     private fun setButtonMoved() {
@@ -77,9 +75,9 @@ class ClassificationResultActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_IMAGE = "extra"
-        const val EXTRA_LABEL = "extra"
-        const val EXTRA_ACCURACY = "extra"
+        const val EXTRA_IMAGE = "extra_image"
+        const val EXTRA_RESULT_LABEL = "extra_result_label"
+        const val EXTRA_RESULT_ACC = "extra_result_acc"
         private const val TAG = "ClassificationResultActivity"
     }
 }
