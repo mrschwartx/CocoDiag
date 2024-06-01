@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.data.dummy.CareInstruction
 
+// TODO: WILL REVOME
 class CareInstructionAdapter(
     private val careInstructions: List<CareInstruction>
 ) : RecyclerView.Adapter<CareInstructionAdapter.ViewHolder>() {

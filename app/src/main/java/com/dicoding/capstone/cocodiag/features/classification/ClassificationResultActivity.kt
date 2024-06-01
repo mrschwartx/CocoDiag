@@ -3,9 +3,11 @@ package com.dicoding.capstone.cocodiag.features.classification
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.dicoding.capstone.cocodiag.R
+import com.dicoding.capstone.cocodiag.common.getListExtra
 import com.dicoding.capstone.cocodiag.common.setBottomNavBar
 import com.dicoding.capstone.cocodiag.common.showToast
 import com.dicoding.capstone.cocodiag.databinding.ActivityClassificationResultBinding
@@ -49,6 +51,24 @@ class ClassificationResultActivity : AppCompatActivity() {
         resultLabel.text = labelAndAcc
     }
 
+    private fun showInfo() {
+        val dialog = AlertDialog.Builder(this)
+        dialog.setTitle(intent.getStringExtra(EXTRA_RESULT_NAME))
+        val stringBuilder = StringBuilder()
+        stringBuilder.append("Symptoms:\n")
+        val symptoms: List<String>? = intent.getListExtra(EXTRA_RESULT_SYMPTOMS)
+        symptoms?.forEach { symptom ->
+            stringBuilder.append("- $symptom\n")
+        }
+        stringBuilder.append("Controls:\n")
+        val controls: List<String>? = intent.getListExtra(EXTRA_RESULT_CONTROL)
+        controls?.forEach { control ->
+            stringBuilder.append(" $control\n")
+        }
+        dialog.setMessage(stringBuilder)
+        dialog.show()
+    }
+
     private fun setButtonMoved() {
         binding.btnShare.setOnClickListener {
             val moveIntent = Intent(this@ClassificationResultActivity, ForumActivity::class.java)
@@ -60,11 +80,8 @@ class ClassificationResultActivity : AppCompatActivity() {
             startActivity(moveIntent)
             finish()
         }
-        binding.btnNext.setOnClickListener {
-            val moveIntent =
-                Intent(this@ClassificationResultActivity, CareInstructionActivity::class.java)
-            startActivity(moveIntent)
-            finish()
+        binding.btnInfo.setOnClickListener {
+            showInfo()
         }
     }
 
@@ -78,6 +95,9 @@ class ClassificationResultActivity : AppCompatActivity() {
         const val EXTRA_IMAGE = "extra_image"
         const val EXTRA_RESULT_LABEL = "extra_result_label"
         const val EXTRA_RESULT_ACC = "extra_result_acc"
+        const val EXTRA_RESULT_NAME = "extra_result_name"
+        const val EXTRA_RESULT_CONTROL = "extra_result_controls"
+        const val EXTRA_RESULT_SYMPTOMS = "extra_result_symptoms"
         private const val TAG = "ClassificationResultActivity"
     }
 }

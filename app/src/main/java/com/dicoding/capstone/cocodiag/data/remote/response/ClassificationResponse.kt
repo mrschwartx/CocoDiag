@@ -1,6 +1,5 @@
 package com.dicoding.capstone.cocodiag.data.remote.response
 
-import com.dicoding.capstone.cocodiag.data.model.Classification
 import com.google.gson.annotations.SerializedName
 
 data class ClassificationResponse(
@@ -21,15 +20,4 @@ data class ClassificationResponse(
 
     @field:SerializedName("symptoms")
     val symptoms: List<String>
-) {
-    fun toClassification(): Classification {
-        return Classification(
-            accuracy = accuracy,
-            control = control,
-            createdAt = createdAt,
-            label = label,
-            name = name,
-            symptoms = symptoms
-        )
-    }
-}
+)

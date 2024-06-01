@@ -10,6 +10,7 @@ import com.dicoding.capstone.cocodiag.common.setBottomNavBar
 import com.dicoding.capstone.cocodiag.data.dummy.dummyCareInstructions
 import com.dicoding.capstone.cocodiag.databinding.ActivityCareInstructionsBinding
 
+// TODO: WILL REVOME
 class CareInstructionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCareInstructionsBinding

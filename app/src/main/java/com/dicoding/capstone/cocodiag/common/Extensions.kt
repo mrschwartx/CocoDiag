@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.exifinterface.media.ExifInterface
@@ -55,6 +56,21 @@ fun AppCompatActivity.setBottomNavBar(
             }
         }
     }
+}
+
+// Extension function to add list to bundle
+fun <T> Intent.putExtraList(key: String, list: List<T>) {
+    val arrayList = ArrayList<T>(list)
+    val bundle = Bundle()
+    bundle.putSerializable(key, arrayList)
+    putExtra(key, bundle)
+}
+
+// Extension function to retrieve list from bundle
+fun <T> Intent.getListExtra(key: String): List<T>? {
+    val bundle = getBundleExtra(key) ?: return null
+    @Suppress("UNCHECKED_CAST")
+    return bundle.getSerializable(key) as? List<T>
 }
 
 

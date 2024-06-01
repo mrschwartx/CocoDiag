@@ -120,11 +120,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_class_label" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_next"
+                android:id="@+id/btn_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_24sdp"
-                android:text="@string/next_text"
+                android:text="@string/info_text"
                 app:icon="@drawable/ic_info_30"
                 app:iconGravity="start"
                 app:layout_constraintEnd_toEndOf="parent"

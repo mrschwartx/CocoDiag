@@ -30,6 +30,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.ResultState
+import com.dicoding.capstone.cocodiag.common.putExtraList
 import com.dicoding.capstone.cocodiag.common.setBottomNavBar
 import com.dicoding.capstone.cocodiag.common.showToast
 import com.dicoding.capstone.cocodiag.common.uriToFile
@@ -206,6 +207,10 @@ class CameraActivity : AppCompatActivity() {
         moveIntent.putExtra(ClassificationResultActivity.EXTRA_IMAGE, imageUrl)
         moveIntent.putExtra(ClassificationResultActivity.EXTRA_RESULT_LABEL, result.label)
         moveIntent.putExtra(ClassificationResultActivity.EXTRA_RESULT_ACC, result.accuracy)
+        moveIntent.putExtra(ClassificationResultActivity.EXTRA_RESULT_NAME, result.name)
+        moveIntent.putExtraList(ClassificationResultActivity.EXTRA_RESULT_SYMPTOMS, result.symptoms)
+        moveIntent.putExtraList(ClassificationResultActivity.EXTRA_RESULT_CONTROL, result.control)
+
         startActivity(moveIntent)
         finish()
     }
