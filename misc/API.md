@@ -15,7 +15,7 @@
     ```json
     # OK
     {
-        "id": 1,
+        "id": 1,                        // if use JWT return JWT
         "name": "John Doe",
         "email": "jhondoe@gmail.com",  
         "imageProfile": "image-link"    // nullable
@@ -39,7 +39,7 @@
     ```json
     # OK
     {
-        "id": 1,
+        "id": 1,                        // if use JWT return JWT
         "name": "John Doe",
         "email": "jhondoe@gmail.com",  
         "imageProfile": "image-link"
@@ -52,11 +52,11 @@
     ```
 
 3. Classification Predict
-    - Request FORM
+    - Request FORM POST
     ```json
     {
         "imageFile": File,
-        "id": 1
+        "id": 1                         // if use JWT request send with JWT
     }
     ```
     - Response JSON
@@ -89,7 +89,7 @@
     ```json
     # OK
     {
-        "id": 1,
+        "id": 1,                                // if use JWT return JWT
         "history": [
             {
                 "label": "label",
