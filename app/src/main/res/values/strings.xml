@@ -70,4 +70,5 @@
     <string name="confirm_new_password">Confirm New Password</string>
     <string name="save">SAVE</string>
     <string name="info_text">Info</string>
+    <string name="disease_name">Disease Name</string>
 </resources>
