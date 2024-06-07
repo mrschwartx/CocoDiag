@@ -1,26 +1,21 @@
 from flask import Blueprint, jsonify, request
 import requests
-from google.cloud import secretmanager
-from .auth import firebase_auth_required
+from config.secret_manager import access_secret_version
+from app.auth import jwt_required
 
 news_bp = Blueprint('news_bp', __name__)
 
-def access_secret_version(project_id, secret_id, version_id):
-    client = secretmanager.SecretManagerServiceClient()
-    name = f"projects/{project_id}/secrets/{secret_id}/versions/{version_id}"
-    response = client.access_secret_version(request={"name": name})
-    return response.payload.data.decode("UTF-8")
-
 PROJECT_ID = "cocodiag"
-SECRET_ID = "NEWS_API_KEY"
+SECRET_ID = "news-api"
 VERSION_ID = "latest"
 
 NEWS_API_KEY = access_secret_version(PROJECT_ID, SECRET_ID, VERSION_ID)
 NEWS_API_URL = 'https://newsapi.org/v2/everything'
 
-@news_api_bp.route('/getNews', methods=['GET'])
-@firebase_auth_required
+@news_bp.route('/getNews', methods=['GET'])
+@jwt_required()
 def get_news():
+    # TODO: Fix topics params
     topics = [
         "coconut plantation",
         "(pohon AND kelapa)",

@@ -6,7 +6,7 @@ from PIL import Image
 import io
 import logging
 import time
-from .auth import firebase_auth_required
+from flask_jwt_extended import jwt_required
 
 prediction_bp = Blueprint('prediction_bp', __name__)
 
@@ -20,7 +20,7 @@ def download_model(bucket_name, bucket_path, local_path):
         logging.error(f"Error downloading model: {str(e)}")
         raise e
 
-bucket_name = 'cocodiag-coba-bucket'
+bucket_name = 'cocodiag-storage'
 model_path = 'model/coconut_model.keras'
 local_model_path = '/tmp/coconut_model.keras'
 
@@ -33,6 +33,7 @@ except Exception as e:
 
 class_names = ['Bud Root Dropping', 'Bud Rot', 'Gray Leaf spot', 'Leaf Rot', 'Stem Bleeding']
 
+# TODO: Load class info from cloud storage
 class_info = {
     'Bud Root Dropping': {
         'name': 'Bud Root Dropping',
@@ -71,7 +72,7 @@ def prepare_image(image, target_size):
     return image
 
 @prediction_bp.route('/predict', methods=['POST'])
-@firebase_auth_required
+@jwt_required()
 def predict():
     if 'imageFile' not in request.files:
         return jsonify({'error': 'Image file not provided'}), 400
@@ -89,6 +90,7 @@ def predict():
         if predicted_class_index < len(class_names):
             predicted_class = class_names[predicted_class_index]
 
+        # TODO: Add handling for outside classes
         disease_info = class_info.get(predicted_class)
 
         response = {
