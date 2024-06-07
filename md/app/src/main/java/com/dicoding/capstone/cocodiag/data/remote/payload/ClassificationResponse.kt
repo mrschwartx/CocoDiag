@@ -1,4 +1,4 @@
-package com.dicoding.capstone.cocodiag.data.remote.response
+package com.dicoding.capstone.cocodiag.data.remote.payload
 
 import com.google.gson.annotations.SerializedName
 

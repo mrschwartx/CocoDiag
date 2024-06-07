@@ -1,15 +1,22 @@
 package com.dicoding.capstone.cocodiag.features.signup
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import com.dicoding.capstone.cocodiag.MainActivity
 import com.dicoding.capstone.cocodiag.databinding.ActivitySignUpBinding
 import com.dicoding.capstone.cocodiag.features.signin.SignInActivity
 
+
+
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
+    private lateinit var signUpVM: SignUpViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

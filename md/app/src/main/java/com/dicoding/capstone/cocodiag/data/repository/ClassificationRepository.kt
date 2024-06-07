@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.liveData
 import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.data.remote.ApiService
-import com.dicoding.capstone.cocodiag.data.remote.response.ClassificationResponse
+import com.dicoding.capstone.cocodiag.data.remote.payload.ClassificationResponse
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody

@@ -34,7 +34,7 @@ import com.dicoding.capstone.cocodiag.common.putExtraList
 import com.dicoding.capstone.cocodiag.common.setBottomNavBar
 import com.dicoding.capstone.cocodiag.common.showToast
 import com.dicoding.capstone.cocodiag.common.uriToFile
-import com.dicoding.capstone.cocodiag.data.remote.response.ClassificationResponse
+import com.dicoding.capstone.cocodiag.data.remote.payload.ClassificationResponse
 import com.dicoding.capstone.cocodiag.databinding.ActivityCameraBinding
 import com.dicoding.capstone.cocodiag.features.ViewModelFactory
 import java.io.File

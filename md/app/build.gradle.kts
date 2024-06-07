@@ -77,4 +77,7 @@ dependencies {
 
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.androidx.activity.ktx)
+
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.datastore.core)
 }

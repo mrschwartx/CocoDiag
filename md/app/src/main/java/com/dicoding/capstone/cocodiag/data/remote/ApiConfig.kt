@@ -13,7 +13,7 @@ object ApiConfig {
             .addInterceptor(loggingInterceptor)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://inference-y7dxirzcjq-et.a.run.app/")
+            .baseUrl("https://cocodiag-api-3x4g34y3hq-et.a.run.app/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
