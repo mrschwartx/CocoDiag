@@ -24,5 +24,30 @@ data class SignUpResponse(
     val email: String,
 
     @field:SerializedName("imageProfile")
-    val imageProfile: String
+    val imageProfile: String?
+)
+
+data class SignInParam(
+    @field:SerializedName("email")
+    val email: String,
+
+    @field:SerializedName("password")
+    val password: String
+)
+
+data class SignInResponse(
+    @field:SerializedName("id")
+    val id: String,
+
+    @field:SerializedName("name")
+    val name: String,
+
+    @field:SerializedName("email")
+    val email: String,
+
+    @field:SerializedName("imageProfile")
+    val imageProfile: String?,
+
+    @field:SerializedName("token")
+    val token: String?
 )

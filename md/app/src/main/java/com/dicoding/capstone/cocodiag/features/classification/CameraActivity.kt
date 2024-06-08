@@ -56,7 +56,7 @@ class CameraActivity : AppCompatActivity() {
     private var savedUri: Uri? = null
 
     private val viewModel by viewModels<ClassificationViewModel> {
-        ViewModelFactory.getInstance()
+        ViewModelFactory.getInstance(applicationContext)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

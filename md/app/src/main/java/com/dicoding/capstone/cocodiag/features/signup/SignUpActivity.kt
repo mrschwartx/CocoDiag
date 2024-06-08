@@ -1,14 +1,19 @@
 package com.dicoding.capstone.cocodiag.features.signup
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import com.dicoding.capstone.cocodiag.MainActivity
+import com.dicoding.capstone.cocodiag.common.InputValidator
+import com.dicoding.capstone.cocodiag.common.ResultState
+import com.dicoding.capstone.cocodiag.common.showToast
+import com.dicoding.capstone.cocodiag.data.local.model.UserModel
+import com.dicoding.capstone.cocodiag.data.remote.payload.CreateUserParam
+import com.dicoding.capstone.cocodiag.data.remote.payload.SignInParam
 import com.dicoding.capstone.cocodiag.databinding.ActivitySignUpBinding
+import com.dicoding.capstone.cocodiag.features.ViewModelFactory
 import com.dicoding.capstone.cocodiag.features.signin.SignInActivity
 
 
@@ -16,20 +21,67 @@ import com.dicoding.capstone.cocodiag.features.signin.SignInActivity
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
-    private lateinit var signUpVM: SignUpViewModel
+
+    private val viewModel by viewModels<SignUpViewModel> {
+        ViewModelFactory.getInstance(applicationContext)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        signIn()
-        signInGoogle()
+        binding.btnSignUp.setOnClickListener {
+            val name = binding.edName.text.toString()
+            val email = binding.edEmail.text.toString()
+            val password = binding.edPassword.text.toString()
+            val confirmPassword = binding.edConfirmPassword.text.toString()
+
+            if (validateInput(name, email, password, confirmPassword)) {
+                val param = CreateUserParam(
+                    name = name,
+                    email = email,
+                    password = password
+                )
+                signUp(param)
+            }
+        }
+
+        signUpGoogle()
         navigateToSignIn()
     }
 
-    private fun signIn() {
-        val btnSignIn = binding.btnSignUp
+    private fun signUp(param: CreateUserParam) {
+        viewModel.signUp(param).observe(this) {result ->
+            when(result) {
+                is ResultState.Loading -> {
+                    showLoading(true)
+                }
+
+                is ResultState.Error -> {
+                    showLoading(false)
+                    showToast(this, result.error)
+                }
+
+                is ResultState.Success -> {
+                    showLoading(false)
+
+                    // TODO: after registered do auto signIn
+                    val validUser = SignInParam(param.email, param.password)
+                    signIn(validUser)
+
+                    // DO: after signIn saved current user to preferences
+                    val currentUser = UserModel(
+                        param.name, param.email, param.password, true
+                    )
+                    viewModel.savedUser(currentUser)
+                }
+            }
+        }
+    }
+
+    private fun signUpGoogle() {
+        val btnSignIn = binding.btnGoogle
         btnSignIn.setOnClickListener {
             val intent = Intent(this@SignUpActivity, MainActivity::class.java)
             startActivity(intent)
@@ -37,12 +89,22 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun signInGoogle() {
-        val btnSignIn = binding.btnGoogle
-        btnSignIn.setOnClickListener {
-            val intent = Intent(this@SignUpActivity, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+    private fun signIn(param: SignInParam) {
+        viewModel.signIn(param).observe(this) {result ->
+            when(result) {
+                is ResultState.Loading -> {
+                    showLoading(true)
+                }
+
+                is ResultState.Error -> {
+                    showLoading(false)
+                    showToast(this, result.error)
+                }
+
+                is ResultState.Success -> {
+                    showLoading(false)
+                }
+            }
         }
     }
 
@@ -53,5 +115,48 @@ class SignUpActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    private fun validateInput(
+        name: String,
+        email: String,
+        password: String,
+        confirmPassword: String
+    ): Boolean {
+        var isValid = true
+
+        if (!InputValidator.isValidName(name)) {
+            binding.edName.error = "Name is required"
+            isValid = false
+        } else {
+            binding.edName.error = null
+        }
+
+        if (!InputValidator.isValidEmail(email)) {
+            binding.edEmail.error = "Invalid email address"
+            isValid = false
+        } else {
+            binding.edEmail.error = null
+        }
+
+        if (!InputValidator.isValidPassword(password)) {
+            binding.edPassword.error = "Password must be at least 8 characters and include a number and a special character"
+            isValid = false
+        } else {
+            binding.edPassword.error = null
+        }
+
+        if (!InputValidator.isMatchingPassword(password, confirmPassword)) {
+            binding.edConfirmPassword.error = "Passwords do not match"
+            isValid = false
+        } else {
+            binding.edConfirmPassword.error = null
+        }
+
+        return isValid
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

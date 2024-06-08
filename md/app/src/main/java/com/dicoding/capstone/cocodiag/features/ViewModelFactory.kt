@@ -40,7 +40,7 @@ class ViewModelFactory(
                 instance ?: ViewModelFactory(
                     Injection.provideUserRepository(),
                     Injection.provideUserPreference(context.dataStore),
-                    Injection.provideClassificationRepository()
+                    Injection.provideClassificationRepository(),
                 )
             }.also { instance = it }
     }

@@ -8,11 +8,6 @@ import com.dicoding.capstone.cocodiag.data.repository.ClassificationRepository
 import com.dicoding.capstone.cocodiag.data.repository.UserRepository
 
 object Injection {
-    fun provideClassificationRepository(): ClassificationRepository {
-        val apiService = ApiConfig.getApiService()
-        return ClassificationRepository.getInstance(apiService)
-    }
-
     fun provideUserRepository(): UserRepository {
         val apiService = ApiConfig.getApiService()
         return UserRepository.getInstance(apiService)
@@ -20,5 +15,10 @@ object Injection {
 
     fun provideUserPreference(dataStore: DataStore<Preferences>): UserPreference {
         return UserPreference.getInstance(dataStore)
+    }
+
+    fun provideClassificationRepository(): ClassificationRepository {
+        val apiService = ApiConfig.getApiService()
+        return ClassificationRepository.getInstance(apiService)
     }
 }

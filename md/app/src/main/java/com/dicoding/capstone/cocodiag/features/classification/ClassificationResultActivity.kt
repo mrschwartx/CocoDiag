@@ -3,6 +3,7 @@ package com.dicoding.capstone.cocodiag.features.classification
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -89,6 +90,10 @@ class ClassificationResultActivity : AppCompatActivity() {
         super.onBackPressed()
         startActivity(Intent(this@ClassificationResultActivity, CameraActivity::class.java))
         finish()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     companion object {
