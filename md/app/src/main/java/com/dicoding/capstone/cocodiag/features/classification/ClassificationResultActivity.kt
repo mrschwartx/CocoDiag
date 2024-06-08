@@ -47,7 +47,7 @@ class ClassificationResultActivity : AppCompatActivity() {
         val resultLabel = binding.tvClassLabel
         val labelAndAcc: String =
             intent.getStringExtra(EXTRA_RESULT_LABEL) + " " + intent.getStringExtra(
-                EXTRA_RESULT_LABEL
+                EXTRA_RESULT_ACC
             )
         resultLabel.text = labelAndAcc
     }

@@ -4,21 +4,22 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.dicoding.capstone.cocodiag.data.local.UserPreference
 import com.dicoding.capstone.cocodiag.data.remote.ApiConfig
+import com.dicoding.capstone.cocodiag.data.repository.AuthRepository
 import com.dicoding.capstone.cocodiag.data.repository.ClassificationRepository
-import com.dicoding.capstone.cocodiag.data.repository.UserRepository
 
 object Injection {
-    fun provideUserRepository(): UserRepository {
+    fun provideAuthRepository(): AuthRepository {
         val apiService = ApiConfig.getApiService()
-        return UserRepository.getInstance(apiService)
+        return AuthRepository.getInstance(apiService)
+    }
+
+    fun provideClassificationRepository(dataStore: DataStore<Preferences>): ClassificationRepository {
+        val userPreference = UserPreference.getInstance(dataStore)
+        val apiService = ApiConfig.getApiService(userPreference)
+        return ClassificationRepository.getInstance(apiService)
     }
 
     fun provideUserPreference(dataStore: DataStore<Preferences>): UserPreference {
         return UserPreference.getInstance(dataStore)
-    }
-
-    fun provideClassificationRepository(): ClassificationRepository {
-        val apiService = ApiConfig.getApiService()
-        return ClassificationRepository.getInstance(apiService)
     }
 }

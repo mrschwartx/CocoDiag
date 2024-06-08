@@ -186,13 +186,13 @@ class CameraActivity : AppCompatActivity() {
                             showLoading(true)
                         }
 
-                        is ResultState.Success -> {
-                            moveToResult(result.data)
+                        is ResultState.Error -> {
+                            showToast(this, result.error.message)
                             showLoading(false)
                         }
 
-                        is ResultState.Error -> {
-                            showToast(this, result.error)
+                        is ResultState.Success -> {
+                            moveToResult(result.data)
                             showLoading(false)
                         }
                     }

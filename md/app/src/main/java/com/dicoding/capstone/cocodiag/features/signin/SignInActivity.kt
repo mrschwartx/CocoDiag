@@ -54,15 +54,20 @@ class SignInActivity : AppCompatActivity() {
 
                 is ResultState.Error -> {
                     showLoading(false)
-                    showToast(this, result.error)
+                    showToast(this, result.error.message)
                 }
 
                 is ResultState.Success -> {
                     showLoading(false)
 
-                    // DO: after signIn saved current user to preferences
                     val currentUser = UserModel(
-                        result.data.name, result.data.email, param.password, true
+                        result.data.id,
+                        result.data.name,
+                        result.data.email,
+                        param.password,
+                        result.data.imageProfile,
+                        result.data.token,
+                        true
                     )
                     viewModel.savedUser(currentUser)
 

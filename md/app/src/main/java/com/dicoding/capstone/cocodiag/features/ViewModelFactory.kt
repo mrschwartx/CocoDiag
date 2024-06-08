@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.capstone.cocodiag.data.local.UserPreference
+import com.dicoding.capstone.cocodiag.data.repository.AuthRepository
 import com.dicoding.capstone.cocodiag.data.repository.ClassificationRepository
-import com.dicoding.capstone.cocodiag.data.repository.UserRepository
 import com.dicoding.capstone.cocodiag.dataStore
 import com.dicoding.capstone.cocodiag.di.Injection
 import com.dicoding.capstone.cocodiag.features.classification.ClassificationViewModel
@@ -13,9 +13,9 @@ import com.dicoding.capstone.cocodiag.features.signin.SignInViewModel
 import com.dicoding.capstone.cocodiag.features.signup.SignUpViewModel
 
 class ViewModelFactory(
-    private val userRepo: UserRepository,
-    private val userPref: UserPreference,
-    private val classRepo: ClassificationRepository
+    private val userRepo: AuthRepository,
+    private val classRepo: ClassificationRepository,
+    private val userPref: UserPreference
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
@@ -42,9 +42,9 @@ class ViewModelFactory(
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
                 instance ?: ViewModelFactory(
-                    Injection.provideUserRepository(),
+                    Injection.provideAuthRepository(),
+                    Injection.provideClassificationRepository(context.dataStore),
                     Injection.provideUserPreference(context.dataStore),
-                    Injection.provideClassificationRepository(),
                 )
             }.also { instance = it }
     }

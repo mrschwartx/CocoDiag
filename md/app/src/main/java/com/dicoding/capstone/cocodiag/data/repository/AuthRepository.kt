@@ -5,9 +5,12 @@ import androidx.lifecycle.liveData
 import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.data.remote.ApiService
 import com.dicoding.capstone.cocodiag.data.remote.payload.CreateUserParam
+import com.dicoding.capstone.cocodiag.data.remote.payload.ErrorResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInParam
+import com.google.gson.Gson
+import retrofit2.HttpException
 
-class UserRepository private constructor(
+class AuthRepository private constructor(
     private val service: ApiService
 ) {
     fun signUp(param: CreateUserParam) = liveData {
@@ -16,8 +19,10 @@ class UserRepository private constructor(
             val response = service.createUser(param)
             Log.d("user-repo", "$response")
             emit(ResultState.Success(response))
-        } catch (e: Exception) {
-            emit(ResultState.Error(e.message ?: "an error occured"))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+            emit(ResultState.Error(errorResponse))
         }
     }
 
@@ -27,17 +32,19 @@ class UserRepository private constructor(
             val response = service.auth(param)
             Log.d("user-repo-signin", "$response")
             emit(ResultState.Success(response))
-        } catch (e: Exception) {
-            emit(ResultState.Error(e.message ?: "an error occured"))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+            emit(ResultState.Error(errorResponse))
         }
     }
 
     companion object {
         @Volatile
-        private var instance: UserRepository? = null
+        private var instance: AuthRepository? = null
         fun getInstance(apiService: ApiService) =
             instance ?: synchronized(this) {
-                instance ?: UserRepository(apiService)
+                instance ?: AuthRepository(apiService)
             }.also { instance = it }
     }
 }

@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.liveData
 import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.data.remote.ApiService
-import com.dicoding.capstone.cocodiag.data.remote.payload.ClassificationResponse
+import com.dicoding.capstone.cocodiag.data.remote.payload.ErrorResponse
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -24,13 +24,13 @@ class ClassificationRepository private constructor(
             requestImageFile
         )
         try {
-            val successResponse = service.uploadImage(multipartBody)
+            val successResponse = service.predict(multipartBody)
             Log.d("repository response", "$successResponse")
             emit(ResultState.Success(successResponse))
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
-            val errorResponse = Gson().fromJson(errorBody, ClassificationResponse::class.java)
-            emit(ResultState.Error("failed to classify"))
+            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+            emit(ResultState.Error(errorResponse))
         }
     }
 
