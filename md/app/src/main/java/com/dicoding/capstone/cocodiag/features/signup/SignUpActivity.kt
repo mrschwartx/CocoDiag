@@ -75,6 +75,10 @@ class SignUpActivity : AppCompatActivity() {
                         param.name, param.email, param.password, true
                     )
                     viewModel.savedUser(currentUser)
+
+                    val intent = Intent(this@SignUpActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
             }
         }

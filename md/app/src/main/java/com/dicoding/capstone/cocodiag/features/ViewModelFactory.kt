@@ -9,6 +9,7 @@ import com.dicoding.capstone.cocodiag.data.repository.UserRepository
 import com.dicoding.capstone.cocodiag.dataStore
 import com.dicoding.capstone.cocodiag.di.Injection
 import com.dicoding.capstone.cocodiag.features.classification.ClassificationViewModel
+import com.dicoding.capstone.cocodiag.features.signin.SignInViewModel
 import com.dicoding.capstone.cocodiag.features.signup.SignUpViewModel
 
 class ViewModelFactory(
@@ -22,6 +23,9 @@ class ViewModelFactory(
         return when {
             modelClass.isAssignableFrom(SignUpViewModel::class.java) -> {
                 SignUpViewModel(userRepo, userPref) as T
+            }
+            modelClass.isAssignableFrom(SignInViewModel::class.java) -> {
+                SignInViewModel(userRepo, userPref) as T
             }
             modelClass.isAssignableFrom(ClassificationViewModel::class.java) -> {
                 ClassificationViewModel(classRepo) as T
