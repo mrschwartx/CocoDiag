@@ -1,5 +1,6 @@
 package com.dicoding.capstone.cocodiag.data.remote
 
+import com.dicoding.capstone.cocodiag.data.local.model.ArticleModel
 import com.dicoding.capstone.cocodiag.data.remote.payload.ClassificationResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.CreateUserParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInParam
@@ -7,6 +8,7 @@ import com.dicoding.capstone.cocodiag.data.remote.payload.SignInResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignUpResponse
 import okhttp3.MultipartBody
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -23,4 +25,9 @@ interface ApiService {
     suspend fun predict(
         @Part imageFil123: MultipartBody.Part
     ): ClassificationResponse
+
+    @GET("getNews")
+    suspend fun getNews(): List<ArticleModel>
+
+
 }
