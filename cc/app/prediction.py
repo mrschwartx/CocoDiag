@@ -37,27 +37,27 @@ class_names = ['Bud Root Dropping', 'Bud Rot', 'Gray Leaf spot', 'Leaf Rot', 'St
 class_info = {
     'Bud Root Dropping': {
         'name': 'Bud Root Dropping',
-        'symptoms': ['gejala 1', 'gejala 2'],
+        'symptoms': ['gejala a', 'gejala 2'],
         'control': ['1. Tips number 1', '2. Tips number 2']
     },
     'Bud Rot': {
         'name': 'Bud Rot',
-        'symptoms': ['gejala 1', 'gejala 2'],
+        'symptoms': ['gejala a', 'gejala 2'],
         'control': ['1. Tips number 1', '2. Tips number 2']
     },
     'Gray Leaf spot': {
         'name': 'Gray Leaf spot',
-        'symptoms': ['gejala 1', 'gejala 2'],
+        'symptoms': ['gejala a', 'gejala 2'],
         'control': ['1. Tips number 1', '2. Tips number 2']
     },
     'Leaf Rot': {
         'name': 'Leaf Rot',
-        'symptoms': ['gejala 1', 'gejala 2'],
+        'symptoms': ['gejala a', 'gejala 2'],
         'control': ['1. Tips number 1', '2. Tips number 2']
     },
     'Stem Bleeding': {
         'name': 'Stem Bleeding',
-        'symptoms': ['gejala 1', 'gejala 2'],
+        'symptoms': ['gejala a', 'gejala 2'],
         'control': ['1. Tips number 1', '2. Tips number 2']
     }
 }
@@ -82,7 +82,7 @@ def predict():
 
     try:
         image = Image.open(io.BytesIO(file.read()))
-        processed_image = prepare_image(image, target_size=(150, 150)) 
+        processed_image = prepare_image(image, target_size=(224, 224)) 
         predictions = model.predict(processed_image)
         predicted_class_index = np.argmax(predictions, axis=1)[0]
         accuracy = np.max(predictions)
