@@ -28,7 +28,7 @@ class ViewModelFactory(
                 SignInViewModel(userRepo, userPref) as T
             }
             modelClass.isAssignableFrom(ClassificationViewModel::class.java) -> {
-                ClassificationViewModel(classRepo) as T
+                ClassificationViewModel(classRepo, userPref) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

@@ -39,6 +39,12 @@ class UserPreference private constructor(
         }
     }
 
+    fun getUserId(): Flow<String?> {
+        return dataStore.data.map { pref ->
+            pref[ID_KEY] ?: ""
+        }
+    }
+
     fun getToken(): Flow<String?> {
         return dataStore.data.map { pref ->
             pref[TOKEN_KEY] ?: ""

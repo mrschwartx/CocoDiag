@@ -40,7 +40,7 @@
     <string name="class_screen_title">Classification Result</string>
     <string name="class_screen_subtitle">Your image has been classified</string>
     <string name="class_prediction">Label Class : 90%</string>
-    <string name="share_text">Share</string>
+    <string name="post_text">Post</string>
     <string name="next_text">Next</string>
     <string name="retake_text">Retake</string>
     <string name="care_instructions_title">Care Instructions</string>

@@ -71,7 +71,7 @@ class ClassificationResultActivity : AppCompatActivity() {
     }
 
     private fun setButtonMoved() {
-        binding.btnShare.setOnClickListener {
+        binding.btnPost.setOnClickListener {
             val moveIntent = Intent(this@ClassificationResultActivity, ForumActivity::class.java)
             startActivity(moveIntent)
             finish()

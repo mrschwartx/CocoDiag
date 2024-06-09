@@ -93,13 +93,13 @@
                 app:layout_constraintTop_toBottomOf="@id/card_image" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_share"
+                android:id="@+id/btn_post"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_24sdp"
                 android:elevation="@dimen/_2sdp"
                 android:scaleType="fitCenter"
-                android:text="@string/share_text"
+                android:text="@string/post_text"
                 app:icon="@drawable/ic_share_30"
                 app:iconGravity="start"
                 app:layout_constraintEnd_toStartOf="@+id/btn_retake"
