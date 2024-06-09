@@ -1,20 +1,19 @@
 from flask import Blueprint, jsonify
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.firefox.options import Options
 from app.auth import jwt_required
 
 price_bp = Blueprint('price_bp', __name__)
 
 def get_data():
     try:
-        options = webdriver.ChromeOptions()
+        options = Options()
         options.add_argument("--headless")
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
 
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+        options.binary_location = '/usr/bin/firefox'
+
+        driver = webdriver.Firefox(options=options)
 
         url = "https://infopangan.jakarta.go.id/publik/dashboard/23"
         driver.get(url)
