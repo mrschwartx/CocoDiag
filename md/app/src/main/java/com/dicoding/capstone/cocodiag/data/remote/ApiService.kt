@@ -6,6 +6,7 @@ import com.dicoding.capstone.cocodiag.data.remote.payload.CreateUserParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignUpResponse
+import com.dicoding.capstone.cocodiag.features.price.PriceItem
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -30,4 +31,7 @@ interface ApiService {
 
     @GET("getNews")
     suspend fun getNews(): List<ArticleModel>
+
+    @GET("getPrice")
+    suspend fun getPrice():PriceItem
 }

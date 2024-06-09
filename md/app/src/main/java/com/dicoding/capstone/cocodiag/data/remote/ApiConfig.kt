@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiConfig {
-    private const val BASE_URL = "https://cocodiag-api-3x4g34y3hq-et.a.run.app/"
+    private const val BASE_URL = "https://cocodiag-backend-api-3x4g34y3hq-et.a.run.app/"
 
     fun getApiService(): ApiService {
         val loggingInterceptor =
