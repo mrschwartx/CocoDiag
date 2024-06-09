@@ -18,6 +18,8 @@ import com.dicoding.capstone.cocodiag.data.remote.ApiConfig
 import com.dicoding.capstone.cocodiag.data.remote.ApiService
 import com.dicoding.capstone.cocodiag.databinding.ActivityMainBinding
 import com.dicoding.capstone.cocodiag.features.article.ArticleAdapter
+import com.dicoding.capstone.cocodiag.features.price.PriceAdapter
+import com.dicoding.capstone.cocodiag.features.price.PriceItem
 import kotlinx.coroutines.launch
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_preferences")
@@ -31,13 +33,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setBottomNavBar(this@MainActivity, binding.bottomNavigation, R.id.nav_home)
-        binding.rvMain.layoutManager=LinearLayoutManager(this)
-
-        val userPreference=UserPreference.getInstance(this.dataStore)
-        apiService=ApiConfig.getApiService(userPreference)
+        setupUI()
+        initializeDependencies()
         fetchNews()
+        fetchPrice()
 
+    }
+
+    private fun setupUI() {
+        setBottomNavBar(this@MainActivity, binding.bottomNavigation, R.id.nav_home)
+        binding.rvMain.layoutManager = LinearLayoutManager(this)
+        binding.rvPrice.layoutManager=LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+    }
+
+    private fun initializeDependencies() {
+        val userPreference = UserPreference.getInstance(this.dataStore)
+        apiService = ApiConfig.getApiService(userPreference)
     }
 
     private fun fetchNews() {
@@ -45,18 +56,37 @@ class MainActivity : AppCompatActivity() {
             try {
                 val newsResponse = apiService.getNews()
                 handleNewsResponse(newsResponse)
-                binding.progressBar.visibility= View.GONE
+                binding.progressBar.visibility = View.GONE
             } catch (e: Exception) {
-                binding.progressBar.visibility= View.VISIBLE
-                Log.d("Error Article","${e.message}")
+                binding.progressBar.visibility = View.VISIBLE
+                Log.e("Error Article", e.message ?: "Unknown error")
                 Toast.makeText(this@MainActivity, "Failed to fetch news: ${e.message}", Toast.LENGTH_SHORT).show()
-
             }
         }
     }
+
     private fun handleNewsResponse(articles: List<ArticleModel>) {
-        val adapter=ArticleAdapter(articles)
-        binding.rvMain.adapter=adapter
+        val adapter = ArticleAdapter(articles)
+        binding.rvMain.adapter = adapter
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun fetchPrice(){
+        lifecycleScope.launch {
+            try {
+                val priceResponse=apiService.getPrice()
+                val dummyPriceItem=PriceItem("20/9/2029","rP.20.000","Zimbabwe")
+                handlePriceResponse(dummyPriceItem)
+            }catch (e: Exception){
+                Log.e("Error Price", e.message ?: "Unknown error")
+            }
+
+        }
+    }
+
+    private fun handlePriceResponse(prices: PriceItem) {
+        val adapter = PriceAdapter(prices)
+        binding.rvPrice.adapter = adapter
         adapter.notifyDataSetChanged()
     }
 }

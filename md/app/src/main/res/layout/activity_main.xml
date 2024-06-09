@@ -24,7 +24,7 @@
                 android:text="@string/title_main"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textSize="@dimen/_35ssp"
+                android:textSize="@dimen/_25ssp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginStart="@dimen/_10sdp"/>
             <TextView
@@ -35,7 +35,7 @@
                 android:text="@string/sub_title_main"
                 android:textColor="#858383"
                 android:textStyle="bold"
-                android:textSize="@dimen/_15ssp"
+                android:textSize="@dimen/_12ssp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginStart="@dimen/_13sdp"
                 />
@@ -62,16 +62,27 @@
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"/>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal"
+                android:layout_below="@id/img_penyakit1"
+                android:layout_marginStart="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                />
+
             <TextView
                 android:id="@+id/article_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/img_penyakit1"
+                android:layout_below="@+id/rv_price"
                 android:text="@string/article"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="@dimen/_25ssp"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginStart="@dimen/_13sdp"
                 />
 
