@@ -9,6 +9,7 @@ import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object ApiConfig {
     private const val BASE_URL = "https://cocodiag-backend-api-3x4g34y3hq-et.a.run.app/"
@@ -17,6 +18,9 @@ object ApiConfig {
         val loggingInterceptor =
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         val client = OkHttpClient.Builder()
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
             .addInterceptor(loggingInterceptor)
             .build()
         val retrofit = Retrofit.Builder()
@@ -41,6 +45,9 @@ object ApiConfig {
             chain.proceed(requestWithToken)
         }
         val client = OkHttpClient.Builder()
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
             .addInterceptor(loggingInterceptor)
             .addInterceptor(jwtInterceptor)
             .build()

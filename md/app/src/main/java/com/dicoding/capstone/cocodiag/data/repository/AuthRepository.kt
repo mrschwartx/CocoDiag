@@ -32,7 +32,6 @@ class AuthRepository private constructor(
         try {
             val response = service.auth(param)
             Log.d("user-repo-signin", "$response")
-            Log.d("authrepo", "$response")
             emit(ResultState.Success(response))
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
