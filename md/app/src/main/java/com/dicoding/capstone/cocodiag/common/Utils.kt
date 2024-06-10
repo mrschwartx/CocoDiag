@@ -1,10 +1,14 @@
 package com.dicoding.capstone.cocodiag.common
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
+import android.util.Base64
 import android.util.Log
 import android.widget.Toast
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
@@ -55,4 +59,21 @@ fun createCustomTempFile(context: Context): File {
         ".jpg", /* suffix */
         storageDir /* directory */
     )
+}
+
+fun convertBitmapToBase64(bitmap: Bitmap): String {
+    val byteArrayOutputStream = ByteArrayOutputStream()
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+    val byteArray = byteArrayOutputStream.toByteArray()
+    return Base64.encodeToString(byteArray, Base64.DEFAULT)
+}
+
+fun convertBase64ToBitmap(base64String: String): Bitmap? {
+    return try {
+        val decodedString = Base64.decode(base64String, Base64.DEFAULT)
+        BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+    } catch (e: IllegalArgumentException) {
+        e.printStackTrace()
+        null
+    }
 }
