@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -60,7 +59,6 @@ class MainActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 binding.progressBar.visibility = View.VISIBLE
                 Log.e("Error Article", e.message ?: "Unknown error")
-                Toast.makeText(this@MainActivity, "Failed to fetch news: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -75,8 +73,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val priceResponse=apiService.getPrice()
-                val dummyPriceItem=PriceItem("20/9/2029","rP.20.000","Zimbabwe")
-                handlePriceResponse(dummyPriceItem)
+                handlePriceResponse(priceResponse)
             }catch (e: Exception){
                 Log.e("Error Price", e.message ?: "Unknown error")
             }
