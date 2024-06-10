@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".features.settings.EditProfileActivity">
+
     <ScrollView
         android:id="@+id/scrollviewTop"
         android:layout_width="match_parent"
@@ -25,12 +26,13 @@
                 app:shapeAppearance="@style/BottomCardCornerOnly">
 
                 <ImageView
-                    android:contentDescription="profil_img"
                     android:id="@+id/iv_editProfile"
+                    android:contentDescription="profil_img"
                     android:layout_width="@dimen/_180sdp"
                     android:layout_height="@dimen/_180sdp"
                     android:background="@drawable/baseline_android_24"
                     android:layout_gravity="center"/>
+
             </com.google.android.material.card.MaterialCardView>
             
             <TextView
@@ -58,6 +60,7 @@
                     android:layout_marginStart="@dimen/_30sdp"
                     android:layout_marginEnd="@dimen/_30sdp"
                     android:layout_marginBottom="@dimen/_6sdp"/>
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -86,61 +89,61 @@
                     android:layout_marginBottom="@dimen/_6sdp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Password"
-                android:textSize="@dimen/_13ssp"
-                android:layout_marginStart="@dimen/_30sdp"
-                />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Password"-->
+<!--                android:textSize="@dimen/_13ssp"-->
+<!--                android:layout_marginStart="@dimen/_30sdp"-->
+<!--                />-->
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:endIconMode="password_toggle">
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:endIconMode="password_toggle">-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ed_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_lock_30"
-                    android:drawablePadding="@dimen/_4sdp"
-                    android:drawableTint="@color/black"
-                    android:inputType="textPassword"
-                    android:layout_marginStart="@dimen/_30sdp"
-                    android:layout_marginEnd="@dimen/_30sdp"
-                    android:layout_marginBottom="@dimen/_6sdp"/>
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/ed_password"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:drawableStart="@drawable/ic_lock_30"-->
+<!--                    android:drawablePadding="@dimen/_4sdp"-->
+<!--                    android:drawableTint="@color/black"-->
+<!--                    android:inputType="textPassword"-->
+<!--                    android:layout_marginStart="@dimen/_30sdp"-->
+<!--                    android:layout_marginEnd="@dimen/_30sdp"-->
+<!--                    android:layout_marginBottom="@dimen/_6sdp"/>-->
 
-            </com.google.android.material.textfield.TextInputLayout>
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Telephone"
-                android:textSize="@dimen/_13ssp"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginStart="@dimen/_30sdp"
-                />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Telephone"-->
+<!--                android:textSize="@dimen/_13ssp"-->
+<!--                android:layout_marginTop="@dimen/_15sdp"-->
+<!--                android:layout_marginStart="@dimen/_30sdp"-->
+<!--                />-->
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_8sdp">
-                >
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginBottom="@dimen/_8sdp">-->
+<!--                >-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ed_telephone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/baseline_android_24"
-                    android:drawablePadding="@dimen/_4sdp"
-                    android:textColor="@color/black"
-                    android:layout_marginStart="@dimen/_30sdp"
-                    android:layout_marginEnd="@dimen/_30sdp"
-                    android:layout_marginBottom="@dimen/_6sdp"/>
-            </com.google.android.material.textfield.TextInputLayout>
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/ed_telephone"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:drawableStart="@drawable/baseline_android_24"-->
+<!--                    android:drawablePadding="@dimen/_4sdp"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_marginStart="@dimen/_30sdp"-->
+<!--                    android:layout_marginEnd="@dimen/_30sdp"-->
+<!--                    android:layout_marginBottom="@dimen/_6sdp"/>-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_save"
@@ -152,8 +155,9 @@
                 android:text="SAVE"
                 android:textStyle="bold"
                 />
-        </LinearLayout>
-    </ScrollView>
 
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

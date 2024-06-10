@@ -6,14 +6,17 @@ import androidx.lifecycle.ViewModelProvider
 import com.dicoding.capstone.cocodiag.data.local.UserPreference
 import com.dicoding.capstone.cocodiag.data.repository.AuthRepository
 import com.dicoding.capstone.cocodiag.data.repository.ClassificationRepository
+import com.dicoding.capstone.cocodiag.data.repository.UserRepository
 import com.dicoding.capstone.cocodiag.dataStore
 import com.dicoding.capstone.cocodiag.di.Injection
 import com.dicoding.capstone.cocodiag.features.classification.ClassificationViewModel
+import com.dicoding.capstone.cocodiag.features.settings.SettingsViewModel
 import com.dicoding.capstone.cocodiag.features.signin.SignInViewModel
 import com.dicoding.capstone.cocodiag.features.signup.SignUpViewModel
 
 class ViewModelFactory(
-    private val userRepo: AuthRepository,
+    private val authRepo: AuthRepository,
+    private val userRepo: UserRepository,
     private val classRepo: ClassificationRepository,
     private val userPref: UserPreference
 ) : ViewModelProvider.NewInstanceFactory() {
@@ -22,10 +25,13 @@ class ViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(SignUpViewModel::class.java) -> {
-                SignUpViewModel(userRepo, userPref) as T
+                SignUpViewModel(authRepo, userPref) as T
             }
             modelClass.isAssignableFrom(SignInViewModel::class.java) -> {
-                SignInViewModel(userRepo, userPref) as T
+                SignInViewModel(authRepo, userPref) as T
+            }
+            modelClass.isAssignableFrom(SettingsViewModel::class.java) -> {
+                SettingsViewModel(userRepo, userPref) as T
             }
             modelClass.isAssignableFrom(ClassificationViewModel::class.java) -> {
                 ClassificationViewModel(classRepo, userPref) as T
@@ -43,6 +49,7 @@ class ViewModelFactory(
             instance ?: synchronized(this) {
                 instance ?: ViewModelFactory(
                     Injection.provideAuthRepository(),
+                    Injection.provideUserRepository(context.dataStore),
                     Injection.provideClassificationRepository(context.dataStore),
                     Injection.provideUserPreference(context.dataStore),
                 )
