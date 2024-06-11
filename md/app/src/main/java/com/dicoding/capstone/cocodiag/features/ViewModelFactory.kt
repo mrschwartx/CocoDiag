@@ -10,6 +10,7 @@ import com.dicoding.capstone.cocodiag.data.repository.UserRepository
 import com.dicoding.capstone.cocodiag.dataStore
 import com.dicoding.capstone.cocodiag.di.Injection
 import com.dicoding.capstone.cocodiag.features.classification.ClassificationViewModel
+import com.dicoding.capstone.cocodiag.features.forum.ForumViewModel
 import com.dicoding.capstone.cocodiag.features.settings.SettingsViewModel
 import com.dicoding.capstone.cocodiag.features.signin.SignInViewModel
 import com.dicoding.capstone.cocodiag.features.signup.SignUpViewModel
@@ -35,6 +36,9 @@ class ViewModelFactory(
             }
             modelClass.isAssignableFrom(ClassificationViewModel::class.java) -> {
                 ClassificationViewModel(classRepo, userPref) as T
+            }
+            modelClass.isAssignableFrom(ForumViewModel::class.java) -> {
+                ForumViewModel(userRepo, userPref) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
