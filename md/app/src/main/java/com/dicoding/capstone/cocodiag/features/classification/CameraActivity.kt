@@ -210,6 +210,7 @@ class CameraActivity : AppCompatActivity() {
         moveIntent.putExtra(ClassificationResultActivity.EXTRA_RESULT_NAME, result.name)
         moveIntent.putExtraList(ClassificationResultActivity.EXTRA_RESULT_SYMPTOMS, result.symptoms)
         moveIntent.putExtraList(ClassificationResultActivity.EXTRA_RESULT_CONTROL, result.control)
+        moveIntent.putExtra(ClassificationResultActivity.EXTRA_RESULT_CAUSED_BY, result.causedBy)
 
         startActivity(moveIntent)
         finish()

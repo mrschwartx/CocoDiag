@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -53,20 +54,35 @@ class ClassificationResultActivity : AppCompatActivity() {
     }
 
     private fun showInfo() {
-        val dialog = AlertDialog.Builder(this)
-        dialog.setTitle(intent.getStringExtra(EXTRA_RESULT_NAME))
+        val dialogView = layoutInflater.inflate(R.layout.dialog_classification_info, null)
+        val tvInfo = dialogView.findViewById<TextView>(R.id.tv_info)
+
         val stringBuilder = StringBuilder()
-        stringBuilder.append("Symptoms:\n")
+
         val symptoms: List<String>? = intent.getListExtra(EXTRA_RESULT_SYMPTOMS)
-        symptoms?.forEach { symptom ->
-            stringBuilder.append("- $symptom\n")
+        if (!symptoms.isNullOrEmpty()) {
+            stringBuilder.append("Symptoms:\n")
+            symptoms.forEach { symptom ->
+                stringBuilder.append("- $symptom\n")
+            }
+            stringBuilder.append("\n")
         }
-        stringBuilder.append("Controls:\n")
+
         val controls: List<String>? = intent.getListExtra(EXTRA_RESULT_CONTROL)
-        controls?.forEach { control ->
-            stringBuilder.append(" $control\n")
+        if (!controls.isNullOrEmpty()) {
+            stringBuilder.append("Controls:\n")
+            controls.forEach { control ->
+                stringBuilder.append("- $control\n")
+            }
         }
-        dialog.setMessage(stringBuilder)
+
+        tvInfo.text = stringBuilder.toString()
+
+        val dialog = AlertDialog.Builder(this)
+            .setTitle(intent.getStringExtra(EXTRA_RESULT_NAME))
+            .setView(dialogView)
+            .create()
+
         dialog.show()
     }
 
@@ -103,6 +119,7 @@ class ClassificationResultActivity : AppCompatActivity() {
         const val EXTRA_RESULT_NAME = "extra_result_name"
         const val EXTRA_RESULT_CONTROL = "extra_result_controls"
         const val EXTRA_RESULT_SYMPTOMS = "extra_result_symptoms"
+        const val EXTRA_RESULT_CAUSED_BY = "extra_result_caused_by"
         private const val TAG = "ClassificationResultActivity"
     }
 }

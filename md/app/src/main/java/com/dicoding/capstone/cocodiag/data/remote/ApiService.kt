@@ -40,8 +40,7 @@ interface ApiService {
     @Multipart
     @POST("predict")
     suspend fun predict(
-        @Part imageFile: MultipartBody.Part,
-        @Part("user_id") userId: RequestBody
+        @Part imageFile: MultipartBody.Part
     ): ClassificationResponse
 
     @GET("getNews")
