@@ -7,60 +7,41 @@ import io
 import logging
 import time
 from flask_jwt_extended import jwt_required
+import json
 
 prediction_bp = Blueprint('prediction_bp', __name__)
 
-def download_model(bucket_name, bucket_path, local_path):
+def download_and_load(bucket_name, bucket_path, local_path=None, is_json=False):
     try:
         client = storage.Client()
         bucket = client.get_bucket(bucket_name)
         blob = bucket.blob(bucket_path)
-        blob.download_to_filename(local_path)
+        
+        if is_json:
+            content = blob.download_as_text()
+            return json.loads(content)
+        else:
+            blob.download_to_filename(local_path)
+            return None
     except Exception as e:
-        logging.error(f"Error downloading model: {str(e)}")
+        logging.error(f"Error downloading from bucket: {str(e)}")
         raise e
 
 bucket_name = 'cocodiag-storage'
 model_path = 'model/coconut_model.keras'
+class_info_path = 'classes/class_info.json'
 local_model_path = '/tmp/coconut_model.keras'
 
 try:
-    download_model(bucket_name, model_path, local_model_path)
+    download_and_load(bucket_name, model_path, local_model_path)
     model = tf.keras.models.load_model(local_model_path)
+    class_info = download_and_load(bucket_name, class_info_path, is_json=True)
 except Exception as e:
-    logging.error(f"Error loading model: {str(e)}")
+    logging.error(f"Error loading resources: {str(e)}")
     model = None
+    class_info = {}
 
-class_names = ['Bud Root Dropping', 'Bud Rot', 'Gray Leaf spot', 'Leaf Rot', 'Stem Bleeding']
-
-# TODO: Load class info from cloud storage
-class_info = {
-    'Bud Root Dropping': {
-        'name': 'Bud Root Dropping',
-        'symptoms': ['gejala a', 'gejala 2'],
-        'control': ['1. Tips number 1', '2. Tips number 2']
-    },
-    'Bud Rot': {
-        'name': 'Bud Rot',
-        'symptoms': ['gejala a', 'gejala 2'],
-        'control': ['1. Tips number 1', '2. Tips number 2']
-    },
-    'Gray Leaf spot': {
-        'name': 'Gray Leaf spot',
-        'symptoms': ['gejala a', 'gejala 2'],
-        'control': ['1. Tips number 1', '2. Tips number 2']
-    },
-    'Leaf Rot': {
-        'name': 'Leaf Rot',
-        'symptoms': ['gejala a', 'gejala 2'],
-        'control': ['1. Tips number 1', '2. Tips number 2']
-    },
-    'Stem Bleeding': {
-        'name': 'Stem Bleeding',
-        'symptoms': ['gejala a', 'gejala 2'],
-        'control': ['1. Tips number 1', '2. Tips number 2']
-    }
-}
+class_names = list(class_info.keys())
 
 def prepare_image(image, target_size):
     if image.mode != "RGB":
@@ -97,11 +78,11 @@ def predict():
             'label': predicted_class,
             'accuracy': f"{accuracy:.2%}", 
             'name': disease_info['name'],
+            'caused_by': disease_info['caused_by'],
             'symptoms': disease_info['symptoms'],
-            'control': disease_info['control'],
+            'controls': disease_info['controls'],
             'created_at': int(time.time())
         }
-
         return jsonify(response)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
