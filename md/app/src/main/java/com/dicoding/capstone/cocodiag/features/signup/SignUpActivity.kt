@@ -2,7 +2,6 @@ package com.dicoding.capstone.cocodiag.features.signup
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.capstone.cocodiag.MainActivity
@@ -56,19 +55,19 @@ class SignUpActivity : AppCompatActivity() {
         viewModel.signUp(param).observe(this) {result ->
             when(result) {
                 is ResultState.Loading -> {
-                    setDisableBtnSignIn(true)
+                    setDisableBtnSignUp(true)
                 }
 
                 is ResultState.Error -> {
-                    setDisableBtnSignIn(false)
+                    setDisableBtnSignUp(false)
                     showToast(this, result.error.message)
                 }
 
                 is ResultState.Success -> {
-                    setDisableBtnSignIn(false)
+                    setDisableBtnSignUp(false)
 
                     val validUser = SignInParam(param.email, param.password)
-                    signIn(validUser)
+                    autoSignIn(validUser)
 
                     val intent = Intent(this@SignUpActivity, MainActivity::class.java)
                     startActivity(intent)
@@ -87,20 +86,20 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun signIn(param: SignInParam) {
-        viewModel.signIn(param).observe(this) {result ->
+    private fun autoSignIn(param: SignInParam) {
+        viewModel.autoSignIn(param).observe(this) { result ->
             when(result) {
                 is ResultState.Loading -> {
-                    setDisableBtnSignIn(true)
+                    setDisableBtnSignUp(true)
                 }
 
                 is ResultState.Error -> {
-                    setDisableBtnSignIn(false)
+                    setDisableBtnSignUp(false)
                     showToast(this, result.error.message)
                 }
 
                 is ResultState.Success -> {
-                    setDisableBtnSignIn(false)
+                    setDisableBtnSignUp(false)
 
                     val currentUser = UserModel(
                         result.data.id,
@@ -165,7 +164,7 @@ class SignUpActivity : AppCompatActivity() {
         return isValid
     }
 
-    private fun setDisableBtnSignIn(isDisable: Boolean) {
+    private fun setDisableBtnSignUp(isDisable: Boolean) {
         if (isDisable) {
             binding.btnSignUp.text = getString(R.string.sign_up_title_loading)
             binding.btnSignUp.isEnabled = false

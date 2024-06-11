@@ -19,12 +19,12 @@ class UserRepository private constructor(
         emit(ResultState.Loading)
         try {
             val response = service.findUserById(id)
-            Log.d("user-repo", "$response")
+            Log.d("userrepo-update", "$response")
             emit(ResultState.Success(response))
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
             val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
-            Log.e("userrepo", errorBody.toString())
+            Log.e("userrepo-update", errorBody.toString())
             emit(ResultState.Error(errorResponse))
         }
     }
@@ -33,24 +33,26 @@ class UserRepository private constructor(
         emit(ResultState.Loading)
         try {
             val response = service.updateUser(param)
-            Log.d("user-repo", "$response")
+            Log.d("userrepo-update", "$response")
             emit(ResultState.Success(response))
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
             val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
-            Log.e("userrepo", errorBody.toString())
+            Log.e("userrepo-update", errorBody.toString())
             emit(ResultState.Error(errorResponse))
         }
     }
 
-    fun updatePassword(newPassword: String, myPref : UserPreference) = liveData {
+    fun updatePassword(param: UpdatePasswordParam) = liveData {
         emit(ResultState.Loading)
         try {
-            val response = service.updatePassword(UpdatePasswordParam(myPref.getUser().first().name,
-                myPref.getUser().first().email,myPref.getUser().first().imageProfile,newPassword))
+            val response = service.updatePassword(param)
             emit(ResultState.Success(response))
         } catch (e: HttpException) {
-            emit(ErrorResponse("Error"))
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+            Log.e("userrepo-updatePassword", errorBody.toString())
+            emit(ResultState.Error(errorResponse))
         }
     }
 

@@ -32,7 +32,7 @@ class ViewModelFactory(
                 SignInViewModel(authRepo, userPref) as T
             }
             modelClass.isAssignableFrom(SettingsViewModel::class.java) -> {
-                SettingsViewModel(userRepo, userPref) as T
+                SettingsViewModel(authRepo, userRepo, userPref) as T
             }
             modelClass.isAssignableFrom(ClassificationViewModel::class.java) -> {
                 ClassificationViewModel(classRepo, userPref) as T

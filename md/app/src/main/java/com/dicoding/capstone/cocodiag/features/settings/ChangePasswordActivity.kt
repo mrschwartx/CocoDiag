@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.InputValidator
 import com.dicoding.capstone.cocodiag.common.ResultState
+import com.dicoding.capstone.cocodiag.common.showToast
+import com.dicoding.capstone.cocodiag.data.local.model.UserModel
+import com.dicoding.capstone.cocodiag.data.remote.payload.SignInParam
 import com.dicoding.capstone.cocodiag.databinding.ActivityChangePasswordBinding
 import com.dicoding.capstone.cocodiag.features.ViewModelFactory
 
@@ -16,69 +20,136 @@ class ChangePasswordActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(applicationContext)
     }
 
+    private lateinit var oldPasswordOri: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding=ActivityChangePasswordBinding.inflate(layoutInflater)
-
-        val newpass=binding.edNewPassword.text.toString()
-        val confpass=binding.edConfirmNewPassword.text.toString()
+        binding = ActivityChangePasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setData()
+
         binding.btnSave.setOnClickListener {
-            validPassword(newpass,confpass)
-            changePassword()
+            val oldPassword = binding.edOldPassword.text.toString()
+            val newPassword = binding.edNewPassword.text.toString()
+            val confirmNewPassword = binding.edConfirmNewPassword.text.toString()
+
+            if (validateCurrentPassword(oldPassword)) {
+                if (validateInput(newPassword, confirmNewPassword)) {
+                    changePassword(newPassword)
+                }
+            }
+        }
+    }
+
+    private fun setData() {
+        oldPasswordOri = viewModel.getPasswordFromPreference()
+    }
+
+    private fun changePassword(param: String) {
+        viewModel.updatePassword(param).observe(this) { result ->
+            when (result) {
+                is ResultState.Loading -> {
+                    setDisableBtnSave(true)
+                }
+
+                is ResultState.Error -> {
+                    setDisableBtnSave(false)
+                    showToast(this, result.error.message)
+                }
+
+                is ResultState.Success -> {
+                    setDisableBtnSave(false)
+                    reSignIn(SignInParam(viewModel.getEmailFromPreference(), param))
+                    showToast(this, "Password updated successfully")
+                }
+            }
         }
 
     }
 
-    private fun validPassword(newPass : String, confPass : String) : Boolean{
-        var isValid=true
-        if (!InputValidator.isValidPassword(newPass)) {
-            binding.edNewPassword.error =
-                "Password must be at least 8 characters and include a number and a special character"
-            isValid = false
-        }else if(!InputValidator.isValidPassword(confPass)){
-            binding.edConfirmNewPassword.error =
-                "Password must be at least 8 characters and include a number and a special character"
-            isValid = false
-        }else{
-            isValid=true
+    private fun reSignIn(param: SignInParam) {
+        viewModel.reSignIn(param).observe(this) { result ->
+            when(result) {
+                is ResultState.Loading -> {
+                    setDisableBtnSave(true)
+                }
+
+                is ResultState.Error -> {
+                    setDisableBtnSave(false)
+                    showToast(this, result.error.message)
+                }
+
+                is ResultState.Success -> {
+                    setDisableBtnSave(false)
+
+                    val currentUser = UserModel(
+                        result.data.id,
+                        result.data.name,
+                        result.data.email,
+                        param.password,
+                        result.data.imageProfile,
+                        result.data.token,
+                        true
+                    )
+                    viewModel.savedUser(currentUser)
+                }
+            }
         }
+    }
+
+
+    private fun validateCurrentPassword(
+        oldPassword: String,
+    ): Boolean {
+        var isValid = true
+
+        if (!InputValidator.isMatchingPassword(oldPassword, oldPasswordOri)) {
+            binding.edOldPassword.error = "Your current password is wrong"
+            isValid = false
+        } else {
+            binding.edOldPassword.error = null
+        }
+
+        if (!InputValidator.isValidPassword(oldPassword)) {
+            binding.edNewPassword.error = "Password must be at least 8 characters and include a number and a special character"
+            isValid = false
+        } else {
+            binding.edNewPassword.error = null
+        }
+
         return isValid
     }
 
-    private fun changePassword() {
-        val oldPassword = binding.edOldPassword.text.toString()
-        val newPassword = binding.edConfirmNewPassword.text.toString()
+    private fun validateInput(
+        newPassword: String,
+        confirmNewPassword: String,
+    ): Boolean {
+        var isValid = true
 
-        if (oldPassword.isEmpty() || newPassword.isEmpty()) {
-            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
-            return
+        if (!InputValidator.isValidPassword(newPassword)) {
+            binding.edNewPassword.error = "Password must be at least 8 characters and include a number and a special character"
+            isValid = false
+        } else {
+            binding.edNewPassword.error = null
         }
 
-        // Validate old password
-        val savedPassword = viewModel.getPasswordFromPreference()
-        if (savedPassword != oldPassword || binding.edNewPassword.text.toString() == binding.edConfirmNewPassword.text.toString()) {
-            Toast.makeText(this, "Old password is incorrect or your new pass not match", Toast.LENGTH_SHORT).show()
-            return
+        if (!InputValidator.isMatchingPassword(newPassword, confirmNewPassword)) {
+            binding.edConfirmNewPassword.error = "New Passwords do not match"
+            isValid = false
+        } else {
+            binding.edConfirmNewPassword.error = null
         }
 
-        viewModel.updatePassword(newPassword)
-            .observe(this) { result ->
-                when (result) {
-                    is ResultState.Loading -> {
-                        // Show loading indicator
-                    }
+        return isValid
+    }
 
-                    is ResultState.Success<*> -> {
-                        Toast.makeText(this, "Password updated successfully", Toast.LENGTH_SHORT)
-                            .show()
-                        finish()
-                    }
-
-                    is ResultState.Error -> {
-                        Toast.makeText(this, "Failed to update password", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
+    private fun setDisableBtnSave(isDisable: Boolean) {
+        if (isDisable) {
+            binding.btnSave.text = getString(R.string.save_loading)
+            binding.btnSave.isEnabled = false
+        } else {
+            binding.btnSave.text = getString(R.string.save)
+            binding.btnSave.isEnabled = true
+        }
     }
 }

@@ -70,7 +70,8 @@
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
     <string name="confirm_new_password">Confirm New Password</string>
-    <string name="save">SAVE</string>
+    <string name="save">Save</string>
+    <string name="save_loading">Save...</string>
     <string name="info_text">Info</string>
     <string name="disease_name">Disease Name</string>
     <string name="image_article">Image Article</string>

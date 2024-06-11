@@ -9,11 +9,14 @@ import android.provider.MediaStore
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.InputValidator
 import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.common.convertBase64ToBitmap
 import com.dicoding.capstone.cocodiag.common.convertBitmapToBase64
 import com.dicoding.capstone.cocodiag.common.showToast
+import com.dicoding.capstone.cocodiag.data.local.model.UserModel
+import com.dicoding.capstone.cocodiag.data.remote.payload.SignInParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.UpdateUserParam
 import com.dicoding.capstone.cocodiag.databinding.ActivityEditProfileBinding
 import com.dicoding.capstone.cocodiag.features.ViewModelFactory
@@ -89,15 +92,16 @@ class EditProfileActivity : AppCompatActivity() {
         viewModel.updateUser(param).observe(this) { result ->
             when (result) {
                 is ResultState.Loading -> {
-                    binding.edName.setText("...")
-                    binding.edEmail.setText("...")
+                    setDisableBtnSave(true)
                 }
 
                 is ResultState.Error -> {
+                    setDisableBtnSave(false)
                     showToast(this, result.error.message)
                 }
 
                 is ResultState.Success -> {
+                    setDisableBtnSave(false)
                     userName = result.data.name
                     userEmail = result.data.email
                     userImage = result.data.imageProfile ?: ""
@@ -108,9 +112,12 @@ class EditProfileActivity : AppCompatActivity() {
                     if (userImage != "") {
                         binding.ivEditProfile.setImageBitmap(convertBase64ToBitmap(userImage))
                     }
+
+                    reSignIn(SignInParam(userEmail, viewModel.getPasswordFromPreference()))
+
+                    showToast(this, "User updated successfully")
                 }
             }
-
         }
     }
 
@@ -129,6 +136,36 @@ class EditProfileActivity : AppCompatActivity() {
 
                 userImage = convertBitmapToBase64(imageBitmap)
                 binding.ivEditProfile.setImageBitmap(imageBitmap)
+            }
+        }
+    }
+
+    private fun reSignIn(param: SignInParam) {
+        viewModel.reSignIn(param).observe(this) { result ->
+            when(result) {
+                is ResultState.Loading -> {
+                    setDisableBtnSave(true)
+                }
+
+                is ResultState.Error -> {
+                    setDisableBtnSave(false)
+                    showToast(this, result.error.message)
+                }
+
+                is ResultState.Success -> {
+                    setDisableBtnSave(false)
+
+                    val currentUser = UserModel(
+                        result.data.id,
+                        result.data.name,
+                        result.data.email,
+                        param.password,
+                        result.data.imageProfile,
+                        result.data.token,
+                        true
+                    )
+                    viewModel.savedUser(currentUser)
+                }
             }
         }
     }
@@ -154,5 +191,15 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         return isValid
+    }
+
+    private fun setDisableBtnSave(isDisable: Boolean) {
+        if (isDisable) {
+            binding.btnSave.text = getString(R.string.save_loading)
+            binding.btnSave.isEnabled = false
+        } else {
+            binding.btnSave.text = getString(R.string.save)
+            binding.btnSave.isEnabled = true
+        }
     }
 }

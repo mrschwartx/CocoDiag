@@ -35,7 +35,7 @@ interface ApiService {
     suspend fun updateUser(@Body param: UpdateUserParam): UserResponse
 
     @PUT("/user")
-    suspend fun updatePassword(@Body param: UpdatePasswordParam): PasswordUserResponse
+    suspend fun updatePassword(@Body param: UpdatePasswordParam): UserResponse
 
     @Multipart
     @POST("predict")

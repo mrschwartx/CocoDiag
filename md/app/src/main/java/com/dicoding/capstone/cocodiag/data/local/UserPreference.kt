@@ -57,6 +57,12 @@ class UserPreference private constructor(
         }
     }
 
+    fun getEmail():Flow<String?>{
+        return dataStore.data.map { pref ->
+            pref[EMAIL_KEY]?:""
+        }
+    }
+
     companion object {
         @Volatile
         private var INSTANCE: UserPreference? = null

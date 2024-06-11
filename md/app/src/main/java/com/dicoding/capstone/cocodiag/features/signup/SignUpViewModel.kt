@@ -16,7 +16,7 @@ class SignUpViewModel(
 
     fun signUp(param: CreateUserParam) = repository.signUp(param)
 
-    fun signIn(param: SignInParam) = repository.signIn(param)
+    fun autoSignIn(param: SignInParam) = repository.signIn(param)
 
     fun savedUser(param: UserModel) {
         viewModelScope.launch {
