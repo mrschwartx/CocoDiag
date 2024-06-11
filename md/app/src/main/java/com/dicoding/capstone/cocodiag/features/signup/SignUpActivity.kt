@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.capstone.cocodiag.MainActivity
+import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.InputValidator
 import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.common.showToast
@@ -55,16 +56,16 @@ class SignUpActivity : AppCompatActivity() {
         viewModel.signUp(param).observe(this) {result ->
             when(result) {
                 is ResultState.Loading -> {
-                    showLoading(true)
+                    setDisableBtnSignIn(true)
                 }
 
                 is ResultState.Error -> {
-                    showLoading(false)
+                    setDisableBtnSignIn(false)
                     showToast(this, result.error.message)
                 }
 
                 is ResultState.Success -> {
-                    showLoading(false)
+                    setDisableBtnSignIn(false)
 
                     val validUser = SignInParam(param.email, param.password)
                     signIn(validUser)
@@ -90,16 +91,16 @@ class SignUpActivity : AppCompatActivity() {
         viewModel.signIn(param).observe(this) {result ->
             when(result) {
                 is ResultState.Loading -> {
-                    showLoading(true)
+                    setDisableBtnSignIn(true)
                 }
 
                 is ResultState.Error -> {
-                    showLoading(false)
+                    setDisableBtnSignIn(false)
                     showToast(this, result.error.message)
                 }
 
                 is ResultState.Success -> {
-                    showLoading(false)
+                    setDisableBtnSignIn(false)
 
                     val currentUser = UserModel(
                         result.data.id,
@@ -164,7 +165,13 @@ class SignUpActivity : AppCompatActivity() {
         return isValid
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    private fun setDisableBtnSignIn(isDisable: Boolean) {
+        if (isDisable) {
+            binding.btnSignUp.text = getString(R.string.sign_up_title_loading)
+            binding.btnSignUp.isEnabled = false
+        } else {
+            binding.btnSignUp.text = getString(R.string.sign_up_title)
+            binding.btnSignUp.isEnabled = true
+        }
     }
 }

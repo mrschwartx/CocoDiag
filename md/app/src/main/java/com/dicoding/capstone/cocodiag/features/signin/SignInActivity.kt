@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.capstone.cocodiag.MainActivity
+import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.InputValidator
 import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.common.showToast
@@ -49,16 +50,16 @@ class SignInActivity : AppCompatActivity() {
         viewModel.signIn(param).observe(this) { result ->
             when (result) {
                 is ResultState.Loading -> {
-                    showLoading(true)
+                    setDisableBtnSignIn(true)
                 }
 
                 is ResultState.Error -> {
-                    showLoading(false)
+                    setDisableBtnSignIn(false)
                     showToast(this, result.error.message)
                 }
 
                 is ResultState.Success -> {
-                    showLoading(false)
+                    setDisableBtnSignIn(false)
 
                     val currentUser = UserModel(
                         result.data.id,
@@ -121,7 +122,13 @@ class SignInActivity : AppCompatActivity() {
         return isValid
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    private fun setDisableBtnSignIn(isDisable: Boolean) {
+        if (isDisable) {
+            binding.btnSignIn.text = getString(R.string.sign_in_title_loading)
+            binding.btnSignIn.isEnabled = false
+        } else {
+            binding.btnSignIn.text = getString(R.string.sign_in_title)
+            binding.btnSignIn.isEnabled = true
+        }
     }
 }

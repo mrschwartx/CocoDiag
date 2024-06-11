@@ -7,6 +7,7 @@
     <string name="password_confirm_text">Confirm Password</string>
 
     <string name="sign_in_title">Sign In</string>
+    <string name="sign_in_title_loading">Sign In...</string>
     <string name="sign_in_message">Welcome back,</string>
     <string name="sign_in_sub_message">Please use your email address and password!</string>
     <string name="sign_in_forgot_password">Forgot password?</string>
@@ -14,6 +15,7 @@
     <string name="sign_in_with_google">Sign In with Google</string>
 
     <string name="sign_up_title">Sign Up</string>
+    <string name="sign_up_title_loading">Sign Up...</string>
     <string name="sign_up_message">Welcome</string>
     <string name="sign_up_sub_message">Please fill all to create account!</string>
     <string name="sign_up_text">Or Sign Up with</string>
