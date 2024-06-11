@@ -3,10 +3,13 @@ package com.dicoding.capstone.cocodiag.data.repository
 import android.util.Log
 import androidx.lifecycle.liveData
 import com.dicoding.capstone.cocodiag.common.ResultState
+import com.dicoding.capstone.cocodiag.data.local.UserPreference
 import com.dicoding.capstone.cocodiag.data.remote.ApiService
 import com.dicoding.capstone.cocodiag.data.remote.payload.ErrorResponse
+import com.dicoding.capstone.cocodiag.data.remote.payload.UpdatePasswordParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.UpdateUserParam
 import com.google.gson.Gson
+import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 
 class UserRepository private constructor(
@@ -37,6 +40,17 @@ class UserRepository private constructor(
             val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
             Log.e("userrepo", errorBody.toString())
             emit(ResultState.Error(errorResponse))
+        }
+    }
+
+    fun updatePassword(newPassword: String, myPref : UserPreference) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val response = service.updatePassword(UpdatePasswordParam(myPref.getUser().first().name,
+                myPref.getUser().first().email,myPref.getUser().first().imageProfile,newPassword))
+            emit(ResultState.Success(response))
+        } catch (e: HttpException) {
+            emit(ErrorResponse("Error"))
         }
     }
 

@@ -17,6 +17,25 @@ data class UserResponse(
     val imageProfile: String?,
 )
 
+data class PasswordUserResponse(
+    @field:SerializedName("id")
+    val userId: String,
+
+    @field:SerializedName("name")
+    val name: String,
+
+    @field:SerializedName("email")
+    val email: String,
+
+    @field:SerializedName("imageProfile")
+    val imageProfile: String?,
+
+    @field:SerializedName("password")
+    val password: String?,
+
+)
+
+
 data class UpdateUserParam(
     @field:SerializedName("name")
     val name: String,
@@ -26,5 +45,19 @@ data class UpdateUserParam(
 
     @field:SerializedName("imageProfile")
     val imageProfile: String,
+)
+
+data class UpdatePasswordParam(
+    @field:SerializedName("name")
+    val name: String,
+
+    @field:SerializedName("email")
+    val email: String,
+
+    @field:SerializedName("imageProfile")
+    val imageProfile: String?,
+
+    @field:SerializedName("password")
+    val newPassword: String
 )
 

@@ -19,7 +19,17 @@ class SettingsViewModel(
         return userRepository.findById(userId)
     }
 
+    fun updatePassword(newPassword: String) = userRepository.updatePassword(newPassword,userPref)
+
+    fun getPasswordFromPreference(): String {
+        val password = runBlocking {
+            userPref.getPassword().first()
+        }
+        return password ?: ""
+    }
     fun updateUser(param: UpdateUserParam) = userRepository.update(param)
+
+
 
     private fun getUserId(): String {
         val userId = runBlocking {
@@ -27,4 +37,6 @@ class SettingsViewModel(
         }
         return userId ?: ""
     }
+
+
 }

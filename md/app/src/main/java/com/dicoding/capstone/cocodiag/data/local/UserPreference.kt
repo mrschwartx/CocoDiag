@@ -51,6 +51,12 @@ class UserPreference private constructor(
         }
     }
 
+    fun getPassword():Flow<String?>{
+        return dataStore.data.map { pref ->
+            pref[PASSWORD_KEY]?:""
+        }
+    }
+
     companion object {
         @Volatile
         private var INSTANCE: UserPreference? = null

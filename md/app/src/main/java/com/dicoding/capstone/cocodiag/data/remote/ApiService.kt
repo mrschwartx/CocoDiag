@@ -3,9 +3,11 @@ package com.dicoding.capstone.cocodiag.data.remote
 import com.dicoding.capstone.cocodiag.data.local.model.ArticleModel
 import com.dicoding.capstone.cocodiag.data.remote.payload.ClassificationResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.CreateUserParam
+import com.dicoding.capstone.cocodiag.data.remote.payload.PasswordUserResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignUpResponse
+import com.dicoding.capstone.cocodiag.data.remote.payload.UpdatePasswordParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.UpdateUserParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.UserResponse
 import com.dicoding.capstone.cocodiag.features.price.PriceItem
@@ -31,6 +33,9 @@ interface ApiService {
 
     @PUT("/user")
     suspend fun updateUser(@Body param: UpdateUserParam): UserResponse
+
+    @PUT("/user")
+    suspend fun updatePassword(@Body param: UpdatePasswordParam): PasswordUserResponse
 
     @Multipart
     @POST("predict")
