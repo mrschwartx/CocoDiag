@@ -1,20 +1,20 @@
 from flask import Blueprint, request, jsonify
-from google.cloud import storage
+from firebase_admin import storage
 import tensorflow as tf
 import numpy as np
 from PIL import Image
 import io
 import logging
 import time
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 import json
+from config.firebase_config import db
 
 prediction_bp = Blueprint('prediction_bp', __name__)
 
 def download_and_load(bucket_name, bucket_path, local_path=None, is_json=False):
     try:
-        client = storage.Client()
-        bucket = client.get_bucket(bucket_name)
+        bucket = storage.bucket(bucket_name)
         blob = bucket.blob(bucket_path)
         
         if is_json:
@@ -54,7 +54,7 @@ def prepare_image(image, target_size):
 
 @prediction_bp.route('/predict', methods=['POST'])
 @jwt_required()
-def predict():
+def predict():    
     if 'imageFile' not in request.files:
         return jsonify({'error': 'Image file not provided'}), 400
     file = request.files['imageFile']
@@ -71,7 +71,6 @@ def predict():
         if predicted_class_index < len(class_names):
             predicted_class = class_names[predicted_class_index]
 
-        # TODO: Add handling for outside classes
         disease_info = class_info.get(predicted_class)
 
         response = {
@@ -83,6 +82,23 @@ def predict():
             'controls': disease_info['controls'],
             'created_at': int(time.time())
         }
+
+        user_id = get_jwt_identity()
+        
+        bucket = storage.bucket()
+        blob = bucket.blob(f'uploads/{user_id}/{file.filename}')
+        blob.upload_from_string(file.read(), content_type=file.content_type)
+        image_url = blob.public_url
+
+        doc_ref = db.collection('history').document()
+        doc_ref.set({
+            "user_id": user_id,
+            "image": file.filename,
+            "created_at": response['created_at'],
+            "result": response,
+            "image_url": image_url
+        })
+        
         return jsonify(response)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
