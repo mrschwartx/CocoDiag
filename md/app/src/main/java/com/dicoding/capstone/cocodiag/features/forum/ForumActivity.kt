@@ -1,5 +1,6 @@
 package com.dicoding.capstone.cocodiag.features.forum
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -41,6 +42,13 @@ class ForumActivity : AppCompatActivity() {
 
         val adapter = ForumStatusAdapter(dummyForumStatus)
         rv.adapter = adapter
+
+
+        binding.fabAddPost.setOnClickListener {
+            val moveIntent = Intent(this@ForumActivity, ForumAddActivity::class.java)
+            startActivity(moveIntent)
+            finish()
+        }
     }
 
     private fun setData() {

@@ -75,4 +75,7 @@
     <string name="info_text">Info</string>
     <string name="disease_name">Disease Name</string>
     <string name="image_article">Image Article</string>
+    <string name="new_post_message">What\'s happening?</string>
+    <string name="post">Post</string>
+    <string name="upload">Upload</string>
 </resources>

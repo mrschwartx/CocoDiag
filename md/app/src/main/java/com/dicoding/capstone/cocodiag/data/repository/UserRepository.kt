@@ -3,13 +3,11 @@ package com.dicoding.capstone.cocodiag.data.repository
 import android.util.Log
 import androidx.lifecycle.liveData
 import com.dicoding.capstone.cocodiag.common.ResultState
-import com.dicoding.capstone.cocodiag.data.local.UserPreference
 import com.dicoding.capstone.cocodiag.data.remote.ApiService
 import com.dicoding.capstone.cocodiag.data.remote.payload.ErrorResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.UpdatePasswordParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.UpdateUserParam
 import com.google.gson.Gson
-import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 
 class UserRepository private constructor(
@@ -19,12 +17,12 @@ class UserRepository private constructor(
         emit(ResultState.Loading)
         try {
             val response = service.findUserById(id)
-            Log.d("userrepo-update", "$response")
+            Log.d("userrepo-findbyid", "$response")
             emit(ResultState.Success(response))
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
             val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
-            Log.e("userrepo-update", errorBody.toString())
+            Log.e("userrepo-findbyid", errorBody.toString())
             emit(ResultState.Error(errorResponse))
         }
     }

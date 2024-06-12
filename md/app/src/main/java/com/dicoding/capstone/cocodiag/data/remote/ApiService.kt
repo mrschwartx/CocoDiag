@@ -1,9 +1,10 @@
 package com.dicoding.capstone.cocodiag.data.remote
 
 import com.dicoding.capstone.cocodiag.data.local.model.ArticleModel
+import com.dicoding.capstone.cocodiag.data.remote.payload.AddForumParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.ClassificationResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.CreateUserParam
-import com.dicoding.capstone.cocodiag.data.remote.payload.PasswordUserResponse
+import com.dicoding.capstone.cocodiag.data.remote.payload.ForumPostResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignUpResponse
@@ -12,7 +13,6 @@ import com.dicoding.capstone.cocodiag.data.remote.payload.UpdateUserParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.UserResponse
 import com.dicoding.capstone.cocodiag.features.price.PriceItem
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Multipart
@@ -48,4 +48,12 @@ interface ApiService {
 
     @GET("getPrice")
     suspend fun getPrice():PriceItem
+
+    @POST("/forum")
+    suspend fun addPost(@Body param: AddForumParam): ForumPostResponse
+
+    @GET("/forum/{post_id}")
+    suspend fun findPostById(@Path("post_id") postId: String): ForumPostResponse
+
+
 }
