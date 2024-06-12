@@ -5,19 +5,28 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.dicoding.capstone.cocodiag.R
+import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.common.getListExtra
 import com.dicoding.capstone.cocodiag.common.setBottomNavBar
 import com.dicoding.capstone.cocodiag.common.showToast
+import com.dicoding.capstone.cocodiag.data.remote.payload.ClassificationResponse
 import com.dicoding.capstone.cocodiag.databinding.ActivityClassificationResultBinding
+import com.dicoding.capstone.cocodiag.features.ViewModelFactory
 import com.dicoding.capstone.cocodiag.features.forum.ForumActivity
 
 class ClassificationResultActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityClassificationResultBinding
+
+    private val viewModel by viewModels<ClassificationViewModel> {
+        ViewModelFactory.getInstance(applicationContext)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +40,9 @@ class ClassificationResultActivity : AppCompatActivity() {
         setButtonMoved()
 
         showResult()
+        binding.btnSaveHistory.setOnClickListener {
+            saveClassificationResult()
+        }
     }
 
     private fun showResult() {
@@ -87,7 +99,7 @@ class ClassificationResultActivity : AppCompatActivity() {
     }
 
     private fun setButtonMoved() {
-        binding.btnPost.setOnClickListener {
+        binding.btnSaveHistory.setOnClickListener {
             val moveIntent = Intent(this@ClassificationResultActivity, ForumActivity::class.java)
             startActivity(moveIntent)
             finish()
@@ -110,6 +122,43 @@ class ClassificationResultActivity : AppCompatActivity() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun saveClassificationResult() {
+        val classificationResult = getClassificationResultFromIntent()
+
+        viewModel.saveHistory(classificationResult).observe(this) { result ->
+            when (result) {
+                is ResultState.Loading -> {
+                    // Show loading
+                    showLoading(true)
+                }
+
+                is ResultState.Success<*> -> {
+                    // Handle success
+                    Toast.makeText(this, "History saved successfully", Toast.LENGTH_SHORT).show()
+                }
+
+                is ResultState.Error -> {
+                    // Handle error
+                    Toast.makeText(this, "Error saving history: ${result.error}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun getClassificationResultFromIntent(): ClassificationResponse {
+        // Extract classification result data from intent
+        // This is just an example, modify it according to your data
+        return ClassificationResponse(
+            accuracy = intent.getStringExtra("extra_result_acc") ?: "",
+            causedBy = intent.getStringExtra("extra_result_caused_by") ?: "",
+            control = intent.getStringArrayListExtra("extra_result_controls") ?: emptyList(),
+            createdAt = intent.getLongExtra("created_at", 0L),
+            label = intent.getStringExtra("extra_result_label") ?: "",
+            name = intent.getStringExtra("extra_result_name") ?: "",
+            symptoms = intent.getStringArrayListExtra("extra_result_symptoms") ?: emptyList()
+        )
     }
 
     companion object {

@@ -14,6 +14,7 @@ import com.dicoding.capstone.cocodiag.data.remote.payload.UpdateUserParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.UserResponse
 import com.dicoding.capstone.cocodiag.features.price.PriceItem
 import okhttp3.MultipartBody
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Multipart
@@ -46,6 +47,12 @@ interface ApiService {
 
     @GET("history/{user_id}")
     suspend fun getHistory(@Path("user_id") userId: String): HistoryListResponse
+
+    @POST("history/{user_id}")
+    suspend fun saveHistory(
+        @Path("user_id") userId: String,
+        @Body history: ClassificationResponse
+    ): Response<Unit>
 
     @GET("getNews")
     suspend fun getNews(): List<ArticleModel>

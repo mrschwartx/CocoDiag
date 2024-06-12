@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.liveData
 import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.data.remote.ApiService
+import com.dicoding.capstone.cocodiag.data.remote.payload.ClassificationResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.ErrorResponse
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaType
@@ -46,6 +47,18 @@ class ClassificationRepository private constructor(
             val errorBody = e.response()?.errorBody()?.string()
             val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
             Log.e("classification-findHistory", errorBody.toString())
+            emit(ResultState.Error(errorResponse))
+        }
+    }
+
+    fun saveHistory(userId: String, classification: ClassificationResponse) = liveData {
+        emit(ResultState.Loading)
+        try {
+            service.saveHistory(userId, classification)
+            emit(ResultState.Success(Unit))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
             emit(ResultState.Error(errorResponse))
         }
     }
