@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.setBottomNavBar
 import com.dicoding.capstone.cocodiag.databinding.ActivitySettingsBinding
+import com.dicoding.capstone.cocodiag.features.settings.history.HistoryActivity
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -23,6 +24,11 @@ class SettingsActivity : AppCompatActivity() {
 
         binding.tvChangePass.setOnClickListener {
             val intent=Intent(this,ChangePasswordActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.tvHistory.setOnClickListener {
+            val intent = Intent(this@SettingsActivity, HistoryActivity::class.java)
             startActivity(intent)
         }
 

@@ -25,3 +25,37 @@ data class ClassificationResponse(
     @field:SerializedName("symptoms")
     val symptoms: List<String>
 )
+
+data class HistoryListResponse(
+    @field:SerializedName("user_id")
+    val userId: String,
+
+    @field:SerializedName("history")
+    val history: List<HistoryResponse>
+)
+
+data class HistoryResponse(
+    @field:SerializedName("history_id")
+    val historyId: String,
+
+    @field:SerializedName("label")
+    val label: String,
+
+    @field:SerializedName("accuracy")
+    val accuracy: String,
+
+    @field:SerializedName("name")
+    val name: String,
+
+    @field:SerializedName("symptoms")
+    val symptoms: List<String>,
+
+    @field:SerializedName("controls")
+    val controls: List<String>,
+
+    @field:SerializedName("created_at")
+    val createdAt: Long,
+
+    @field:SerializedName("image_url")
+    val imageUrl: String,
+)

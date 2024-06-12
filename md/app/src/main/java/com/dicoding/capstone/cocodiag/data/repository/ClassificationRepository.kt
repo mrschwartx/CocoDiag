@@ -36,6 +36,20 @@ class ClassificationRepository private constructor(
         }
     }
 
+    fun findHistory(userId: String) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val response = service.getHistory(userId)
+            Log.d("classification-findHistory", "$response")
+            emit(ResultState.Success(response))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+            Log.e("classification-findHistory", errorBody.toString())
+            emit(ResultState.Error(errorResponse))
+        }
+    }
+
 
     companion object {
         @Volatile

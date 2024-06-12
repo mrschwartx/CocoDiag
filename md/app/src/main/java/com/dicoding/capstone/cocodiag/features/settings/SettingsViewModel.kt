@@ -6,11 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.data.local.UserPreference
 import com.dicoding.capstone.cocodiag.data.local.model.UserModel
+import com.dicoding.capstone.cocodiag.data.remote.payload.HistoryListResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.UpdatePasswordParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.UpdateUserParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.UserResponse
 import com.dicoding.capstone.cocodiag.data.repository.AuthRepository
+import com.dicoding.capstone.cocodiag.data.repository.ClassificationRepository
 import com.dicoding.capstone.cocodiag.data.repository.UserRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -19,6 +21,7 @@ import kotlinx.coroutines.runBlocking
 class SettingsViewModel(
     private val authRepository: AuthRepository,
     private val userRepository: UserRepository,
+    private val classRepository: ClassificationRepository,
     private val userPref: UserPreference
 ): ViewModel() {
     fun findById(): LiveData<ResultState<UserResponse>> {
@@ -27,8 +30,6 @@ class SettingsViewModel(
     }
 
     fun updateUser(param: UpdateUserParam) = userRepository.update(param)
-
-
 
     fun updatePassword(newPassword: String): LiveData<ResultState<UserResponse>> {
         val currentUser = getUser()
@@ -61,6 +62,11 @@ class SettingsViewModel(
             userPref.getEmail().first()
         }
         return email ?: ""
+    }
+
+    fun findHistory(): LiveData<ResultState<HistoryListResponse>> {
+        val userId = getUserId()
+        return classRepository.findHistory(userId)
     }
 
     private fun getUserId(): String {

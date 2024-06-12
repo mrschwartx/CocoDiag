@@ -5,6 +5,7 @@ import com.dicoding.capstone.cocodiag.data.remote.payload.AddForumParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.ClassificationResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.CreateUserParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.ForumPostResponse
+import com.dicoding.capstone.cocodiag.data.remote.payload.HistoryListResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignUpResponse
@@ -43,16 +44,19 @@ interface ApiService {
         @Part imageFile: MultipartBody.Part
     ): ClassificationResponse
 
+    @GET("history/{user_id}")
+    suspend fun getHistory(@Path("user_id") userId: String): HistoryListResponse
+
     @GET("getNews")
     suspend fun getNews(): List<ArticleModel>
 
     @GET("getPrice")
     suspend fun getPrice():PriceItem
 
-    @POST("/forum")
+    @POST("forum")
     suspend fun addPost(@Body param: AddForumParam): ForumPostResponse
 
-    @GET("/forum/{post_id}")
+    @GET("forum/{post_id}")
     suspend fun findPostById(@Path("post_id") postId: String): ForumPostResponse
 
 
