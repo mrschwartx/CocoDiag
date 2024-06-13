@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from firebase_admin import storage
+from google.cloud import storage as gcs_storage
 import tensorflow as tf
 import numpy as np
 from PIL import Image
@@ -14,7 +15,8 @@ prediction_bp = Blueprint('prediction_bp', __name__)
 
 def download_and_load(bucket_name, bucket_path, local_path=None, is_json=False):
     try:
-        bucket = storage.bucket(bucket_name)
+        client = gcs_storage.Client()
+        bucket = client.bucket(bucket_name)
         blob = bucket.blob(bucket_path)
         
         if is_json:
@@ -49,12 +51,12 @@ def prepare_image(image, target_size):
     image = image.resize(target_size)
     image = np.array(image)
     image = image / 255.0
-    image = np.expand_dims(image, axis=0)    
+    image = np.expand_dims(image, axis=0)
     return image
 
 @prediction_bp.route('/predict', methods=['POST'])
 @jwt_required()
-def predict():    
+def predict():
     if 'imageFile' not in request.files:
         return jsonify({'error': 'Image file not provided'}), 400
     file = request.files['imageFile']
@@ -63,7 +65,7 @@ def predict():
 
     try:
         image = Image.open(io.BytesIO(file.read()))
-        processed_image = prepare_image(image, target_size=(224, 224)) 
+        processed_image = prepare_image(image, target_size=(224, 224))
         predictions = model.predict(processed_image)
         predicted_class_index = np.argmax(predictions, axis=1)[0]
         accuracy = np.max(predictions)
@@ -75,7 +77,7 @@ def predict():
 
         response = {
             'label': predicted_class,
-            'accuracy': f"{accuracy:.2%}", 
+            'accuracy': f"{accuracy:.2%}",
             'name': disease_info['name'],
             'caused_by': disease_info['caused_by'],
             'symptoms': disease_info['symptoms'],
@@ -85,9 +87,10 @@ def predict():
 
         user_id = get_jwt_identity()
         
-        bucket = storage.bucket()
-        blob = bucket.blob(f'uploads/{user_id}/{file.filename}')
-        blob.upload_from_string(file.read(), content_type=file.content_type)
+        firebase_bucket = storage.bucket('cocodiag.appspot.com')
+        blob = firebase_bucket.blob(f'uploads/{user_id}/{file.filename}')
+        file.seek(0)
+        blob.upload_from_file(file, content_type=file.content_type)
         image_url = blob.public_url
 
         doc_ref = db.collection('history').document()
@@ -98,7 +101,8 @@ def predict():
             "result": response,
             "image_url": image_url
         })
-        
+
         return jsonify(response)
     except Exception as e:
+        logging.error(f"Prediction error: {str(e)}")
         return jsonify({'error': str(e)}), 500
