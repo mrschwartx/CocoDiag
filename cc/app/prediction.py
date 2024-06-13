@@ -70,8 +70,12 @@ def predict():
         predicted_class_index = np.argmax(predictions, axis=1)[0]
         accuracy = np.max(predictions)
 
-        if predicted_class_index < len(class_names):
-            predicted_class = class_names[predicted_class_index]
+        threshold = 0.75
+
+        if accuracy < threshold:
+            raise Exception("Image failed to be classified. Please try again")
+        
+        predicted_class = class_names[predicted_class_index]
 
         disease_info = class_info.get(predicted_class)
 
