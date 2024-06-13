@@ -2,7 +2,6 @@ from flask import Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from config.firebase_config import db
 import logging
-import time
 
 history_bp = Blueprint('history_bp', __name__)
 
@@ -10,6 +9,10 @@ history_bp = Blueprint('history_bp', __name__)
 @jwt_required()
 def get_history(user_id):
     try:
+        current_user_id = get_jwt_identity()
+        if current_user_id != user_id:
+            return jsonify({"message": "Access denied"}), 403
+        
         history_ref = db.collection('history').where('user_id', '==', user_id)
         docs = history_ref.stream()
 
