@@ -1,7 +1,9 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from config.firebase_config import auth, db
+from firebase_admin import storage
 import logging
+import uuid
 
 user_bp = Blueprint('user_bp', __name__)
 
@@ -10,12 +12,23 @@ user_bp = Blueprint('user_bp', __name__)
 def update_user():
     try:
         user_id = get_jwt_identity()
-        data = request.get_json()
-
+        
+        data = request.form
         name = data.get('name')
         email = data.get('email')
         password = data.get('password')
-        image_profile = data.get('imageProfile')
+        
+        image_profile_file = request.files.get('imageProfile')
+
+        if image_profile_file:
+            image_filename = f"{uuid.uuid4()}-{image_profile_file.filename}"
+            firebase_bucket = storage.bucket('cocodiag.appspot.com')
+            blob = firebase_bucket.blob(f"profile/{user_id}/{image_filename}")
+            image_profile_file.seek(0)
+            blob.upload_from_file(image_profile_file, content_type= image_profile_file.content_type)
+            image_profile_url = blob.public_url
+        else:
+            image_profile_url = None
 
         auth.update_user(
             user_id,
@@ -25,17 +38,21 @@ def update_user():
         )
 
         user_info_ref = db.collection('users').document(user_id)
-        user_info_ref.update({
+        update_data = {
             "name": name,
             "email": email,
-            "imageProfile": image_profile
-        })
+        }
+        
+        if image_profile_url:
+            update_data["imageProfile"] = image_profile_url
+        
+        user_info_ref.update(update_data)
 
         return jsonify({
             "id": user_id,
             "name": name,
             "email": email,
-            "imageProfile": image_profile
+            "imageProfile": image_profile_url
         }), 200
     except Exception as e:
         logging.error(f"Update user error: {e}")
