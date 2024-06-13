@@ -14,6 +14,7 @@ import com.dicoding.capstone.cocodiag.data.remote.payload.UpdateUserParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.UserResponse
 import com.dicoding.capstone.cocodiag.features.price.PriceItem
 import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -22,6 +23,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
     @POST("signup")
@@ -53,6 +55,12 @@ interface ApiService {
         @Path("user_id") userId: String,
         @Body history: ClassificationResponse
     ): Response<Unit>
+
+    @GET("image")
+    suspend fun getImage(
+        @Query("img_url") imgUrl: String
+    ): ResponseBody
+
 
     @GET("getNews")
     suspend fun getNews(): List<ArticleModel>

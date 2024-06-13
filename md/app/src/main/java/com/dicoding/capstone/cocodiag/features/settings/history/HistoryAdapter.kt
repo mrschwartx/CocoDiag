@@ -1,5 +1,6 @@
 package com.dicoding.capstone.cocodiag.features.settings.history
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,38 +8,66 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.data.remote.payload.HistoryResponse
 
-class HistoryAdapter(
-    private val histories: List<HistoryResponse>
-) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
+class HistoryAdapter(private val historyList: List<HistoryResponse>) : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_history, parent, false)
-
-        return ViewHolder(itemView)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_history, parent, false)
+        return HistoryViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val history = histories[position]
+    override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
+        val history = historyList[position]
+        holder.bind(history)
 
-        holder.name.text = history.name
-        Glide.with(holder.itemView.context)
-            .load(history.imageUrl)
-            .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
-            .into(holder.image)
+        holder.itemView.setOnClickListener {
+
+            val intent = Intent(holder.itemView.context, DetailHistoryActivity::class.java)
+            val controls=history.controls
+            val controlsString = when (controls) {
+                is ArrayList<*> -> {
+                    val controlList = controls as? ArrayList<String>
+                    controlList?.joinToString("\n") ?: ""
+                }
+                is String -> controls
+                else -> ""
+            }
+
+            val symptoms=history.symptoms
+            val symptomsString = when (symptoms) {
+                is ArrayList<*> -> {
+                    val symptomsList = symptoms as? ArrayList<String>
+                    symptomsList?.joinToString("\n") ?: ""
+                }
+                is String -> symptoms
+                else -> ""
+            }
+
+            intent.putExtra("LABEL", history.label)
+            intent.putExtra("NAME", history.name)
+            intent.putExtra("CONTROLS", controlsString)
+            intent.putExtra("SYMPTOMS",symptomsString)
+            intent.putExtra("IMAGE_URL", history.imageUrl)
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
-    override fun getItemCount(): Int {
-        return histories.size
-    }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.findViewById(R.id.tv_disease_name_history)
-        val image: ImageView = itemView.findViewById(R.id.img_item_history)
+
+    override fun getItemCount() = historyList.size
+
+    class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val tvLabel: TextView = itemView.findViewById(R.id.tv_disease_name_history)
+        private val img : ImageView =itemView.findViewById(R.id.img_item_history)
+
+
+        fun bind(history: HistoryResponse) {
+            tvLabel.text = history.label
+            Glide.with(itemView.context)
+                .load(history.imageUrl)
+                .into(img)
+        }
     }
 }

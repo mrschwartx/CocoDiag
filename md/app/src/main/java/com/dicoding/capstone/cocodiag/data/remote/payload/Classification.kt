@@ -1,7 +1,7 @@
 package com.dicoding.capstone.cocodiag.data.remote.payload
 
 import com.google.gson.annotations.SerializedName
-import java.io.File
+
 
 data class ClassificationResponse(
     @field:SerializedName("accuracy")
@@ -48,14 +48,14 @@ data class HistoryResponse(
     val name: String,
 
     @field:SerializedName("symptoms")
-    val symptoms: List<String>,
+    val symptoms: Any,
 
     @field:SerializedName("controls")
-    val controls: List<String>,
+    val controls: Any,
 
     @field:SerializedName("created_at")
     val createdAt: Long,
 
     @field:SerializedName("image_url")
-    val imageUrl: String,
+    val imageUrl: String
 )
