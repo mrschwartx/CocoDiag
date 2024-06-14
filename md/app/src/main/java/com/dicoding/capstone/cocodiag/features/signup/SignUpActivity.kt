@@ -8,6 +8,7 @@ import com.dicoding.capstone.cocodiag.MainActivity
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.InputValidator
 import com.dicoding.capstone.cocodiag.common.ResultState
+import com.dicoding.capstone.cocodiag.common.showNoInternetDialog
 import com.dicoding.capstone.cocodiag.common.showToast
 import com.dicoding.capstone.cocodiag.data.local.model.UserModel
 import com.dicoding.capstone.cocodiag.data.remote.payload.CreateUserParam
@@ -30,6 +31,7 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        checkNetwork()
 
         binding.btnSignUp.setOnClickListener {
             val name = binding.edName.text.toString()
@@ -171,6 +173,14 @@ class SignUpActivity : AppCompatActivity() {
         } else {
             binding.btnSignUp.text = getString(R.string.sign_up_title)
             binding.btnSignUp.isEnabled = true
+        }
+    }
+
+    private fun checkNetwork() {
+        viewModel.isOnline.observe(this) {
+            if (!it) showNoInternetDialog(this) { dialog, which ->
+                checkNetwork()
+            }
         }
     }
 }

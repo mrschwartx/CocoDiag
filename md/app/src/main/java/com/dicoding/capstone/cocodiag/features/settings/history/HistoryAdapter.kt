@@ -49,7 +49,7 @@ class HistoryAdapter(private val historyList: List<HistoryResponse>) : RecyclerV
             intent.putExtra("NAME", history.name)
             intent.putExtra("CONTROLS", controlsString)
             intent.putExtra("SYMPTOMS",symptomsString)
-            intent.putExtra("IMAGE_URL", history.imageUrl)
+            intent.putExtra("IM  bb                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          AGE_URL", history.imageUrl)
             holder.itemView.context.startActivity(intent)
         }
     }

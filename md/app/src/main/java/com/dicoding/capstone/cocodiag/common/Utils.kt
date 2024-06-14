@@ -1,6 +1,8 @@
 package com.dicoding.capstone.cocodiag.common
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -8,6 +10,7 @@ import android.os.Environment
 import android.util.Base64
 import android.util.Log
 import android.widget.Toast
+import com.dicoding.capstone.cocodiag.R
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -17,9 +20,38 @@ import java.util.Locale
 
 private val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
 
-// Toast message
 fun showToast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+}
+
+fun showNoInternetDialog(
+    context: Context,
+    onRetry: (dialog: DialogInterface, which: Int) -> Unit,
+) {
+    val dialog = AlertDialog.Builder(context)
+        .setIcon(R.drawable.ic_no_wifi)
+        .setTitle("No Internet Connection")
+        .setMessage("Please check your internet connection and try again.")
+        .setPositiveButton("Retry", onRetry)
+        .create()
+
+    dialog.show()
+}
+
+fun showErrorMessageDialog(
+    context: Context,
+    title: String,
+    message: String,
+    onCancel: (dialog: DialogInterface, which: Int) -> Unit
+) {
+    val dialog = AlertDialog.Builder(context)
+        .setIcon(R.drawable.ic_close_circle)
+        .setTitle(title)
+        .setMessage(message)
+        .setPositiveButton("OK", onCancel)
+        .create()
+
+    dialog.show()
 }
 
 fun uriToFile(imageUri: Uri, context: Context): File {

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.dicoding.capstone.cocodiag.data.local.UserPreference
 import com.dicoding.capstone.cocodiag.data.repository.AuthRepository
 import com.dicoding.capstone.cocodiag.data.repository.ClassificationRepository
+import com.dicoding.capstone.cocodiag.data.repository.ConnectivityRepository
 import com.dicoding.capstone.cocodiag.data.repository.UserRepository
 import com.dicoding.capstone.cocodiag.dataStore
 import com.dicoding.capstone.cocodiag.di.Injection
@@ -19,17 +20,18 @@ class ViewModelFactory(
     private val authRepo: AuthRepository,
     private val userRepo: UserRepository,
     private val classRepo: ClassificationRepository,
-    private val userPref: UserPreference
+    private val userPref: UserPreference,
+    private val connectivity: ConnectivityRepository
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(SignUpViewModel::class.java) -> {
-                SignUpViewModel(authRepo, userPref) as T
+                SignUpViewModel(authRepo, userPref, connectivity) as T
             }
             modelClass.isAssignableFrom(SignInViewModel::class.java) -> {
-                SignInViewModel(authRepo, userPref) as T
+                SignInViewModel(authRepo, userPref, connectivity) as T
             }
             modelClass.isAssignableFrom(SettingsViewModel::class.java) -> {
                 SettingsViewModel(authRepo, userRepo, classRepo, userPref) as T
@@ -56,6 +58,7 @@ class ViewModelFactory(
                     Injection.provideUserRepository(context.dataStore),
                     Injection.provideClassificationRepository(context.dataStore),
                     Injection.provideUserPreference(context.dataStore),
+                    Injection.provideConnectivityRepository(context)
                 )
             }.also { instance = it }
     }
