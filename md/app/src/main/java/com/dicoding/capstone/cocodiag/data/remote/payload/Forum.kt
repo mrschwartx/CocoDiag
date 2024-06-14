@@ -10,21 +10,36 @@ data class AddForumParam(
     val postImage: String?,
 )
 
+data class ForumLatestPostResponse(
+    @field:SerializedName("forums")
+    val forums: List<ForumPostResponse>
+)
+
 data class ForumPostResponse(
     @field:SerializedName("post_id")
     val postId: String,
 
-    @field:SerializedName("post_image")
-    val post: String,
+    @field:SerializedName("post_text")
+    val postText: String,
 
     @field:SerializedName("post_image")
     val postImage: String?,
 
-    @field:SerializedName("like_count")
-    val likeCount: Long,
+    @field:SerializedName("count_like")
+    val countLike: Long,
 
-    @field:SerializedName("comments")
-    val comments: List<CommentResponse>?,
+    @field:SerializedName("count_comment")
+    val countComment: Long,
+
+    @field:SerializedName("created_at")
+    val createdAt: Long,
+
+    @field:SerializedName("updated_at")
+    val updatedAt: Long,
+
+
+//    @field:SerializedName("comments")
+//    val comments: List<CommentResponse>?,
 
     @field:SerializedName("user_id")
     val userId: String

@@ -15,7 +15,6 @@ import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.common.convertBase64ToBitmap
 import com.dicoding.capstone.cocodiag.common.setBottomNavBar
 import com.dicoding.capstone.cocodiag.common.showToast
-import com.dicoding.capstone.cocodiag.data.dummy.dummyForumStatus
 import com.dicoding.capstone.cocodiag.databinding.ActivityForumBinding
 import com.dicoding.capstone.cocodiag.features.ViewModelFactory
 
@@ -35,13 +34,8 @@ class ForumActivity : AppCompatActivity() {
         binding = ActivityForumBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setBottomNavBar(this@ForumActivity, binding.bottomNavigation, R.id.nav_forum)
-        setData()
-
-        val rv: RecyclerView = binding.rvForumStatus
-        rv.layoutManager = LinearLayoutManager(this)
-
-        val adapter = ForumStatusAdapter(dummyForumStatus)
-        rv.adapter = adapter
+        setCurrentUser()
+        setLatestPost()
 
 
         binding.fabAddPost.setOnClickListener {
@@ -51,7 +45,7 @@ class ForumActivity : AppCompatActivity() {
         }
     }
 
-    private fun setData() {
+    private fun setCurrentUser() {
         viewModel.findById().observe(this) { result ->
             when (result) {
                 is ResultState.Loading -> {
@@ -84,6 +78,26 @@ class ForumActivity : AppCompatActivity() {
             }
         }
     }
+
+
+    private fun setLatestPost() {
+        viewModel.findLatestPost().observe(this) { result ->
+            when (result) {
+                is ResultState.Loading -> {}
+
+                is ResultState.Error -> {}
+
+                is ResultState.Success -> {
+                    val rv: RecyclerView = binding.rvForumStatus
+                    val adapter = ForumPostAdapter(result.data)
+
+                    rv.layoutManager = LinearLayoutManager(this)
+                    rv.adapter = adapter
+                }
+            }
+        }
+    }
+
 
     private fun showProfileLoading(isLoading: Boolean) {
         binding.pbIvProfile.visibility = if (isLoading) View.VISIBLE else View.GONE

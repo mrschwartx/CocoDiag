@@ -6,17 +6,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.dicoding.capstone.cocodiag.R
-import com.dicoding.capstone.cocodiag.data.dummy.ForumStatus
+import com.dicoding.capstone.cocodiag.data.local.model.PostWithUserDetails
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 
-class ForumStatusAdapter(
-    private val statusList: List<ForumStatus>
-) : RecyclerView.Adapter<ForumStatusAdapter.ViewHolder>() {
+class ForumPostAdapter(
+    private val postList: List<PostWithUserDetails>
+) : RecyclerView.Adapter<ForumPostAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -25,34 +23,35 @@ class ForumStatusAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val status = statusList[position]
+        val data = postList[position]
 
-        holder.nameText.text = status.name
-        holder.emailText.text = status.email
-        Glide.with(holder.itemView.context)
-            .load(status.profileImage)
-            .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
-            .into(holder.profileImage)
+        holder.nameText.text = data.user.name
+        holder.emailText.text = data.user.email
+//        Glide.with(holder.itemView.context)
+//            .load(status.profileImage)
+//            .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
+//            .into(holder.profileImage)
 
-        if (status.imageContent != null) {
-            Glide.with(holder.itemView.context)
-                .load(status.imageContent)
-                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
-                .into(holder.statusImage)
-        }
-        holder.statusText.text = status.textContent
-        holder.likeText.text = "${status.likeCount} likes"
-        holder.commentText.text = "${status.commentCount} comments"
+//        if (status.imageContent != null) {
+//            Glide.with(holder.itemView.context)
+//                .load(status.imageContent)
+//                .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
+//                .into(holder.statusImage)
+//        }
+        holder.statusText.text = data.post.postText
+        holder.likeText.text = "${data.post.countLike} likes"
+        holder.commentText.text = "${data.post.countComment} comments"
 
-        status.createdAt?.let { createdAt ->
-            val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.getDefault())
-            val formattedDate = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault()).format(createdAt)
+        data.post.createdAt.let { createdAt ->
+            val date = Date(createdAt * 1000L)
+            val sdf = SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.getDefault())
+            val formattedDate = sdf.format(date)
             holder.createdAtText.text = formattedDate
         }
     }
 
     override fun getItemCount(): Int {
-        return statusList.size
+        return postList.size
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -47,7 +47,6 @@
                 android:id="@+id/imageContainer"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_120sdp"
-                android:layout_marginStart="@dimen/_14sdp"
                 android:layout_below="@+id/subtitle_main">
 
                 <LinearLayout
@@ -60,6 +59,7 @@
                         android:layout_width="@dimen/_120sdp"
                         android:layout_height="@dimen/_120sdp"
                         android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginStart="@dimen/_14sdp"
                         android:background="@drawable/penyakit1"
                         android:contentDescription="penyakit1" />
 

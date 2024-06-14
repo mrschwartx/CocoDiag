@@ -7,11 +7,12 @@ import com.dicoding.capstone.cocodiag.data.local.UserPreference
 import com.dicoding.capstone.cocodiag.data.repository.AuthRepository
 import com.dicoding.capstone.cocodiag.data.repository.ClassificationRepository
 import com.dicoding.capstone.cocodiag.data.repository.ConnectivityRepository
+import com.dicoding.capstone.cocodiag.data.repository.ForumRepository
 import com.dicoding.capstone.cocodiag.data.repository.UserRepository
-import com.dicoding.capstone.cocodiag.features.main.dataStore
 import com.dicoding.capstone.cocodiag.di.Injection
 import com.dicoding.capstone.cocodiag.features.classification.ClassificationViewModel
 import com.dicoding.capstone.cocodiag.features.forum.ForumViewModel
+import com.dicoding.capstone.cocodiag.features.main.dataStore
 import com.dicoding.capstone.cocodiag.features.settings.SettingsViewModel
 import com.dicoding.capstone.cocodiag.features.signin.SignInViewModel
 import com.dicoding.capstone.cocodiag.features.signup.SignUpViewModel
@@ -21,6 +22,7 @@ class ViewModelFactory(
     private val authRepo: AuthRepository,
     private val userRepo: UserRepository,
     private val classRepo: ClassificationRepository,
+    private val forumRepo: ForumRepository,
     private val userPref: UserPreference,
     private val connectivity: ConnectivityRepository
 ) : ViewModelProvider.NewInstanceFactory() {
@@ -44,7 +46,7 @@ class ViewModelFactory(
                 ClassificationViewModel(classRepo, userPref) as T
             }
             modelClass.isAssignableFrom(ForumViewModel::class.java) -> {
-                ForumViewModel(userRepo, userPref) as T
+                ForumViewModel(userRepo, forumRepo, userPref) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
@@ -61,6 +63,7 @@ class ViewModelFactory(
                     Injection.provideAuthRepository(),
                     Injection.provideUserRepository(context.dataStore),
                     Injection.provideClassificationRepository(context.dataStore),
+                    Injection.provideForumRepository(context.dataStore),
                     Injection.provideUserPreference(context.dataStore),
                     Injection.provideConnectivityRepository(context)
                 )
