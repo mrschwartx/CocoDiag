@@ -133,11 +133,20 @@
                     android:textStyle="bold"
                     android:layout_margin="@dimen/_10sdp"
                     android:textSize="@dimen/_14ssp"/>
+                <TextView
+                    android:id="@+id/tv_signout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sign_out"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:textSize="@dimen/_14ssp"/>
             </LinearLayout>
         </RelativeLayout>
 
     </ScrollView>
-        
+
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

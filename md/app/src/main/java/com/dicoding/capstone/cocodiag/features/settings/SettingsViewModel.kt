@@ -82,4 +82,12 @@ class SettingsViewModel(
         }
         return user
     }
+
+    fun signOut(): Boolean {
+        runBlocking {
+            userPref.setSignOut()
+        }
+        val currentUser = getUser()
+        if (currentUser.isSigned) return false else return true
+    }
 }

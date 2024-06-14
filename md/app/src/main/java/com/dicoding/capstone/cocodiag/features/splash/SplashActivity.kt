@@ -4,14 +4,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.dicoding.capstone.cocodiag.MainActivity
 import com.dicoding.capstone.cocodiag.databinding.ActivitySplashBinding
+import com.dicoding.capstone.cocodiag.features.ViewModelFactory
 import com.dicoding.capstone.cocodiag.features.signin.SignInActivity
+import com.dicoding.capstone.cocodiag.features.signup.SignUpViewModel
 
 class SplashActivity : AppCompatActivity() {
 
     private val duration: Long = 3000
     private lateinit var binding: ActivitySplashBinding
+
+    private val viewModel by viewModels<SplashViewModel> {
+        ViewModelFactory.getInstance(applicationContext)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +36,15 @@ class SplashActivity : AppCompatActivity() {
 
     private val splashRunnable = Runnable {
         if (!isFinishing) {
-            val intent = Intent(this@SplashActivity, SignInActivity::class.java)
-            startActivity(intent)
-            finish()
+            if (viewModel.isSignIn()) {
+                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                val intent = Intent(this@SplashActivity, SignInActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
     }
 }

@@ -2,15 +2,22 @@ package com.dicoding.capstone.cocodiag.features.settings
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.setBottomNavBar
 import com.dicoding.capstone.cocodiag.databinding.ActivitySettingsBinding
+import com.dicoding.capstone.cocodiag.features.ViewModelFactory
 import com.dicoding.capstone.cocodiag.features.settings.history.HistoryActivity
+import com.dicoding.capstone.cocodiag.features.signin.SignInActivity
 
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingsBinding
+
+    private val viewModel by viewModels<SettingsViewModel> {
+        ViewModelFactory.getInstance(applicationContext)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +42,13 @@ class SettingsActivity : AppCompatActivity() {
         binding.tvAbout.setOnClickListener {
             val intent=Intent(this,AboutActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.tvSignout.setOnClickListener {
+            if(viewModel.signOut()) {
+                val intent = Intent(this, SignInActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 }

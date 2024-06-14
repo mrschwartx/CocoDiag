@@ -18,6 +18,7 @@ import com.dicoding.capstone.cocodiag.data.local.model.UserModel
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInParam
 import com.dicoding.capstone.cocodiag.databinding.ActivitySignInBinding
 import com.dicoding.capstone.cocodiag.features.ViewModelFactory
+import com.dicoding.capstone.cocodiag.features.classification.CameraActivity
 import com.dicoding.capstone.cocodiag.features.signup.SignUpActivity
 
 class SignInActivity : AppCompatActivity() {
@@ -49,6 +50,12 @@ class SignInActivity : AppCompatActivity() {
 
         signUpGoogle()
         navigateToSignUp()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this@SignInActivity, SignInActivity::class.java))
+        finish()
     }
 
     private fun signIn(param: SignInParam) {

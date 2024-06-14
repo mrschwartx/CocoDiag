@@ -15,6 +15,7 @@ import com.dicoding.capstone.cocodiag.features.forum.ForumViewModel
 import com.dicoding.capstone.cocodiag.features.settings.SettingsViewModel
 import com.dicoding.capstone.cocodiag.features.signin.SignInViewModel
 import com.dicoding.capstone.cocodiag.features.signup.SignUpViewModel
+import com.dicoding.capstone.cocodiag.features.splash.SplashViewModel
 
 class ViewModelFactory(
     private val authRepo: AuthRepository,
@@ -27,6 +28,9 @@ class ViewModelFactory(
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
+            modelClass.isAssignableFrom(SplashViewModel::class.java) -> {
+                SplashViewModel(userPref) as T
+            }
             modelClass.isAssignableFrom(SignUpViewModel::class.java) -> {
                 SignUpViewModel(authRepo, userPref, connectivity) as T
             }

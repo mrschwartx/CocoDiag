@@ -51,15 +51,27 @@ class UserPreference private constructor(
         }
     }
 
-    fun getPassword():Flow<String?>{
+    fun getPassword(): Flow<String?>{
         return dataStore.data.map { pref ->
             pref[PASSWORD_KEY]?:""
         }
     }
 
-    fun getEmail():Flow<String?>{
+    fun getEmail(): Flow<String?>{
         return dataStore.data.map { pref ->
             pref[EMAIL_KEY]?:""
+        }
+    }
+
+    suspend fun setSignOut() {
+        dataStore.edit { pref ->
+            pref[STATE_KEY] = false
+        }
+    }
+
+    fun getState(): Flow<Boolean?> {
+        return dataStore.data.map { pref ->
+            pref[STATE_KEY] ?: false
         }
     }
 
