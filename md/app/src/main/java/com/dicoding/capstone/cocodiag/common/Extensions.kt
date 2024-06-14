@@ -1,5 +1,6 @@
 package com.dicoding.capstone.cocodiag.common
 
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -26,26 +27,30 @@ fun AppCompatActivity.setBottomNavBar(
     @IdRes itemId: Int,
 ) {
     bottomNavView.apply {
+        val options=ActivityOptions.makeSceneTransitionAnimation(
+            this@setBottomNavBar
+        )
+
         selectedItemId = itemId
         setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
-                    startActivity(Intent(context, MainActivity::class.java))
+                    startActivity(Intent(context, MainActivity::class.java),options.toBundle())
                     true
                 }
 
                 R.id.nav_camera -> {
-                    startActivity(Intent(context, CameraActivity::class.java))
+                    startActivity(Intent(context, CameraActivity::class.java),options.toBundle())
                     true
                 }
 
                 R.id.nav_forum -> {
-                    startActivity(Intent(context, ForumActivity::class.java))
+                    startActivity(Intent(context, ForumActivity::class.java),options.toBundle())
                     true
                 }
 
                 R.id.nav_setting -> {
-                    startActivity(Intent(context, SettingsActivity::class.java))
+                    startActivity(Intent(context, SettingsActivity::class.java),options.toBundle())
                     true
                 }
 

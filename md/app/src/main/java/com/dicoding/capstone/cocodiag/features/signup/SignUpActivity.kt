@@ -1,7 +1,9 @@
 package com.dicoding.capstone.cocodiag.features.signup
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.util.Pair
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.capstone.cocodiag.features.main.MainActivity
@@ -121,9 +123,13 @@ class SignUpActivity : AppCompatActivity() {
     private fun navigateToSignIn() {
         val textSignUp = binding.tvSignIn
         textSignUp.setOnClickListener {
+            val options= ActivityOptions.makeSceneTransitionAnimation(
+                this,
+                Pair(textSignUp,"tv_transition"),
+                Pair(binding.layoutTransitionSignup,"field_transition"),
+            )
             val intent = Intent(this@SignUpActivity, SignInActivity::class.java)
-            startActivity(intent)
-            finish()
+            startActivity(intent,options.toBundle())
         }
     }
 

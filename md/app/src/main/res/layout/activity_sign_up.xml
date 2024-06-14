@@ -46,6 +46,8 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/layout_transition_signup"
+                android:transitionName="field_transition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -231,7 +233,8 @@
                     android:paddingBottom="@dimen/_40sdp"
                     android:text="@string/sign_in_title"
                     android:textSize="@dimen/_16ssp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:transitionName="tv_transition"/>
             </LinearLayout>
 
         </ScrollView>
