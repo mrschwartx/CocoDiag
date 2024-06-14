@@ -1,4 +1,4 @@
-package com.dicoding.capstone.cocodiag.features.price
+package com.dicoding.capstone.cocodiag.features.main.price
 
 import android.view.LayoutInflater
 import android.view.View

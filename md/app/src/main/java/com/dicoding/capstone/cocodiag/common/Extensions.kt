@@ -9,7 +9,7 @@ import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.exifinterface.media.ExifInterface
-import com.dicoding.capstone.cocodiag.MainActivity
+import com.dicoding.capstone.cocodiag.features.main.MainActivity
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.features.classification.CameraActivity
 import com.dicoding.capstone.cocodiag.features.forum.ForumActivity

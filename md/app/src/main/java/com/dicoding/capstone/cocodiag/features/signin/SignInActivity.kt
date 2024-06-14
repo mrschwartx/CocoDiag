@@ -1,13 +1,10 @@
 package com.dicoding.capstone.cocodiag.features.signin
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.dicoding.capstone.cocodiag.MainActivity
+import com.dicoding.capstone.cocodiag.features.main.MainActivity
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.InputValidator
 import com.dicoding.capstone.cocodiag.common.ResultState
@@ -18,7 +15,6 @@ import com.dicoding.capstone.cocodiag.data.local.model.UserModel
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInParam
 import com.dicoding.capstone.cocodiag.databinding.ActivitySignInBinding
 import com.dicoding.capstone.cocodiag.features.ViewModelFactory
-import com.dicoding.capstone.cocodiag.features.classification.CameraActivity
 import com.dicoding.capstone.cocodiag.features.signup.SignUpActivity
 
 class SignInActivity : AppCompatActivity() {

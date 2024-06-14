@@ -58,7 +58,7 @@
             android:name=".features.classification.CameraActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".features.main.MainActivity"
             android:exported="false" />
         <activity
             android:name=".features.signup.SignUpActivity"

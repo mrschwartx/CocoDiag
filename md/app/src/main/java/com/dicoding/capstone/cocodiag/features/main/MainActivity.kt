@@ -1,4 +1,4 @@
-package com.dicoding.capstone.cocodiag
+package com.dicoding.capstone.cocodiag.features.main
 
 import android.content.Context
 import android.os.Bundle
@@ -10,6 +10,8 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
+import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.setBottomNavBar
 import com.dicoding.capstone.cocodiag.data.local.UserPreference
 import com.dicoding.capstone.cocodiag.data.local.model.ArticleModel
@@ -17,8 +19,8 @@ import com.dicoding.capstone.cocodiag.data.remote.ApiConfig
 import com.dicoding.capstone.cocodiag.data.remote.ApiService
 import com.dicoding.capstone.cocodiag.databinding.ActivityMainBinding
 import com.dicoding.capstone.cocodiag.features.article.ArticleAdapter
-import com.dicoding.capstone.cocodiag.features.price.PriceAdapter
-import com.dicoding.capstone.cocodiag.features.price.PriceItem
+import com.dicoding.capstone.cocodiag.features.main.price.PriceAdapter
+import com.dicoding.capstone.cocodiag.features.main.price.PriceItem
 import kotlinx.coroutines.launch
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_preferences")
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var apiService: ApiService
+    private lateinit var viewPager: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

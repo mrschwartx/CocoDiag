@@ -6,11 +6,10 @@ import android.os.Handler
 import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.dicoding.capstone.cocodiag.MainActivity
+import com.dicoding.capstone.cocodiag.features.main.MainActivity
 import com.dicoding.capstone.cocodiag.databinding.ActivitySplashBinding
 import com.dicoding.capstone.cocodiag.features.ViewModelFactory
 import com.dicoding.capstone.cocodiag.features.signin.SignInActivity
-import com.dicoding.capstone.cocodiag.features.signup.SignUpViewModel
 
 class SplashActivity : AppCompatActivity() {
 

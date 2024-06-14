@@ -1,4 +1,4 @@
-package com.dicoding.capstone.cocodiag.features.price
+package com.dicoding.capstone.cocodiag.features.main.price
 
 data class PriceItem(
     val date : String,

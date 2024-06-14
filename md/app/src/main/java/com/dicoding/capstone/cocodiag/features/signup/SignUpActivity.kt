@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.dicoding.capstone.cocodiag.MainActivity
+import com.dicoding.capstone.cocodiag.features.main.MainActivity
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.InputValidator
 import com.dicoding.capstone.cocodiag.common.ResultState

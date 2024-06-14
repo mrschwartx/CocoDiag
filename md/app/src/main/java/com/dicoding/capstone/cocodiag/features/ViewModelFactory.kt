@@ -8,7 +8,7 @@ import com.dicoding.capstone.cocodiag.data.repository.AuthRepository
 import com.dicoding.capstone.cocodiag.data.repository.ClassificationRepository
 import com.dicoding.capstone.cocodiag.data.repository.ConnectivityRepository
 import com.dicoding.capstone.cocodiag.data.repository.UserRepository
-import com.dicoding.capstone.cocodiag.dataStore
+import com.dicoding.capstone.cocodiag.features.main.dataStore
 import com.dicoding.capstone.cocodiag.di.Injection
 import com.dicoding.capstone.cocodiag.features.classification.ClassificationViewModel
 import com.dicoding.capstone.cocodiag.features.forum.ForumViewModel
