@@ -9,6 +9,8 @@ import android.net.Uri
 import android.os.Environment
 import android.util.Base64
 import android.util.Log
+import android.view.Gravity
+import android.widget.TextView
 import android.widget.Toast
 import com.dicoding.capstone.cocodiag.R
 import java.io.ByteArrayOutputStream
@@ -28,10 +30,14 @@ fun showNoInternetDialog(
     context: Context,
     onRetry: (dialog: DialogInterface, which: Int) -> Unit,
 ) {
+    val view = TextView(context).apply {
+        text = "Please check your internet connection and try again."
+        gravity = Gravity.CENTER_VERTICAL
+    }
     val dialog = AlertDialog.Builder(context)
         .setIcon(R.drawable.ic_no_wifi)
         .setTitle("No Internet Connection")
-        .setMessage("Please check your internet connection and try again.")
+        .setView(view)
         .setPositiveButton("Retry", onRetry)
         .create()
 
@@ -44,10 +50,15 @@ fun showErrorMessageDialog(
     message: String,
     onCancel: (dialog: DialogInterface, which: Int) -> Unit
 ) {
+    val view = TextView(context).apply {
+        text = message
+        gravity = Gravity.CENTER_VERTICAL
+    }
+
     val dialog = AlertDialog.Builder(context)
         .setIcon(R.drawable.ic_close_circle)
         .setTitle(title)
-        .setMessage(message)
+        .setView(view)
         .setPositiveButton("OK", onCancel)
         .create()
 

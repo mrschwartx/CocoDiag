@@ -11,6 +11,7 @@ import com.dicoding.capstone.cocodiag.MainActivity
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.InputValidator
 import com.dicoding.capstone.cocodiag.common.ResultState
+import com.dicoding.capstone.cocodiag.common.showErrorMessageDialog
 import com.dicoding.capstone.cocodiag.common.showNoInternetDialog
 import com.dicoding.capstone.cocodiag.common.showToast
 import com.dicoding.capstone.cocodiag.data.local.model.UserModel
@@ -59,7 +60,14 @@ class SignInActivity : AppCompatActivity() {
 
                 is ResultState.Error -> {
                     setDisableBtnSignIn(false)
-                    showToast(this, result.error.message)
+                    if (result.error.message == "INVALID_LOGIN_CREDENTIALS") {
+                        showErrorMessageDialog(
+                            context = this,
+                            title = "Invalid Login Credentials",
+                            message = "Email or password is wrong",
+                        )    { dialog, _ -> dialog.dismiss() }
+                    } else
+                        showToast(this, result.error.message)
                 }
 
                 is ResultState.Success -> {
