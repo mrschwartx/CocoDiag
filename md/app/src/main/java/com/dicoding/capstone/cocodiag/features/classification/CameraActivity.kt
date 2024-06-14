@@ -187,8 +187,11 @@ class CameraActivity : AppCompatActivity() {
                         }
 
                         is ResultState.Error -> {
-                            showToast(this, result.error.message)
+                            val moveIntent = Intent(this@CameraActivity, CameraActivity::class.java)
+                            startActivity(moveIntent)
+                            finish()
                             showLoading(false)
+                            showToast(this, result.error.message)
                         }
 
                         is ResultState.Success -> {

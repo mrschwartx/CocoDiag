@@ -66,8 +66,16 @@ class HistoryAdapter(private val historyList: List<HistoryResponse>) : RecyclerV
         fun bind(history: HistoryResponse) {
             tvLabel.text = history.label
             Glide.with(itemView.context)
-                .load(history.imageUrl)
+                .load(reRouteImage(history.imageUrl))
                 .into(img)
+        }
+
+        private fun reRouteImage(url: String): String {
+            val baseUrl = "https://firebasestorage.googleapis.com/v0/b/cocodiag.appspot.com/o/uploads%2F"
+            val altParam = "?alt=media"
+            val path = url.replace("https://storage.googleapis.com/cocodiag.appspot.com/uploads/", "")
+            val pathEncoded = path.replace("/", "%2F")
+            return "$baseUrl$pathEncoded$altParam"
         }
     }
 }
