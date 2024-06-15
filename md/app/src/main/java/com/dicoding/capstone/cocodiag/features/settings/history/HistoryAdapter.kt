@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.capstone.cocodiag.R
+import com.dicoding.capstone.cocodiag.common.getAuthenticatedGlideUrl
 import com.dicoding.capstone.cocodiag.data.remote.payload.HistoryResponse
 
 class HistoryAdapter(
@@ -18,7 +19,7 @@ class HistoryAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_history, parent, false)
-        return HistoryViewHolder(view)
+        return HistoryViewHolder(view, token)
     }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
@@ -61,24 +62,16 @@ class HistoryAdapter(
 
     override fun getItemCount() = historyList.size
 
-    class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class HistoryViewHolder(itemView: View, token: String) : RecyclerView.ViewHolder(itemView) {
         private val tvLabel: TextView = itemView.findViewById(R.id.tv_disease_name_history)
         private val img : ImageView =itemView.findViewById(R.id.img_item_history)
-
+        private val jwt = token
 
         fun bind(history: HistoryResponse) {
             tvLabel.text = history.label
             Glide.with(itemView.context)
-                .load(reRouteImage(history.imageUrl))
+                .load(getAuthenticatedGlideUrl(history.imageUrl, jwt))
                 .into(img)
-        }
-
-        private fun reRouteImage(url: String): String {
-            val baseUrl = "https://firebasestorage.googleapis.com/v0/b/cocodiag.appspot.com/o/uploads%2F"
-            val altParam = "?alt=media"
-            val path = url.replace("https://storage.googleapis.com/cocodiag.appspot.com/uploads/", "")
-            val pathEncoded = path.replace("/", "%2F")
-            return "$baseUrl$pathEncoded$altParam"
         }
     }
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.data.local.UserPreference
 import com.dicoding.capstone.cocodiag.data.local.model.PostWithUserDetails
+import com.dicoding.capstone.cocodiag.data.local.model.UserModel
 import com.dicoding.capstone.cocodiag.data.remote.payload.ForumPostResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.UserResponse
 import com.dicoding.capstone.cocodiag.data.repository.ForumRepository
@@ -30,6 +31,14 @@ class ForumViewModel(
 
     fun addPost(postText: String, postImage: File?): LiveData<ResultState<ForumPostResponse>> {
         return forumRepository.addPost(postText, postImage)
+    }
+
+    fun getUser(): UserModel {
+        val user = runBlocking {
+            userPref.getUser().first()
+        }
+
+        return user
     }
 
     private fun getUserId(): String {

@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.capstone.cocodiag.R
+import com.dicoding.capstone.cocodiag.common.getAuthenticatedGlideUrl
 import com.dicoding.capstone.cocodiag.data.local.model.PostWithUserDetails
 import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
@@ -17,7 +18,8 @@ import java.util.Date
 import java.util.Locale
 
 class ForumPostAdapter(
-    private val postList: List<PostWithUserDetails>
+    private val postList: List<PostWithUserDetails>,
+    private val token: String
 ) : RecyclerView.Adapter<ForumPostAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,14 +36,14 @@ class ForumPostAdapter(
 
         if (data.user.imageProfile != null) {
             Glide.with(holder.itemView.context)
-                .load(reRouteImageProfile(data.user.imageProfile))
+                .load(getAuthenticatedGlideUrl(data.user.imageProfile, token))
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
                 .into(holder.profileImage)
         }
 
         if (data.post.postImage != null) {
             Glide.with(holder.itemView.context)
-                .load(reRouteImagePost(data.post.postImage))
+                .load(getAuthenticatedGlideUrl(data.post.postImage, token))
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
                 .into(holder.statusImage)
             holder.statusImage.visibility = View.VISIBLE
@@ -63,23 +65,6 @@ class ForumPostAdapter(
 
     override fun getItemCount(): Int {
         return postList.size
-    }
-
-    private fun reRouteImageProfile(url: String): String {
-        val baseUrl =
-            "https://firebasestorage.googleapis.com/v0/b/cocodiag.appspot.com/o/profile%2F"
-        val altParam = "?alt=media"
-        val path = url.replace("https://storage.googleapis.com/cocodiag.appspot.com/profile/", "")
-        val pathEncoded = path.replace("/", "%2F")
-        return "$baseUrl$pathEncoded$altParam"
-    }
-
-    private fun reRouteImagePost(url: String): String {
-        val baseUrl = "https://firebasestorage.googleapis.com/v0/b/cocodiag.appspot.com/o/forums%2F"
-        val altParam = "?alt=media"
-        val path = url.replace("https://storage.googleapis.com/cocodiag.appspot.com/forums/", "")
-        val pathEncoded = path.replace("/", "%2F")
-        return "$baseUrl$pathEncoded$altParam"
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

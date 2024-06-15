@@ -8,11 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestOptions
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.ResultState
-import com.dicoding.capstone.cocodiag.common.convertBase64ToBitmap
+import com.dicoding.capstone.cocodiag.common.getAuthenticatedGlideUrl
 import com.dicoding.capstone.cocodiag.common.setBottomNavBar
 import com.dicoding.capstone.cocodiag.common.showToast
 import com.dicoding.capstone.cocodiag.databinding.ActivityForumBinding
@@ -68,17 +66,15 @@ class ForumActivity : AppCompatActivity() {
 
 
                     if (userImage != "") {
+                        val token = viewModel.getUser().token!!
                         Glide.with(this)
-                            .load(convertBase64ToBitmap(userImage))
-                            .apply(RequestOptions().centerCrop())
-                            .transition(DrawableTransitionOptions.withCrossFade())
+                            .load(getAuthenticatedGlideUrl(userImage, token))
                             .into(binding.ivProfile)
                     }
                 }
             }
         }
     }
-
 
     private fun setLatestPost() {
         viewModel.findLatestPost().observe(this) { result ->
@@ -88,8 +84,9 @@ class ForumActivity : AppCompatActivity() {
                 is ResultState.Error -> {}
 
                 is ResultState.Success -> {
+                    val token = viewModel.getUser().token!!
                     val rv: RecyclerView = binding.rvForumStatus
-                    val adapter = ForumPostAdapter(result.data)
+                    val adapter = ForumPostAdapter(result.data, token)
 
                     rv.layoutManager = LinearLayoutManager(this)
                     rv.adapter = adapter
