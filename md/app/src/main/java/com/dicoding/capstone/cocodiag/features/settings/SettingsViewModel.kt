@@ -17,6 +17,7 @@ import com.dicoding.capstone.cocodiag.data.repository.UserRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import okhttp3.ResponseBody
 
 class SettingsViewModel(
     private val authRepository: AuthRepository,
@@ -76,7 +77,7 @@ class SettingsViewModel(
         return userId ?: ""
     }
 
-    private fun getUser(): UserModel {
+    fun getUser(): UserModel {
         val user = runBlocking {
             userPref.getUser().first()
         }

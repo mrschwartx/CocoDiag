@@ -38,8 +38,13 @@ interface ApiService {
     @GET("/user/{user_id}")
     suspend fun findUserById(@Path("user_id") userId: String): UserResponse
 
+    @Multipart
     @PUT("/user")
-    suspend fun updateUser(@Body param: UpdateUserParam): UserResponse
+    suspend fun updateUser(
+        @Part("name") name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part imageProfile: MultipartBody.Part?
+    ): UserResponse
 
     @PUT("/user")
     suspend fun updatePassword(@Body param: UpdatePasswordParam): UserResponse
@@ -65,7 +70,6 @@ interface ApiService {
     @GET("getPrice")
     suspend fun getPrice(): PriceItem
 
-
     @GET("forum")
     suspend fun findLatestPost(): ForumLatestPostResponse
 
@@ -78,11 +82,4 @@ interface ApiService {
 
     @GET("forum/{post_id}")
     suspend fun findPostById(@Path("post_id") postId: String): ForumPostResponse
-
-
-    @GET("/image")
-    fun getImage(
-        @Header("Authorization") authHeader: String,
-        @Query("img_url") imgUrl: String
-    ): Call<ResponseBody>
 }

@@ -1,6 +1,8 @@
 package com.dicoding.capstone.cocodiag.data.remote.payload
 
+import android.graphics.Bitmap
 import com.google.gson.annotations.SerializedName
+import java.io.File
 
 
 data class UserResponse(
@@ -44,7 +46,7 @@ data class UpdateUserParam(
     val email: String,
 
     @field:SerializedName("imageProfile")
-    val imageProfile: String,
+    val imageProfile: File?,
 )
 
 data class UpdatePasswordParam(

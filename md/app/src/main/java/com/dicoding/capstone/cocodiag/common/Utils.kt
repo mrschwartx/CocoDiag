@@ -12,6 +12,8 @@ import android.util.Log
 import android.view.Gravity
 import android.widget.TextView
 import android.widget.Toast
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
 import com.dicoding.capstone.cocodiag.R
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -119,4 +121,9 @@ fun convertBase64ToBitmap(base64String: String): Bitmap? {
         e.printStackTrace()
         null
     }
+}
+
+fun getAuthenticatedGlideUrl(imageUrl: String, token: String): GlideUrl {
+    val url = "https://cocodiag-backend-api-3x4g34y3hq-et.a.run.app/image?img_url=$imageUrl"
+    return GlideUrl(url, LazyHeaders.Builder().addHeader("Authorization", "Bearer $token").build())
 }

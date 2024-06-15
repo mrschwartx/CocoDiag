@@ -29,7 +29,6 @@ data class ForumPostResponse(
     @field:SerializedName("updated_at")
     val updatedAt: Long,
 
-
 //    @field:SerializedName("comments")
 //    val comments: List<CommentResponse>?,
 

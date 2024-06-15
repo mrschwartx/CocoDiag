@@ -2,19 +2,27 @@ package com.dicoding.capstone.cocodiag.features.settings
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.LazyHeaders
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.InputValidator
 import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.common.convertBase64ToBitmap
 import com.dicoding.capstone.cocodiag.common.convertBitmapToBase64
+import com.dicoding.capstone.cocodiag.common.getAuthenticatedGlideUrl
 import com.dicoding.capstone.cocodiag.common.showToast
+import com.dicoding.capstone.cocodiag.common.uriToFile
 import com.dicoding.capstone.cocodiag.data.local.model.UserModel
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.UpdateUserParam
@@ -32,7 +40,8 @@ class EditProfileActivity : AppCompatActivity() {
 
     private lateinit var userName: String
     private lateinit var userEmail: String
-    private lateinit var userImage: String
+    private lateinit var userImageUrl: String
+    private var userImage: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,40 +60,32 @@ class EditProfileActivity : AppCompatActivity() {
         binding.btnSave.setOnClickListener {
             val name = binding.edName.text.toString()
             val email = binding.edEmail.text.toString()
-            val image = userImage
 
             if (validateInput(name, email)) {
-                updateData(UpdateUserParam(name, email, image))
+                if (userImage != null) {
+                    updateData(UpdateUserParam(name, email, uriToFile(userImage!!, this)))
+                } else {
+                    updateData(UpdateUserParam(name, email, null))
+                }
             }
         }
     }
 
 
     private fun setData() {
-        viewModel.findById().observe(this) { result ->
-            when(result) {
-                is ResultState.Loading -> {
-                    binding.edName.setText("...")
-                    binding.edEmail.setText("...")
-                }
+        val currentUser = viewModel.getUser()
+        userName = currentUser.name
+        userEmail = currentUser.email
+        userImageUrl = currentUser.imageProfile ?: ""
 
-                is ResultState.Error -> {
-                    showToast(this, result.error.message)
-                }
+        binding.edName.setText(userName)
+        binding.edEmail.setText(userEmail)
 
-                is ResultState.Success -> {
-                    userName = result.data.name
-                    userEmail = result.data.email
-                    userImage = result.data.imageProfile ?: ""
-
-                    binding.edName.setText(userName)
-                    binding.edEmail.setText(userEmail)
-
-                    if (userImage != "") {
-                        binding.ivEditProfile.setImageBitmap(convertBase64ToBitmap(userImage))
-                    }
-                }
-            }
+        if (userImageUrl != "") {
+            val token = viewModel.getUser().token!!
+            Glide.with(this)
+                .load(getAuthenticatedGlideUrl(userImageUrl, token))
+                .into(binding.ivEditProfile)
         }
     }
 
@@ -104,14 +105,9 @@ class EditProfileActivity : AppCompatActivity() {
                     setDisableBtnSave(false)
                     userName = result.data.name
                     userEmail = result.data.email
-                    userImage = result.data.imageProfile ?: ""
 
                     binding.edName.setText(userName)
                     binding.edEmail.setText(userEmail)
-
-                    if (userImage != "") {
-                        binding.ivEditProfile.setImageBitmap(convertBase64ToBitmap(userImage))
-                    }
 
                     reSignIn(SignInParam(userEmail, viewModel.getPasswordFromPreference()))
 
@@ -125,16 +121,14 @@ class EditProfileActivity : AppCompatActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == RESULT_OK) {
-            val savedUri = result.data?.data
-            savedUri?.let { uri ->
+            userImage = result.data?.data
+            userImage?.let { uri ->
                 val imageBitmap = if (Build.VERSION.SDK_INT < 28) {
                     MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
                 } else {
                     val src = ImageDecoder.createSource(this.contentResolver, uri)
                     ImageDecoder.decodeBitmap(src).copy(Bitmap.Config.RGBA_F16, true)
                 }
-
-                userImage = convertBitmapToBase64(imageBitmap)
                 binding.ivEditProfile.setImageBitmap(imageBitmap)
             }
         }

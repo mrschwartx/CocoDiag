@@ -1,6 +1,7 @@
 package com.dicoding.capstone.cocodiag.data.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.data.remote.ApiService
@@ -8,7 +9,13 @@ import com.dicoding.capstone.cocodiag.data.remote.payload.ErrorResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.UpdatePasswordParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.UpdateUserParam
 import com.google.gson.Gson
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.ResponseBody
 import retrofit2.HttpException
+import java.io.IOException
 
 class UserRepository private constructor(
     private val service: ApiService
@@ -30,9 +37,29 @@ class UserRepository private constructor(
     fun update(param: UpdateUserParam) = liveData {
         emit(ResultState.Loading)
         try {
-            val response = service.updateUser(param)
-            Log.d("userrepo-update", "$response")
-            emit(ResultState.Success(response))
+            if (param.imageProfile != null) {
+                val response = service.updateUser(
+                    param.name.toRequestBody("text/plain".toMediaType()),
+                    param.email.toRequestBody("text/plain".toMediaType()),
+                    MultipartBody.Part.createFormData(
+                        "imageProfile",
+                        param.imageProfile.name,
+                        param.imageProfile.asRequestBody("image/jpeg".toMediaType())
+                    )
+                )
+                Log.d("userrepo-update", "$response")
+
+                emit(ResultState.Success(response))
+            } else {
+                val response = service.updateUser(
+                    param.name.toRequestBody("text/plain".toMediaType()),
+                    param.email.toRequestBody("text/plain".toMediaType()),
+                    null
+                )
+                Log.d("userrepo-update", "$response")
+                emit(ResultState.Success(response))
+            }
+
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
             val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)

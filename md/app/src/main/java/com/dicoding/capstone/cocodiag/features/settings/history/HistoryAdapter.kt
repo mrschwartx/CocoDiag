@@ -11,7 +11,10 @@ import com.bumptech.glide.Glide
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.data.remote.payload.HistoryResponse
 
-class HistoryAdapter(private val historyList: List<HistoryResponse>) : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
+class HistoryAdapter(
+    private val historyList: List<HistoryResponse>,
+    private val token: String
+) : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_history, parent, false)
