@@ -27,8 +27,6 @@ class HistoryActivity : AppCompatActivity() {
         setData()
     }
 
-
-
     private fun setData() {
         viewModel.findHistory().observe(this) { result ->
             when(result) {
@@ -40,8 +38,10 @@ class HistoryActivity : AppCompatActivity() {
                 }
 
                 is ResultState.Success -> {
+                    val token = viewModel.getUser().token!!
+
                     val rv: RecyclerView = binding.rvHistory
-                    val adapter = HistoryAdapter(result.data.history)
+                    val adapter = HistoryAdapter(result.data.history, token)
 
                     rv.layoutManager = LinearLayoutManager(this)
                     rv.adapter = adapter
