@@ -8,9 +8,7 @@ import com.dicoding.capstone.cocodiag.data.remote.ApiService
 import com.dicoding.capstone.cocodiag.data.remote.payload.ErrorResponse
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.HttpException
@@ -46,7 +44,7 @@ class ForumRepository private constructor(
             if (postImage != null) {
                 val requestImageFile = postImage.asRequestBody("image/jpeg".toMediaType())
                 val multipartBody: MultipartBody.Part = MultipartBody.Part.createFormData(
-                    "post_image",
+                    "postImage",
                     postImage.name,
                     requestImageFile
                 )

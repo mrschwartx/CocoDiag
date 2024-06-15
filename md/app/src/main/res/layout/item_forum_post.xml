@@ -12,27 +12,17 @@
         android:layout_marginEnd="4dp"
         android:layout_marginTop="@dimen/_8sdp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_forum_post_profile"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_forum_post_profile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_profile"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:cardCornerRadius="@dimen/_25sdp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_forum_post_email"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_forum_post_name">
-
-            <ImageView
-                android:id="@+id/iv_forum_post_profile"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/image_profile"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toTopOf="@+id/tv_forum_post_name"/>
 
         <TextView
             android:id="@+id/tv_forum_post_name"
@@ -44,7 +34,7 @@
             android:textSize="@dimen/_16ssp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cv_forum_post_profile"
+            app:layout_constraintStart_toEndOf="@+id/iv_forum_post_profile"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -56,7 +46,7 @@
             android:text="@string/tv_email"
             android:textSize="@dimen/_11ssp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cv_forum_post_profile"
+            app:layout_constraintStart_toEndOf="@+id/iv_forum_post_profile"
             app:layout_constraintTop_toBottomOf="@+id/tv_forum_post_name" />
 
 
@@ -84,17 +74,26 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_forum_post_email" />
 
-            <ImageView
-                android:id="@+id/iv_forum_post_content"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
-                android:src="@drawable/ic_place_holder"
-                android:visibility="visible"
+                app:cardCornerRadius="@dimen/_16sdp"
+                app:cardElevation="0dp"
                 app:layout_constraintBottom_toTopOf="@id/hl1_forum_post"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_forum_post_content" />
+                app:layout_constraintTop_toBottomOf="@id/tv_forum_post_content">
+
+                <ImageView
+                    android:id="@+id/iv_forum_post_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_place_holder"
+                    android:scaleType="fitCenter"
+                    android:visibility="gone" />
+
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 

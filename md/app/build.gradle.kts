@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.androidx.camera.view)
 
     implementation(libs.glide)
+    implementation(libs.circleimageview)
     implementation(libs.lottie)
 
     implementation(libs.retrofit)
