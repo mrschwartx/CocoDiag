@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_sc_title" />
 
     <EditText
-        android:id="@+id/descriptionEditText"
+        android:id="@+id/et_post_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/_8sdp"
@@ -45,6 +45,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_sc_subtitle" />
+
+    <ImageView
+        android:id="@+id/iv_post_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:paddingTop="@dimen/_8sdp"
+        android:src="@drawable/ic_place_holder"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_post_text" />
 
     <LinearLayout
         android:layout_width="match_parent"

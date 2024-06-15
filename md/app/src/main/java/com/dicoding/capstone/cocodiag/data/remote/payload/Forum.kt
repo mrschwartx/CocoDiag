@@ -2,14 +2,6 @@ package com.dicoding.capstone.cocodiag.data.remote.payload
 
 import com.google.gson.annotations.SerializedName
 
-data class AddForumParam(
-    @field:SerializedName("post")
-    val post: String,
-
-    @field:SerializedName("post_image")
-    val postImage: String?,
-)
-
 data class ForumLatestPostResponse(
     @field:SerializedName("forums")
     val forums: List<ForumPostResponse>
