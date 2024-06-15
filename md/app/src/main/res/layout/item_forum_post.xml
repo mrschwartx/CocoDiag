@@ -13,19 +13,19 @@
         android:layout_marginTop="@dimen/_8sdp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_forum_post_profile"
+            android:id="@+id/iv_forum_user_profile"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:scaleType="centerCrop"
             android:src="@drawable/image_profile"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_forum_post_email"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_forum_user_email"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_forum_post_name"/>
+            app:layout_constraintTop_toTopOf="@+id/tv_forum_user_name" />
 
         <TextView
-            android:id="@+id/tv_forum_post_name"
+            android:id="@+id/tv_forum_user_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
@@ -34,11 +34,11 @@
             android:textSize="@dimen/_16ssp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_forum_post_profile"
+            app:layout_constraintStart_toEndOf="@+id/iv_forum_user_profile"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_forum_post_email"
+            android:id="@+id/tv_forum_user_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
@@ -46,8 +46,8 @@
             android:text="@string/tv_email"
             android:textSize="@dimen/_11ssp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_forum_post_profile"
-            app:layout_constraintTop_toBottomOf="@+id/tv_forum_post_name" />
+            app:layout_constraintStart_toEndOf="@+id/iv_forum_user_profile"
+            app:layout_constraintTop_toBottomOf="@+id/tv_forum_user_name" />
 
 
         <LinearLayout
@@ -57,10 +57,10 @@
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_forum_post_email">
+            app:layout_constraintTop_toBottomOf="@+id/tv_forum_user_email">
 
             <TextView
-                android:id="@+id/tv_forum_post_content"
+                android:id="@+id/tv_forum_post_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_8sdp"
@@ -72,7 +72,7 @@
                 android:textSize="@dimen/_11ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_forum_post_email" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_forum_user_email" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -83,10 +83,10 @@
                 app:layout_constraintBottom_toTopOf="@id/hl1_forum_post"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_forum_post_content">
+                app:layout_constraintTop_toBottomOf="@id/tv_forum_post_text">
 
                 <ImageView
-                    android:id="@+id/iv_forum_post_content"
+                    android:id="@+id/iv_forum_post_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_place_holder"

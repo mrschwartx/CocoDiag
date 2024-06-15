@@ -8,7 +8,7 @@
     tools:context=".features.forum.ForumActivity">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/iv_profile_card"
+        android:id="@+id/ct_current_profile"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="@dimen/_10sdp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="@+id/tv_sc_title">
 
         <ProgressBar
-            android:id="@+id/pb_iv_profile"
+            android:id="@+id/pb_current_profile"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/iv_profile"
+            android:id="@+id/iv_current_profile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/image_profile"
@@ -53,7 +53,7 @@
         android:textSize="@dimen/_16ssp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/tv_sc_subtitle"
-        app:layout_constraintEnd_toStartOf="@+id/iv_profile_card"
+        app:layout_constraintEnd_toStartOf="@+id/ct_current_profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,12 +64,12 @@
         android:layout_marginStart="8dp"
         android:text="@string/forum_subtitle"
         android:textSize="@dimen/_11ssp"
-        app:layout_constraintEnd_toStartOf="@+id/iv_profile_card"
+        app:layout_constraintEnd_toStartOf="@+id/ct_current_profile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_sc_title" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_forum_status"
+        android:id="@+id/rv_posts"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_8sdp"

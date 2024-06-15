@@ -13,6 +13,8 @@ import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.common.getAuthenticatedGlideUrl
 import com.dicoding.capstone.cocodiag.common.setBottomNavBar
 import com.dicoding.capstone.cocodiag.common.showToast
+import com.dicoding.capstone.cocodiag.data.local.model.PostWithUserDetails
+import com.dicoding.capstone.cocodiag.data.remote.payload.LikePostRequest
 import com.dicoding.capstone.cocodiag.databinding.ActivityForumBinding
 import com.dicoding.capstone.cocodiag.features.ViewModelFactory
 
@@ -26,6 +28,7 @@ class ForumActivity : AppCompatActivity() {
 
     private lateinit var userId: String
     private lateinit var userImage: String
+    private val posts = mutableListOf<PostWithUserDetails>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +37,6 @@ class ForumActivity : AppCompatActivity() {
         setBottomNavBar(this@ForumActivity, binding.bottomNavigation, R.id.nav_forum)
         setCurrentUser()
         setLatestPost()
-
 
         binding.fabAddPost.setOnClickListener {
             val moveIntent = Intent(this@ForumActivity, ForumAddActivity::class.java)
@@ -48,28 +50,27 @@ class ForumActivity : AppCompatActivity() {
             when (result) {
                 is ResultState.Loading -> {
                     showProfileLoading(true)
-                    binding.ivProfile.visibility = View.GONE
+                    binding.ivCurrentProfile.visibility = View.GONE
                 }
 
                 is ResultState.Error -> {
                     showProfileLoading(false)
-                    binding.ivProfile.visibility = View.VISIBLE
+                    binding.ivCurrentProfile.visibility = View.VISIBLE
                     showToast(this, result.error.message)
                 }
 
                 is ResultState.Success -> {
                     showProfileLoading(false)
-                    binding.ivProfile.visibility = View.VISIBLE
+                    binding.ivCurrentProfile.visibility = View.VISIBLE
 
                     userId = result.data.userId ?: ""
                     userImage = result.data.imageProfile ?: ""
-
 
                     if (userImage != "") {
                         val token = viewModel.getUser().token!!
                         Glide.with(this)
                             .load(getAuthenticatedGlideUrl(userImage, token))
-                            .into(binding.ivProfile)
+                            .into(binding.ivCurrentProfile)
                     }
                 }
             }
@@ -79,14 +80,28 @@ class ForumActivity : AppCompatActivity() {
     private fun setLatestPost() {
         viewModel.findLatestPost().observe(this) { result ->
             when (result) {
-                is ResultState.Loading -> {}
+                is ResultState.Loading -> {
+                    // TODO: implement animate
+                }
 
-                is ResultState.Error -> {}
+                is ResultState.Error -> {
+                    // TODO: implement dialog message
+                }
 
                 is ResultState.Success -> {
                     val token = viewModel.getUser().token!!
-                    val rv: RecyclerView = binding.rvForumStatus
-                    val adapter = ForumPostAdapter(result.data, token)
+                    val rv: RecyclerView = binding.rvPosts
+                    val adapter = ForumPostAdapter(result.data, token) { data ->
+                        viewModel.setLike(LikePostRequest(data.post.postId, true)).observe(this) {
+                            when (it) {
+                                is ResultState.Loading -> {}
+                                is ResultState.Error -> {}
+                                is ResultState.Success -> {
+                                    setLatestPost()
+                                }
+                            }
+                        }
+                    }
 
                     rv.layoutManager = LinearLayoutManager(this)
                     rv.adapter = adapter
@@ -95,8 +110,7 @@ class ForumActivity : AppCompatActivity() {
         }
     }
 
-
     private fun showProfileLoading(isLoading: Boolean) {
-        binding.pbIvProfile.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.pbCurrentProfile.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

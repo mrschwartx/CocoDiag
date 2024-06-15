@@ -8,22 +8,16 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.InputValidator
 import com.dicoding.capstone.cocodiag.common.ResultState
-import com.dicoding.capstone.cocodiag.common.convertBitmapToBase64
 import com.dicoding.capstone.cocodiag.common.setBottomNavBar
 import com.dicoding.capstone.cocodiag.common.uriToFile
 import com.dicoding.capstone.cocodiag.databinding.ActivityForumAddBinding
-import com.dicoding.capstone.cocodiag.databinding.ActivityForumBinding
 import com.dicoding.capstone.cocodiag.features.ViewModelFactory
-import com.dicoding.capstone.cocodiag.features.classification.CameraActivity
 
 class ForumAddActivity : AppCompatActivity() {
 
@@ -67,10 +61,15 @@ class ForumAddActivity : AppCompatActivity() {
                 val imageFile = uriToFile(uri, this)
                 viewModel.addPost(postText, imageFile).observe(this) { result ->
                     when (result) {
-                        is ResultState.Loading -> {}
-                        is ResultState.Error -> {}
+                        is ResultState.Loading -> {
+                            // TODO: implement animate
+                        }
+
+                        is ResultState.Error -> {
+                            // TODO: implement dialog message
+                        }
                         is ResultState.Success -> {
-                            val intent = Intent(this, ForumActivity::class.java)
+                            val intent = Intent(this@ForumAddActivity, ForumActivity::class.java)
                             startActivity(intent)
                             finish()
                         }
@@ -81,10 +80,15 @@ class ForumAddActivity : AppCompatActivity() {
         } else {
             viewModel.addPost(postText, null).observe(this) { result ->
                 when (result) {
-                    is ResultState.Loading -> {}
-                    is ResultState.Error -> {}
+                    is ResultState.Loading -> {
+                        // TODO: implement dialog message
+                    }
+
+                    is ResultState.Error -> {
+                        // TODO: implement dialog message
+                    }
                     is ResultState.Success -> {
-                        val intent = Intent(this, ForumActivity::class.java)
+                        val intent = Intent(this@ForumAddActivity, ForumActivity::class.java)
                         startActivity(intent)
                         finish()
                     }

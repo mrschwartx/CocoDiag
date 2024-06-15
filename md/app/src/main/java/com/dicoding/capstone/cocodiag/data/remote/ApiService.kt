@@ -6,27 +6,23 @@ import com.dicoding.capstone.cocodiag.data.remote.payload.CreateUserParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.ForumLatestPostResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.ForumPostResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.HistoryListResponse
+import com.dicoding.capstone.cocodiag.data.remote.payload.LikePostRequest
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignUpResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.UpdatePasswordParam
-import com.dicoding.capstone.cocodiag.data.remote.payload.UpdateUserParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.UserResponse
 import com.dicoding.capstone.cocodiag.features.main.price.PriceItem
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.ResponseBody
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface ApiService {
     @POST("signup")
@@ -82,4 +78,7 @@ interface ApiService {
 
     @GET("forum/{post_id}")
     suspend fun findPostById(@Path("post_id") postId: String): ForumPostResponse
+
+    @POST("/forum/like")
+    suspend fun likeUnlikePost(@Body param: LikePostRequest): ForumPostResponse
 }

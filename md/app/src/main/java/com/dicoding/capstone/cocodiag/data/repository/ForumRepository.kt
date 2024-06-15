@@ -6,6 +6,7 @@ import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.data.local.model.PostWithUserDetails
 import com.dicoding.capstone.cocodiag.data.remote.ApiService
 import com.dicoding.capstone.cocodiag.data.remote.payload.ErrorResponse
+import com.dicoding.capstone.cocodiag.data.remote.payload.LikePostRequest
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -62,6 +63,20 @@ class ForumRepository private constructor(
             val errorBody = e.response()?.errorBody()?.string()
             val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
             Log.e("forumrepo-addpost", errorBody.toString())
+            emit(ResultState.Error(errorResponse))
+        }
+    }
+
+    fun setLike(param: LikePostRequest) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val response = service.likeUnlikePost(param)
+            Log.d("classrepo-predict", "$response")
+            emit(ResultState.Success(response))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+            Log.e("forumrepo-setLike", errorBody.toString())
             emit(ResultState.Error(errorResponse))
         }
     }

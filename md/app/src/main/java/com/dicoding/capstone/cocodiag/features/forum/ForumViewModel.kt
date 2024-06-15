@@ -7,6 +7,7 @@ import com.dicoding.capstone.cocodiag.data.local.UserPreference
 import com.dicoding.capstone.cocodiag.data.local.model.PostWithUserDetails
 import com.dicoding.capstone.cocodiag.data.local.model.UserModel
 import com.dicoding.capstone.cocodiag.data.remote.payload.ForumPostResponse
+import com.dicoding.capstone.cocodiag.data.remote.payload.LikePostRequest
 import com.dicoding.capstone.cocodiag.data.remote.payload.UserResponse
 import com.dicoding.capstone.cocodiag.data.repository.ForumRepository
 import com.dicoding.capstone.cocodiag.data.repository.UserRepository
@@ -32,6 +33,9 @@ class ForumViewModel(
     fun addPost(postText: String, postImage: File?): LiveData<ResultState<ForumPostResponse>> {
         return forumRepository.addPost(postText, postImage)
     }
+
+    // TODO: set unlike and ui changed
+    fun setLike(param: LikePostRequest) = forumRepository.setLike(param)
 
     fun getUser(): UserModel {
         val user = runBlocking {

@@ -18,7 +18,7 @@ data class ForumPostResponse(
     val postImage: String?,
 
     @field:SerializedName("count_like")
-    val countLike: Long,
+    var countLike: Long,
 
     @field:SerializedName("count_comment")
     val countComment: Long,
@@ -34,6 +34,14 @@ data class ForumPostResponse(
 
     @field:SerializedName("user_id")
     val userId: String
+)
+
+data class LikePostRequest(
+    @field:SerializedName("post_id")
+    val postId: String,
+
+    @field:SerializedName("like")
+    val like: Boolean
 )
 
 data class CommentResponse(

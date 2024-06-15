@@ -1,9 +1,13 @@
 package com.dicoding.capstone.cocodiag.features.forum
 
+import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -19,7 +23,8 @@ import java.util.Locale
 
 class ForumPostAdapter(
     private val postList: List<PostWithUserDetails>,
-    private val token: String
+    private val token: String,
+    private val onLikeClickListener: (PostWithUserDetails) -> Unit
 ) : RecyclerView.Adapter<ForumPostAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,35 +36,40 @@ class ForumPostAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = postList[position]
 
-        holder.nameText.text = data.user.name
-        holder.emailText.text = data.user.email
+        holder.tvUserName.text = data.user.name
+        holder.tvUserEmail.text = data.user.email
 
         if (data.user.imageProfile != null) {
             Glide.with(holder.itemView.context)
                 .load(getAuthenticatedGlideUrl(data.user.imageProfile, token))
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
-                .into(holder.profileImage)
+                .into(holder.ivUserProfile)
         }
 
         if (data.post.postImage != null) {
             Glide.with(holder.itemView.context)
                 .load(getAuthenticatedGlideUrl(data.post.postImage, token))
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
-                .into(holder.statusImage)
-            holder.statusImage.visibility = View.VISIBLE
+                .into(holder.ivPostImage)
+            holder.ivPostImage.visibility = View.VISIBLE
         } else {
-            holder.statusImage.visibility = View.GONE
+            holder.ivPostImage.visibility = View.GONE
         }
 
-        holder.statusText.text = data.post.postText
-        holder.likeText.text = "${data.post.countLike} likes"
-        holder.commentText.text = "${data.post.countComment} comments"
+        holder.tvPostText.text = data.post.postText
+        holder.tvCountLike.text = "${data.post.countLike} likes"
+        holder.tvCountComment.text = "${data.post.countComment} comments"
 
         data.post.createdAt.let { createdAt ->
             val date = Date(createdAt * 1000L)
             val sdf = SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.getDefault())
             val formattedDate = sdf.format(date)
-            holder.createdAtText.text = formattedDate
+            holder.tvCreatedAt.text = formattedDate
+        }
+
+        holder.likeLayout.setOnClickListener {
+            animateLikeLayout(holder.likeLayout)
+            onLikeClickListener(data)
         }
     }
 
@@ -68,13 +78,23 @@ class ForumPostAdapter(
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nameText: TextView = itemView.findViewById(R.id.tv_forum_post_name)
-        val emailText: TextView = itemView.findViewById(R.id.tv_forum_post_email)
-        val profileImage: CircleImageView = itemView.findViewById(R.id.iv_forum_post_profile)
-        val statusText: TextView = itemView.findViewById(R.id.tv_forum_post_content)
-        val statusImage: ImageView = itemView.findViewById(R.id.iv_forum_post_content)
-        val likeText: TextView = itemView.findViewById(R.id.tv_forum_post_like)
-        val commentText: TextView = itemView.findViewById(R.id.tv_forum_post_comment)
-        val createdAtText: TextView = itemView.findViewById(R.id.tv_forum_post_created_at)
+        val tvUserName: TextView = itemView.findViewById(R.id.tv_forum_user_name)
+        val tvUserEmail: TextView = itemView.findViewById(R.id.tv_forum_user_email)
+        val ivUserProfile: CircleImageView = itemView.findViewById(R.id.iv_forum_user_profile)
+        val tvPostText: TextView = itemView.findViewById(R.id.tv_forum_post_text)
+        val ivPostImage: ImageView = itemView.findViewById(R.id.iv_forum_post_image)
+        val tvCountLike: TextView = itemView.findViewById(R.id.tv_forum_post_like)
+        val tvCountComment: TextView = itemView.findViewById(R.id.tv_forum_post_comment)
+        val tvCreatedAt: TextView = itemView.findViewById(R.id.tv_forum_post_created_at)
+
+        val likeLayout: LinearLayout = itemView.findViewById(R.id.likeLayout)
+    }
+
+    private fun animateLikeLayout(layout: LinearLayout) {
+        val originalColor = layout.background
+        layout.setBackgroundColor(Color.LTGRAY)
+        Handler(Looper.getMainLooper()).postDelayed({
+            layout.background = originalColor
+        }, 200)
     }
 }
