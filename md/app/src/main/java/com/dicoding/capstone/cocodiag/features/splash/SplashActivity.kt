@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.ViewPager2
 import com.dicoding.capstone.cocodiag.features.main.MainActivity
 import com.dicoding.capstone.cocodiag.databinding.ActivitySplashBinding
 import com.dicoding.capstone.cocodiag.features.ViewModelFactory
@@ -13,32 +14,55 @@ import com.dicoding.capstone.cocodiag.features.signin.SignInActivity
 
 class SplashActivity : AppCompatActivity() {
 
-    private val duration: Long = 3000
     private lateinit var binding: ActivitySplashBinding
+    private lateinit var viewPager: ViewPager2
 
     private val viewModel by viewModels<SplashViewModel> {
         ViewModelFactory.getInstance(applicationContext)
     }
+
+    private val lastPageDelay: Long = 3000
+    private var isLastPage = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Handler(Looper.getMainLooper()).postDelayed(splashRunnable, duration)
+
+        if (viewModel.isSignIn()) {
+            navigateToMainActivity()
+        } else {
+            setupSplashScreen()
+        }
     }
 
-    override fun onBackPressed() {
-        Handler(Looper.getMainLooper()).removeCallbacks(splashRunnable)
-        super.onBackPressed()
+    private fun setupSplashScreen() {
+        viewPager = binding.viewPager
+        val adapter = SplashPagerAdapter(this)
+        viewPager.adapter = adapter
+
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                if (position == adapter.itemCount - 1) {
+                    isLastPage = true
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        if (isLastPage) {
+                            navigateToNextActivity()
+                        }
+                    }, lastPageDelay)
+                } else {
+                    isLastPage = false
+                }
+            }
+        })
     }
 
-    private val splashRunnable = Runnable {
+    private fun navigateToNextActivity() {
         if (!isFinishing) {
             if (viewModel.isSignIn()) {
-                val intent = Intent(this@SplashActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+                navigateToMainActivity()
             } else {
                 val intent = Intent(this@SplashActivity, SignInActivity::class.java)
                 startActivity(intent)
@@ -46,4 +70,14 @@ class SplashActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun navigateToMainActivity() {
+        val intent = Intent(this@SplashActivity, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 }
+
+
+
+
