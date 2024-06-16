@@ -50,7 +50,7 @@
         android:layout_height="@dimen/_50sdp"
         android:layout_marginStart="@dimen/_30sdp"
         android:layout_marginBottom="@dimen/_85sdp"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/green"
         android:elevation="5dp"
         android:gravity="center"
         android:insetLeft="0dp"

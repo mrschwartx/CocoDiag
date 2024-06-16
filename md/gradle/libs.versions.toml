@@ -1,6 +1,5 @@
 [versions]
 agp = "8.4.0"
-androidLoadingDots = "1.3.2"
 cameraCamera2 = "1.3.3"
 cameraLifecycle = "1.3.3"
 cameraView = "1.3.3"

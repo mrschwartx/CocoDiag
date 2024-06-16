@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.CocoDiag" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/green</item>
-        <item name="colorPrimaryVariant">@color/green</item>
-        <item name="android:statusBarColor">@color/green</item>
+        <item name="colorPrimary">@color/green2</item>
+        <item name="colorPrimaryVariant">@color/green2</item>
+        <item name="android:statusBarColor">@color/green2</item>
     </style>
 
     <style name="Theme.CocoDiag" parent="Base.Theme.CocoDiag" />
