@@ -4,7 +4,7 @@ from PIL import Image
 import io
 import logging
 from flask_jwt_extended import jwt_required
-from urllib.parse import urlparse
+from urllib.parse import urlparse, unquote
 
 image_bp = Blueprint('image_bp', __name__)
 
@@ -17,8 +17,9 @@ def get_image():
 
     try:
         bucket_name = 'cocodiag.appspot.com'
-                
-        parsed_url = urlparse(img_url)
+        
+        decoded_url = unquote(img_url)
+        parsed_url = urlparse(decoded_url)
         blob_path = '/'.join(parsed_url.path.split('/')[2:])
 
         firebase_bucket = storage.bucket(bucket_name)
