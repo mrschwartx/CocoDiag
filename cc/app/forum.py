@@ -5,6 +5,7 @@ from firebase_admin import storage
 import logging
 from datetime import datetime
 import uuid
+from urllib.parse import urlparse
 
 forum_bp = Blueprint('forum_bp', __name__)
 
@@ -22,7 +23,6 @@ def create_post():
         if not user_doc.exists:
             raise Exception("User not found")
 
-        user_data = user_doc.to_dict()
 
         if post_image_file:
             image_filename = f"{uuid.uuid4()}-{post_image_file.filename}"
@@ -37,9 +37,6 @@ def create_post():
         doc_ref = db.collection('forum').document()
         doc_ref.set({
             "user_id": user_id,
-            "user_image": user_data.get('imageProfile', ''),
-            "user_name": user_data.get('name', ''),
-            "user_email": user_data.get('email', ''),
             "post_text": post_text,
             "post_image": image_url,
             "count_like": 0,
@@ -105,6 +102,22 @@ def delete_post(post_id):
         post_data = post_doc.to_dict()
         if post_data["user_id"] != user_id:
             return jsonify({"message": "You are not authorized to delete this post"}), 403
+        
+        image_url = post_data.get("post_image")
+
+        if image_url:            
+            try:
+                bucket_name = 'cocodiag.appspot.com'        
+                parsed_url = urlparse(image_url)
+                blob_path = '/'.join(parsed_url.path.split('/')[2:])
+
+                firebase_bucket = storage.bucket(bucket_name)
+                blob = firebase_bucket.blob(blob_path)
+                blob.delete()
+                logging.info(f"Image {image_url} deleted successfully")
+            except Exception as e:
+                logging.error(f"Failed to delete image {image_url}: {e}")
+                return jsonify({"message": "Failed to delete associated image"}), 500
 
         post_ref.delete()
         return jsonify({"message": "post has been deleted"}), 200

@@ -1,7 +1,9 @@
 from flask import Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from config.firebase_config import db
+from firebase_admin import storage
 import logging
+from urllib.parse import urlparse
 
 history_bp = Blueprint('history_bp', __name__)
 
@@ -58,8 +60,21 @@ def delete_history(user_id, history_id):
 
         history_data = history_doc.to_dict()
 
-        if history_data["user_id"] != user_id:
-            return jsonify({"message": "Access denied"}), 403
+        image_url = history_data["image_url"]
+
+        if image_url:            
+            try:
+                bucket_name = 'cocodiag.appspot.com'        
+                parsed_url = urlparse(image_url)
+                blob_path = '/'.join(parsed_url.path.split('/')[2:])
+
+                firebase_bucket = storage.bucket(bucket_name)
+                blob = firebase_bucket.blob(blob_path)
+                blob.delete()
+                logging.info(f"Image {image_url} deleted successfully")
+            except Exception as e:
+                logging.error(f"Failed to delete image {image_url}: {e}")
+                return jsonify({"message": "Failed to delete associated image"}), 500
 
         history_ref.delete()
         return jsonify({"message": "History deleted successfully"}), 200
@@ -80,6 +95,22 @@ def delete_all_history(user_id):
 
         deleted_any = False
         for doc in docs:
+            history_data = doc.to_dict()
+            image_url = history_data.get("image_url")
+
+            if image_url:
+                try:
+                    bucket_name = 'cocodiag.appspot.com'
+                    parsed_url = urlparse(image_url)
+                    blob_path = '/'.join(parsed_url.path.split('/')[2:])
+
+                    firebase_bucket = storage.bucket(bucket_name)
+                    blob = firebase_bucket.blob(blob_path)
+                    blob.delete()
+                    logging.info(f"Image {image_url} deleted successfully")
+                except Exception as e:
+                    logging.error(f"Failed to delete image {image_url}: {e}")
+
             doc.reference.delete()
             deleted_any = True
 
