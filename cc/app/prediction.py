@@ -10,6 +10,7 @@ import time
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import json
 from config.firebase_config import db
+import uuid
 
 prediction_bp = Blueprint('prediction_bp', __name__)
 
@@ -90,9 +91,10 @@ def predict():
         }
 
         user_id = get_jwt_identity()
-        
+
+        image_filename = f"{uuid.uuid4()}-{file.filename}"
         firebase_bucket = storage.bucket('cocodiag.appspot.com')
-        blob = firebase_bucket.blob(f'uploads/{user_id}/{file.filename}')
+        blob = firebase_bucket.blob(f'uploads/{user_id}/{image_filename}')
         file.seek(0)
         blob.upload_from_file(file, content_type=file.content_type)
         image_url = blob.public_url
