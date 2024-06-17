@@ -59,9 +59,9 @@ class ForumPostAdapter(
 
         holder.tvPostText.text = data.post.postText
         holder.tvCountLike.text =
-            if (data.post.countLike < 1) "0 like" else "${data.post.countLike} likes"
+            if (data.post.countLike < 1) "like" else "${data.post.countLike} likes"
         holder.tvCountComment.text =
-            if (data.post.countComment < 1) "0 comment" else "${data.post.countComment} comments"
+            if (data.post.countComment < 1) "comment" else "${data.post.countComment} comments"
 
         data.post.createdAt.let { createdAt ->
             val currentMillis = System.currentTimeMillis()

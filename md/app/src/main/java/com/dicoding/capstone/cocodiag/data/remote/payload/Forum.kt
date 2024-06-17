@@ -44,6 +44,23 @@ data class LikePostRequest(
     val like: Boolean
 )
 
+data class CommentRequest(
+    @field:SerializedName("post_id")
+    val postId: String,
+
+    @field:SerializedName("comment")
+    val comment: String,
+)
+
+data class CommentListResponse(
+    @field:SerializedName("post_id")
+    val postId: String,
+
+    @field:SerializedName("comments")
+    val comments: List<CommentResponse>,
+)
+
+
 data class CommentResponse(
     @field:SerializedName("comment_id")
     val commentId: String,
@@ -52,5 +69,8 @@ data class CommentResponse(
     val comment: String,
 
     @field:SerializedName("user_id")
-    val userId: String
+    val userId: String,
+
+    @field:SerializedName("created_at")
+    val createdAt: String
 )

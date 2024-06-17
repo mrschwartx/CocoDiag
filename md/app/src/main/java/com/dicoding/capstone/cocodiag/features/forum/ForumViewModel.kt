@@ -6,6 +6,7 @@ import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.data.local.UserPreference
 import com.dicoding.capstone.cocodiag.data.local.model.PostWithUserDetails
 import com.dicoding.capstone.cocodiag.data.local.model.UserModel
+import com.dicoding.capstone.cocodiag.data.remote.payload.CommentRequest
 import com.dicoding.capstone.cocodiag.data.remote.payload.ForumPostResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.LikePostRequest
 import com.dicoding.capstone.cocodiag.data.remote.payload.UserResponse
@@ -37,6 +38,8 @@ class ForumViewModel(
     fun setLike(param: LikePostRequest) = forumRepository.setLike(param)
 
     fun findPostById(param: String) = forumRepository.findPostById(param)
+
+    fun createComment(param: CommentRequest) = forumRepository.createComment(param)
 
     fun getUser(): UserModel {
         val user = runBlocking {

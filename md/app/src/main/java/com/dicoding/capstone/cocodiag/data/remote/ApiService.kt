@@ -2,6 +2,8 @@ package com.dicoding.capstone.cocodiag.data.remote
 
 import com.dicoding.capstone.cocodiag.data.local.model.ArticleModel
 import com.dicoding.capstone.cocodiag.data.remote.payload.ClassificationResponse
+import com.dicoding.capstone.cocodiag.data.remote.payload.CommentListResponse
+import com.dicoding.capstone.cocodiag.data.remote.payload.CommentRequest
 import com.dicoding.capstone.cocodiag.data.remote.payload.CreateUserParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.ForumLatestPostResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.ForumPostResponse
@@ -81,4 +83,7 @@ interface ApiService {
 
     @POST("/forum/like")
     suspend fun likeUnlikePost(@Body param: LikePostRequest): ForumPostResponse
+
+    @POST("/forum/comment")
+    suspend fun createComment(@Body param: CommentRequest): CommentListResponse
 }

@@ -12,6 +12,7 @@ import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.common.getAuthenticatedGlideUrl
 import com.dicoding.capstone.cocodiag.common.setBottomNavBar
+import com.dicoding.capstone.cocodiag.data.remote.payload.CommentRequest
 import com.dicoding.capstone.cocodiag.data.remote.payload.ForumPostResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.UserResponse
 import com.dicoding.capstone.cocodiag.databinding.ActivityForumCommentsBinding
@@ -34,6 +35,13 @@ class ForumCommentsActivity : AppCompatActivity() {
         setContentView(binding.root)
         setBottomNavBar(this@ForumCommentsActivity, binding.bottomNavigation, R.id.nav_forum)
         setForumPost()
+
+        binding.btnPostComment.setOnClickListener {
+            val commentText = binding.editTextInput.text.toString()
+            if (commentText != "") {
+                addComment(commentText)
+            }
+        }
     }
 
     override fun onBackPressed() {
@@ -98,12 +106,15 @@ class ForumCommentsActivity : AppCompatActivity() {
             Glide.with(this)
                 .load(getAuthenticatedGlideUrl(param.postImage, token))
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
-                .into(binding.ivForumUserProfile)
+                .into(binding.ivForumPostImage)
+            binding.ivForumPostImage.visibility = View.VISIBLE
+        } else {
+            binding.ivForumPostImage.visibility = View.GONE
         }
         binding.tvForumPostLike.text =
-            if (param.countLike < 1) "0 like" else "${param.countLike} likes"
+            if (param.countLike < 1) "like" else "${param.countLike} likes"
         binding.tvForumPostComment.text =
-            if (param.countComment < 1) "0 comment" else "${param.countComment} comments"
+            if (param.countComment < 1) "comment" else "${param.countComment} comments"
         param.createdAt.let { createdAt ->
             val currentMillis = System.currentTimeMillis()
             val diffMillis = currentMillis - (createdAt * 1000L)
@@ -127,6 +138,22 @@ class ForumCommentsActivity : AppCompatActivity() {
                 else -> "$seconds second${if (seconds > 1) "s" else ""} ago"
             }
             binding.tvForumPostCreatedAt.text = timeAgo
+        }
+    }
+
+    private fun addComment(commentText: String) {
+        val postId = intent.getStringExtra(EXTRA_POST_ID)
+        if (postId != null) {
+            viewModel.createComment(CommentRequest(postId, commentText)).observe(this) { result ->
+                when (result) {
+                    is ResultState.Loading -> {}
+                    is ResultState.Error -> {}
+                    is ResultState.Success -> {
+                        startActivity(Intent(this, ForumCommentsActivity::class.java))
+                        finish()
+                    }
+                }
+            }
         }
     }
 

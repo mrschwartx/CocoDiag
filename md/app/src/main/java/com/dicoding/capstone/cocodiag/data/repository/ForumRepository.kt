@@ -5,6 +5,7 @@ import androidx.lifecycle.liveData
 import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.data.local.model.PostWithUserDetails
 import com.dicoding.capstone.cocodiag.data.remote.ApiService
+import com.dicoding.capstone.cocodiag.data.remote.payload.CommentRequest
 import com.dicoding.capstone.cocodiag.data.remote.payload.ErrorResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.LikePostRequest
 import com.google.gson.Gson
@@ -91,6 +92,20 @@ class ForumRepository private constructor(
             val errorBody = e.response()?.errorBody()?.string()
             val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
             Log.e("forumrepo-findbyid", errorBody.toString())
+            emit(ResultState.Error(errorResponse))
+        }
+    }
+
+    fun createComment(param: CommentRequest) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val response = service.createComment(param)
+            Log.d("forumrepo-createcomment", "$response")
+            emit(ResultState.Success(response))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+            Log.e("forumrepo-createcomment", errorBody.toString())
             emit(ResultState.Error(errorResponse))
         }
     }
