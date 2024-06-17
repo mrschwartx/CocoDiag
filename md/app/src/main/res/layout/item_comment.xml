@@ -54,9 +54,9 @@
             android:id="@+id/layout_comment_post_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:clickable="true"
             android:focusable="true"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_comment_user_email">
@@ -100,6 +100,18 @@
             app:layout_constraintBottom_toBottomOf="@+id/hl1_comment_post"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/hl1_comment_post" />
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:text="@string/delete"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="@dimen/_10ssp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,6 +19,8 @@ import java.util.Locale
 class ForumCommentAdapter(
     private val commentList: List<CommentWithUserDetails>,
     private val token: String,
+    private val userId: String,
+    private val onDeleteClickListener: (String) -> Unit
 ) : RecyclerView.Adapter<ForumCommentAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -70,6 +72,15 @@ class ForumCommentAdapter(
 
             holder.tvCreatedAt.text = timeAgo
         }
+
+        if (userId == data.user.userId) {
+            holder.tvDelete.visibility = View.VISIBLE
+            holder.tvDelete.setOnClickListener {
+                onDeleteClickListener(data.comment.commentId)
+            }
+        } else {
+            holder.tvDelete.visibility = View.GONE
+        }
     }
 
     override fun getItemCount(): Int {
@@ -82,5 +93,6 @@ class ForumCommentAdapter(
         val ivUserProfile: CircleImageView = itemView.findViewById(R.id.iv_comment_user_profile)
         val tvCommentText: TextView = itemView.findViewById(R.id.tv_comment_post_text)
         val tvCreatedAt: TextView = itemView.findViewById(R.id.tv_comment_post_created_at)
+        val tvDelete: TextView = itemView.findViewById(R.id.tv_delete)
     }
 }

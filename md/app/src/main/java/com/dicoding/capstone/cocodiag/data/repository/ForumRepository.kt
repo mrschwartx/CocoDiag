@@ -153,6 +153,34 @@ class ForumRepository private constructor(
         }
     }
 
+    fun deletePostById(param: String) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val response = service.deletePostById(param)
+            Log.d("forumrepo-deletePostById", "$response")
+            emit(ResultState.Success(response))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+            Log.e("forumrepo-deletePostById", errorBody.toString())
+            emit(ResultState.Error(errorResponse))
+        }
+    }
+
+    fun deleteCommentById(param: String) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val response = service.deleteCommentById(param)
+            Log.d("forumrepo-deleteCommentById", "$response")
+            emit(ResultState.Success(response))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+            Log.e("forumrepo-deleteCommentById", errorBody.toString())
+            emit(ResultState.Error(errorResponse))
+        }
+    }
+
     companion object {
         @Volatile
         private var instance: ForumRepository? = null

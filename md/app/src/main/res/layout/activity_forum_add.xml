@@ -73,10 +73,10 @@
             android:id="@+id/btn_img_upload"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:clickable="true"
             android:contentDescription="@string/upload"
-            android:layout_gravity="center_vertical"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:paddingBottom="4dp"
@@ -87,12 +87,12 @@
             android:id="@+id/btn_post"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:backgroundTint="@color/green"
-            android:layout_weight="1"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:padding="10dp"
             android:text="@string/post"
             android:textColor="@android:color/white"
+            app:backgroundTint="@color/green"
             app:cornerRadius="@dimen/_8sdp" />
 
     </LinearLayout>

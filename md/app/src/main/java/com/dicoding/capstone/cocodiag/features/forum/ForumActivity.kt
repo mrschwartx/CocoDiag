@@ -97,22 +97,43 @@ class ForumActivity : AppCompatActivity() {
                 is ResultState.Success -> {
                     showLoading(false)
                     val token = viewModel.getUser().token!!
+                    val userId = viewModel.getUser().id
                     val rv: RecyclerView = binding.rvPosts
-                    val adapter = ForumPostAdapter(result.data, token) { data ->
-                        viewModel.setLike(LikePostRequest(data.post.postId, true)).observe(this) {
-                            when (it) {
-                                is ResultState.Loading -> {
-                                }
+                    val adapter = ForumPostAdapter(
+                        result.data,
+                        token, userId,
+                        onLikeClickListener = { post ->
+                            viewModel.setLike(LikePostRequest(post.post.postId, true))
+                                .observe(this) {
+                                    when (it) {
+                                        is ResultState.Loading -> {
+                                        }
 
-                                is ResultState.Error -> {
-                                }
+                                        is ResultState.Error -> {
+                                        }
 
-                                is ResultState.Success -> {
-                                    setLatestPost()
+                                        is ResultState.Success -> {
+                                            setLatestPost()
+                                        }
+                                    }
+                                }
+                        },
+                        onDeleteClickListener = {
+                            viewModel.deletePostById(it).observe(this) {
+                                when (it) {
+                                    is ResultState.Loading -> {
+                                    }
+
+                                    is ResultState.Error -> {
+                                    }
+
+                                    is ResultState.Success -> {
+                                        setLatestPost()
+                                    }
                                 }
                             }
                         }
-                    }
+                    )
 
                     rv.layoutManager = LinearLayoutManager(this)
                     rv.adapter = adapter

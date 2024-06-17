@@ -55,6 +55,10 @@ class ForumViewModel(
         return user
     }
 
+    fun deletePostById(param: String) = forumRepository.deletePostById(param)
+
+    fun deleteCommentById(param: String) = forumRepository.deleteCommentById(param)
+
     private fun getUserId(): String {
         val userId = runBlocking {
             userPref.getUserId().first()

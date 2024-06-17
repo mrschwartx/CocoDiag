@@ -25,7 +25,9 @@ import java.util.Locale
 class ForumPostAdapter(
     private val postList: List<PostWithUserDetails>,
     private val token: String,
-    private val onLikeClickListener: (PostWithUserDetails) -> Unit
+    private val userId: String,
+    private val onLikeClickListener: (PostWithUserDetails) -> Unit,
+    private val onDeleteClickListener: (String) -> Unit
 ) : RecyclerView.Adapter<ForumPostAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -117,6 +119,15 @@ class ForumPostAdapter(
             animateLikeLayout(holder.likeLayout)
             onLikeClickListener(data)
         }
+
+        if (userId == data.user.userId) {
+            holder.tvDelete.visibility = View.VISIBLE
+            holder.tvDelete.setOnClickListener {
+                onDeleteClickListener(data.post.postId)
+            }
+        } else {
+            holder.tvDelete.visibility = View.GONE
+        }
     }
 
     override fun getItemCount(): Int {
@@ -135,6 +146,7 @@ class ForumPostAdapter(
         val layoutForumPostContent: LinearLayout =
             itemView.findViewById(R.id.layout_forum_post_content)
         val likeLayout: LinearLayout = itemView.findViewById(R.id.likeLayout)
+        val tvDelete: TextView = itemView.findViewById(R.id.tv_delete)
     }
 
     private fun animateLikeLayout(layout: LinearLayout) {

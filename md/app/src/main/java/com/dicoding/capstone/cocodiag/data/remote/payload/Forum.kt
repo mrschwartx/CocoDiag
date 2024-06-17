@@ -74,3 +74,8 @@ data class CommentResponse(
     @field:SerializedName("created_at")
     val createdAt: Long
 )
+
+data class ForumMessageResponse(
+    @field:SerializedName("message")
+    val message: String
+)

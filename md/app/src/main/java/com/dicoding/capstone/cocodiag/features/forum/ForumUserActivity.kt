@@ -43,9 +43,11 @@ class ForumUserActivity : AppCompatActivity() {
                     is ResultState.Loading -> {
                         showLoading(true)
                     }
+
                     is ResultState.Error -> {
                         showLoading(false)
                     }
+
                     is ResultState.Success -> {
                         showLoading(false)
                         binding.tvForumUserName.text = result.data.name
@@ -79,22 +81,43 @@ class ForumUserActivity : AppCompatActivity() {
                     is ResultState.Success -> {
                         showLoading(false)
                         val token = viewModel.getUser().token!!
+                        val userId = viewModel.getUser().id
                         val rv: RecyclerView = binding.rvUserPosts
-                        val adapter = ForumPostAdapter(result.data, token) { data ->
-                            viewModel.setLike(LikePostRequest(data.post.postId, true)).observe(this) {
-                                when (it) {
-                                    is ResultState.Loading -> {
-                                    }
+                        val adapter = ForumPostAdapter(
+                            result.data,
+                            token, userId,
+                            onLikeClickListener = { post ->
+                                viewModel.setLike(LikePostRequest(post.post.postId, true))
+                                    .observe(this) {
+                                        when (it) {
+                                            is ResultState.Loading -> {
+                                            }
 
-                                    is ResultState.Error -> {
-                                    }
+                                            is ResultState.Error -> {
+                                            }
 
-                                    is ResultState.Success -> {
-                                        setPosts()
+                                            is ResultState.Success -> {
+                                                setPosts()
+                                            }
+                                        }
+                                    }
+                            },
+                            onDeleteClickListener = {
+                                viewModel.deletePostById(it).observe(this) {
+                                    when (it) {
+                                        is ResultState.Loading -> {
+                                        }
+
+                                        is ResultState.Error -> {
+                                        }
+
+                                        is ResultState.Success -> {
+                                            setPosts()
+                                        }
                                     }
                                 }
                             }
-                        }
+                        )
 
                         rv.layoutManager = LinearLayoutManager(this)
                         rv.adapter = adapter

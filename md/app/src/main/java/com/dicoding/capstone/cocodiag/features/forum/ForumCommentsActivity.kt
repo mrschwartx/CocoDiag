@@ -85,8 +85,24 @@ class ForumCommentsActivity : AppCompatActivity() {
                                 is ResultState.Error -> {}
                                 is ResultState.Success -> {
                                     val token = viewModel.getUser().token!!
+                                    val userId = viewModel.getUser().id
                                     val rv: RecyclerView = binding.rvComments
-                                    val adapter = ForumCommentAdapter(resComment.data, token)
+                                    val adapter =
+                                        ForumCommentAdapter(resComment.data, token, userId) {
+                                            viewModel.deleteCommentById(it).observe(this) {
+                                                when (it) {
+                                                    is ResultState.Loading -> {
+                                                    }
+
+                                                    is ResultState.Error -> {
+                                                    }
+
+                                                    is ResultState.Success -> {
+                                                        setForumPost()
+                                                    }
+                                                }
+                                            }
+                                        }
                                     rv.layoutManager = LinearLayoutManager(this)
                                     rv.adapter = adapter
                                 }
