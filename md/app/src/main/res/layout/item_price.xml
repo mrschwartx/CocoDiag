@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/_130sdp"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="@dimen/_10sdp"
-    app:cardCornerRadius="@dimen/_8sdp"
-    app:cardBackgroundColor="@color/green">
+    app:cardBackgroundColor="@color/green"
+    app:cardCornerRadius="@dimen/_8sdp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -48,8 +48,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:text="@string/title_main"
-            android:textColor="@color/white"
             android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="@dimen/_11ssp"
             android:textStyle="bold" />
 
@@ -61,8 +61,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:text="@string/title_main"
-            android:textColor="@color/white"
             android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="@dimen/_11ssp"
             android:textStyle="bold" />
 

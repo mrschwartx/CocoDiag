@@ -7,9 +7,9 @@ import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
-import com.dicoding.capstone.cocodiag.features.main.MainActivity
 import com.dicoding.capstone.cocodiag.databinding.ActivitySplashBinding
 import com.dicoding.capstone.cocodiag.features.ViewModelFactory
+import com.dicoding.capstone.cocodiag.features.main.MainActivity
 import com.dicoding.capstone.cocodiag.features.signin.SignInActivity
 
 class SplashActivity : AppCompatActivity() {

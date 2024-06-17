@@ -2,24 +2,18 @@ package com.dicoding.capstone.cocodiag.features.settings
 
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.model.GlideUrl
-import com.bumptech.glide.load.model.LazyHeaders
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.InputValidator
 import com.dicoding.capstone.cocodiag.common.ResultState
-import com.dicoding.capstone.cocodiag.common.convertBase64ToBitmap
-import com.dicoding.capstone.cocodiag.common.convertBitmapToBase64
 import com.dicoding.capstone.cocodiag.common.getAuthenticatedGlideUrl
 import com.dicoding.capstone.cocodiag.common.showToast
 import com.dicoding.capstone.cocodiag.common.uriToFile
@@ -136,7 +130,7 @@ class EditProfileActivity : AppCompatActivity() {
 
     private fun reSignIn(param: SignInParam) {
         viewModel.reSignIn(param).observe(this) { result ->
-            when(result) {
+            when (result) {
                 is ResultState.Loading -> {
                     setDisableBtnSave(true)
                 }

@@ -1,7 +1,6 @@
 package com.dicoding.capstone.cocodiag.features.classification
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -142,7 +141,11 @@ class ClassificationResultActivity : AppCompatActivity() {
 
                 is ResultState.Error -> {
                     // Handle error
-                    Toast.makeText(this, "Error saving history: ${result.error}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "Error saving history: ${result.error}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }

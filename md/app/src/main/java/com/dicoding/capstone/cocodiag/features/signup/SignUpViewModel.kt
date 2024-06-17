@@ -15,7 +15,7 @@ class SignUpViewModel(
     private val repository: AuthRepository,
     private val pref: UserPreference,
     private val connectivity: ConnectivityRepository
-): ViewModel() {
+) : ViewModel() {
 
     val isOnline = connectivity.isConnected.asLiveData()
 

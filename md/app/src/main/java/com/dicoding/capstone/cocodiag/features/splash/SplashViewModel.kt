@@ -10,7 +10,7 @@ import kotlinx.coroutines.runBlocking
 
 class SplashViewModel(
     private val pref: UserPreference
-): ViewModel() {
+) : ViewModel() {
 
     private val _currentIndex = MutableLiveData<Int>()
     val currentIndex: LiveData<Int>

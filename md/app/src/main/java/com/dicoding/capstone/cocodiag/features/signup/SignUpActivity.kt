@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Pair
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.dicoding.capstone.cocodiag.features.main.MainActivity
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.InputValidator
 import com.dicoding.capstone.cocodiag.common.ResultState
@@ -17,8 +16,8 @@ import com.dicoding.capstone.cocodiag.data.remote.payload.CreateUserParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInParam
 import com.dicoding.capstone.cocodiag.databinding.ActivitySignUpBinding
 import com.dicoding.capstone.cocodiag.features.ViewModelFactory
+import com.dicoding.capstone.cocodiag.features.main.MainActivity
 import com.dicoding.capstone.cocodiag.features.signin.SignInActivity
-
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -56,8 +55,8 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun signUp(param: CreateUserParam) {
-        viewModel.signUp(param).observe(this) {result ->
-            when(result) {
+        viewModel.signUp(param).observe(this) { result ->
+            when (result) {
                 is ResultState.Loading -> {
                     setDisableBtnSignUp(true)
                 }
@@ -92,7 +91,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun autoSignIn(param: SignInParam) {
         viewModel.autoSignIn(param).observe(this) { result ->
-            when(result) {
+            when (result) {
                 is ResultState.Loading -> {
                     setDisableBtnSignUp(true)
                 }
@@ -123,13 +122,13 @@ class SignUpActivity : AppCompatActivity() {
     private fun navigateToSignIn() {
         val textSignUp = binding.tvSignIn
         textSignUp.setOnClickListener {
-            val options= ActivityOptions.makeSceneTransitionAnimation(
+            val options = ActivityOptions.makeSceneTransitionAnimation(
                 this,
-                Pair(textSignUp,"tv_transition"),
-                Pair(binding.layoutTransitionSignup,"field_transition"),
+                Pair(textSignUp, "tv_transition"),
+                Pair(binding.layoutTransitionSignup, "field_transition"),
             )
             val intent = Intent(this@SignUpActivity, SignInActivity::class.java)
-            startActivity(intent,options.toBundle())
+            startActivity(intent, options.toBundle())
         }
     }
 
@@ -156,7 +155,8 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         if (!InputValidator.isValidPassword(password)) {
-            binding.edPassword.error = "Password must be at least 8 characters and include a number and a special character"
+            binding.edPassword.error =
+                "Password must be at least 8 characters and include a number and a special character"
             isValid = false
         } else {
             binding.edPassword.error = null

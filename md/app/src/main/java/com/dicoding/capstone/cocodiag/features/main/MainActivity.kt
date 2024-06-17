@@ -45,7 +45,8 @@ class MainActivity : AppCompatActivity() {
     private fun setupUI() {
         setBottomNavBar(this@MainActivity, binding.bottomNavigation, R.id.nav_home)
         binding.rvMain.layoutManager = LinearLayoutManager(this)
-        binding.rvPrice.layoutManager=LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        binding.rvPrice.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun initializeDependencies() {
@@ -72,12 +73,12 @@ class MainActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
     }
 
-    private fun fetchPrice(){
+    private fun fetchPrice() {
         lifecycleScope.launch {
             try {
-                val priceResponse=apiService.getPrice()
+                val priceResponse = apiService.getPrice()
                 handlePriceResponse(priceResponse)
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 Log.e("Error Price", e.message ?: "Unknown error")
             }
 

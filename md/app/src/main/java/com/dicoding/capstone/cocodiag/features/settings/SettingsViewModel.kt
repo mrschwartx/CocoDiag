@@ -17,14 +17,13 @@ import com.dicoding.capstone.cocodiag.data.repository.UserRepository
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import okhttp3.ResponseBody
 
 class SettingsViewModel(
     private val authRepository: AuthRepository,
     private val userRepository: UserRepository,
     private val classRepository: ClassificationRepository,
     private val userPref: UserPreference
-): ViewModel() {
+) : ViewModel() {
     fun findById(): LiveData<ResultState<UserResponse>> {
         val userId = getUserId()
         return userRepository.findById(userId)

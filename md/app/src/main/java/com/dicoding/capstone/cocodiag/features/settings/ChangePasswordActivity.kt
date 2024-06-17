@@ -1,7 +1,6 @@
 package com.dicoding.capstone.cocodiag.features.settings
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.capstone.cocodiag.R
@@ -14,7 +13,7 @@ import com.dicoding.capstone.cocodiag.databinding.ActivityChangePasswordBinding
 import com.dicoding.capstone.cocodiag.features.ViewModelFactory
 
 class ChangePasswordActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityChangePasswordBinding
+    private lateinit var binding: ActivityChangePasswordBinding
 
     private val viewModel by viewModels<SettingsViewModel> {
         ViewModelFactory.getInstance(applicationContext)
@@ -69,7 +68,7 @@ class ChangePasswordActivity : AppCompatActivity() {
 
     private fun reSignIn(param: SignInParam) {
         viewModel.reSignIn(param).observe(this) { result ->
-            when(result) {
+            when (result) {
                 is ResultState.Loading -> {
                     setDisableBtnSave(true)
                 }
@@ -111,7 +110,8 @@ class ChangePasswordActivity : AppCompatActivity() {
         }
 
         if (!InputValidator.isValidPassword(oldPassword)) {
-            binding.edNewPassword.error = "Password must be at least 8 characters and include a number and a special character"
+            binding.edNewPassword.error =
+                "Password must be at least 8 characters and include a number and a special character"
             isValid = false
         } else {
             binding.edNewPassword.error = null
@@ -127,7 +127,8 @@ class ChangePasswordActivity : AppCompatActivity() {
         var isValid = true
 
         if (!InputValidator.isValidPassword(newPassword)) {
-            binding.edNewPassword.error = "Password must be at least 8 characters and include a number and a special character"
+            binding.edNewPassword.error =
+                "Password must be at least 8 characters and include a number and a special character"
             isValid = false
         } else {
             binding.edNewPassword.error = null

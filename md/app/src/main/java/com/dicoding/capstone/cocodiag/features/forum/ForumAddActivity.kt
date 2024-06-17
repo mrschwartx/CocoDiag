@@ -68,6 +68,7 @@ class ForumAddActivity : AppCompatActivity() {
                         is ResultState.Error -> {
                             // TODO: implement dialog message
                         }
+
                         is ResultState.Success -> {
                             val intent = Intent(this@ForumAddActivity, ForumActivity::class.java)
                             startActivity(intent)
@@ -87,6 +88,7 @@ class ForumAddActivity : AppCompatActivity() {
                     is ResultState.Error -> {
                         // TODO: implement dialog message
                     }
+
                     is ResultState.Success -> {
                         val intent = Intent(this@ForumAddActivity, ForumActivity::class.java)
                         startActivity(intent)

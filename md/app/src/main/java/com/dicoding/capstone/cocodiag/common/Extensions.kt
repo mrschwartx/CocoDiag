@@ -10,10 +10,10 @@ import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.exifinterface.media.ExifInterface
-import com.dicoding.capstone.cocodiag.features.main.MainActivity
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.features.classification.CameraActivity
 import com.dicoding.capstone.cocodiag.features.forum.ForumActivity
+import com.dicoding.capstone.cocodiag.features.main.MainActivity
 import com.dicoding.capstone.cocodiag.features.settings.SettingsActivity
 import com.google.android.material.navigation.NavigationBarView
 import java.io.ByteArrayOutputStream
@@ -27,7 +27,7 @@ fun AppCompatActivity.setBottomNavBar(
     @IdRes itemId: Int,
 ) {
     bottomNavView.apply {
-        val options=ActivityOptions.makeSceneTransitionAnimation(
+        val options = ActivityOptions.makeSceneTransitionAnimation(
             this@setBottomNavBar
         )
 
@@ -35,22 +35,22 @@ fun AppCompatActivity.setBottomNavBar(
         setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
-                    startActivity(Intent(context, MainActivity::class.java),options.toBundle())
+                    startActivity(Intent(context, MainActivity::class.java), options.toBundle())
                     true
                 }
 
                 R.id.nav_camera -> {
-                    startActivity(Intent(context, CameraActivity::class.java),options.toBundle())
+                    startActivity(Intent(context, CameraActivity::class.java), options.toBundle())
                     true
                 }
 
                 R.id.nav_forum -> {
-                    startActivity(Intent(context, ForumActivity::class.java),options.toBundle())
+                    startActivity(Intent(context, ForumActivity::class.java), options.toBundle())
                     true
                 }
 
                 R.id.nav_setting -> {
-                    startActivity(Intent(context, SettingsActivity::class.java),options.toBundle())
+                    startActivity(Intent(context, SettingsActivity::class.java), options.toBundle())
                     true
                 }
 

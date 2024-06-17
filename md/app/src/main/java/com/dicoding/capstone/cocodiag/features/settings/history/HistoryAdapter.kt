@@ -32,22 +32,24 @@ class HistoryAdapter(
         holder.itemView.setOnClickListener {
 
             val intent = Intent(holder.itemView.context, DetailHistoryActivity::class.java)
-            val controls=history.controls
+            val controls = history.controls
             val controlsString = when (controls) {
                 is ArrayList<*> -> {
                     val controlList = controls as? ArrayList<String>
                     controlList?.joinToString("\n") ?: ""
                 }
+
                 is String -> controls
                 else -> ""
             }
 
-            val symptoms=history.symptoms
+            val symptoms = history.symptoms
             val symptomsString = when (symptoms) {
                 is ArrayList<*> -> {
                     val symptomsList = symptoms as? ArrayList<String>
                     symptomsList?.joinToString("\n") ?: ""
                 }
+
                 is String -> symptoms
                 else -> ""
             }
@@ -55,12 +57,14 @@ class HistoryAdapter(
             intent.putExtra("LABEL", history.label)
             intent.putExtra("NAME", history.name)
             intent.putExtra("CONTROLS", controlsString)
-            intent.putExtra("SYMPTOMS",symptomsString)
-            intent.putExtra("IM  bb                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          AGE_URL", history.imageUrl)
+            intent.putExtra("SYMPTOMS", symptomsString)
+            intent.putExtra(
+                "IM  bb                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          AGE_URL",
+                history.imageUrl
+            )
             holder.itemView.context.startActivity(intent)
         }
     }
-
 
 
     override fun getItemCount() = historyList.size
@@ -68,7 +72,7 @@ class HistoryAdapter(
     class HistoryViewHolder(itemView: View, token: String) : RecyclerView.ViewHolder(itemView) {
         private val tvLabel: TextView = itemView.findViewById(R.id.tv_disease_name_history)
         private val createdLabel: TextView = itemView.findViewById(R.id.tv_disease_created_history)
-        private val img : ImageView =itemView.findViewById(R.id.img_item_history)
+        private val img: ImageView = itemView.findViewById(R.id.img_item_history)
         private val jwt = token
 
         fun bind(history: HistoryResponse) {

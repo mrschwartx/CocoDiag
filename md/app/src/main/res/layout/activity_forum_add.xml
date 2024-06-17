@@ -35,13 +35,13 @@
         android:id="@+id/et_post_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/_8sdp"
         android:autofillHints=""
-        android:hint="@string/new_post_message"
-        android:paddingHorizontal="@dimen/_8sdp"
-        android:inputType="textMultiLine"
-        android:gravity="top"
         android:background="@null"
+        android:gravity="top"
+        android:hint="@string/new_post_message"
+        android:inputType="textMultiLine"
+        android:paddingHorizontal="@dimen/_8sdp"
+        android:paddingTop="@dimen/_8sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_sc_subtitle" />
@@ -61,10 +61,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/_8sdp"
-        android:paddingHorizontal="@dimen/_8sdp"
         android:gravity="bottom"
         android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_8sdp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -74,15 +74,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_gallery"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
             android:contentDescription="@string/upload"
-            android:scaleType="fitEnd"
+            android:focusable="true"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:paddingBottom="4dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:background="?attr/selectableItemBackground"/>
+            android:scaleType="fitEnd"
+            android:src="@drawable/ic_gallery" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_post"
@@ -91,8 +91,8 @@
             android:layout_weight="1"
             android:padding="10dp"
             android:text="@string/post"
-            app:cornerRadius="@dimen/_8sdp"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            app:cornerRadius="@dimen/_8sdp" />
 
     </LinearLayout>
 

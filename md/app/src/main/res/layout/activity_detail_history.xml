@@ -9,6 +9,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -17,54 +18,52 @@
                 android:id="@+id/img_history"
                 android:layout_width="@dimen/_200sdp"
                 android:layout_height="@dimen/_200sdp"
-                android:scaleType="fitXY"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/penyaki2"
-                android:layout_marginTop="@dimen/_10sdp"/>
+                android:scaleType="fitXY" />
 
             <TextView
                 android:id="@+id/tv_label"
-                android:layout_below="@+id/img_history"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/img_history"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:text="@string/title_main"
                 android:textSize="@dimen/_18ssp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_name"
-                android:layout_below="@+id/tv_label"
-                android:layout_marginTop="@dimen/_2sdp"
-                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_label"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_2sdp"
                 android:text="@string/title_main"
                 android:textSize="@dimen/_18ssp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/desc_symptoms"
-                android:layout_below="@+id/tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_name"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
-                android:textAlignment="textStart"
                 android:lineSpacingExtra="@dimen/_2ssp"
-                />
+                android:textAlignment="textStart" />
 
             <TextView
                 android:id="@+id/desc_controls"
-                android:layout_below="@+id/desc_symptoms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/desc_symptoms"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
-                android:textAlignment="textStart"
                 android:lineSpacingExtra="@dimen/_2ssp"
-                />
+                android:textAlignment="textStart" />
         </RelativeLayout>
     </ScrollView>
 

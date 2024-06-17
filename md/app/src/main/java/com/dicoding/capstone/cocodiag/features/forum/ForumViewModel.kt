@@ -19,7 +19,7 @@ class ForumViewModel(
     private val userRepository: UserRepository,
     private val forumRepository: ForumRepository,
     private val userPref: UserPreference
-): ViewModel() {
+) : ViewModel() {
 
     fun findLatestPost(): LiveData<ResultState<List<PostWithUserDetails>>> {
         return forumRepository.getLatestPost()

@@ -33,21 +33,27 @@ class ViewModelFactory(
             modelClass.isAssignableFrom(SplashViewModel::class.java) -> {
                 SplashViewModel(userPref) as T
             }
+
             modelClass.isAssignableFrom(SignUpViewModel::class.java) -> {
                 SignUpViewModel(authRepo, userPref, connectivity) as T
             }
+
             modelClass.isAssignableFrom(SignInViewModel::class.java) -> {
                 SignInViewModel(authRepo, userPref, connectivity) as T
             }
+
             modelClass.isAssignableFrom(SettingsViewModel::class.java) -> {
                 SettingsViewModel(authRepo, userRepo, classRepo, userPref) as T
             }
+
             modelClass.isAssignableFrom(ClassificationViewModel::class.java) -> {
                 ClassificationViewModel(classRepo, userPref, connectivity) as T
             }
+
             modelClass.isAssignableFrom(ForumViewModel::class.java) -> {
                 ForumViewModel(userRepo, forumRepo, userPref) as T
             }
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }

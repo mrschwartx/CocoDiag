@@ -83,11 +83,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-    <string name= "splash_scan">Scan and Protect! \n
+    <string name="splash_scan">Scan and Protect! \n
 Instantly Identify Coconut Plant Diseases with Our Advanced Scanning Feature.</string>
-    <string name= "splash_article">Unlock Coconut Secrets! \n
+    <string name="splash_article">Unlock Coconut Secrets! \n
 Enhance Your Knowledge with Our Well-Researched Coconut Articles.</string>
-    <string name= "splash_forum">Join the Discussion! \n
+    <string name="splash_forum">Join the Discussion! \n
 Engage with Experts and Peers in Our Coconut Farming Forum.</string>
 
     <string name="disease_bud_root_dropping">Bud Rot Dropping</string>

@@ -29,12 +29,12 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(binding.root)
         setBottomNavBar(this@SettingsActivity, binding.bottomNavigation, R.id.nav_setting)
         binding.tvEditProfile.setOnClickListener {
-            val intent = Intent(this,EditProfileActivity::class.java)
+            val intent = Intent(this, EditProfileActivity::class.java)
             startActivity(intent)
         }
 
         binding.tvChangePass.setOnClickListener {
-            val intent=Intent(this,ChangePasswordActivity::class.java)
+            val intent = Intent(this, ChangePasswordActivity::class.java)
             startActivity(intent)
         }
 
@@ -44,12 +44,12 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         binding.tvAbout.setOnClickListener {
-            val intent=Intent(this,AboutActivity::class.java)
+            val intent = Intent(this, AboutActivity::class.java)
             startActivity(intent)
         }
 
         binding.tvSignout.setOnClickListener {
-            if(viewModel.signOut()) {
+            if (viewModel.signOut()) {
                 val intent = Intent(this, SignInActivity::class.java)
                 startActivity(intent)
             }

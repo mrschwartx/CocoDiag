@@ -1,7 +1,6 @@
 package com.dicoding.capstone.cocodiag.data.repository
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.data.remote.ApiService
@@ -13,9 +12,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import okhttp3.ResponseBody
 import retrofit2.HttpException
-import java.io.IOException
 
 class UserRepository private constructor(
     private val service: ApiService

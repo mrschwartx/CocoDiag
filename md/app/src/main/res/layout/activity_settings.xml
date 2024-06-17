@@ -47,110 +47,117 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ic_setting">
-        
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <RelativeLayout
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/linear_layout_account"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/_13sdp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/iv_profile_image"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginStart="@dimen/_13sdp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/image_profile" />
+                <LinearLayout
+                    android:id="@+id/linear_layout_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_13sdp"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_profile_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="John Doe Berkman"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_16ssp" />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_profile_image"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginStart="@dimen/_13sdp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/image_profile" />
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_profile_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:text="John Doe Berkman"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_16ssp"
+                        android:textStyle="bold" />
 
-            <View
-                android:id="@+id/view_line"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_2sdp"
-                android:background="@color/white"
-                android:layout_below="@+id/linear_layout_account"/>
+                </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/view_line"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Account Setting"
-                    android:textColor="@color/white"
-                    android:layout_margin="@dimen/_10sdp"
-                    android:textSize="@dimen/_14ssp"/>
-                <TextView
-                    android:id="@+id/tv_editProfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/edit_profile"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/_14ssp"
-                    android:layout_margin="@dimen/_10sdp"/>
-                <TextView
-                    android:id="@+id/tv_changePass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/change_password"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:layout_margin="@dimen/_10sdp"
-                    android:textSize="@dimen/_14ssp"/>
-                <TextView
-                    android:id="@+id/tv_History"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/history"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:layout_margin="@dimen/_10sdp"
-                    android:textSize="@dimen/_14ssp"/>
-                <TextView
-                    android:id="@+id/tv_about"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/about_us"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:layout_margin="@dimen/_10sdp"
-                    android:textSize="@dimen/_14ssp"/>
-                <TextView
-                    android:id="@+id/tv_signout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sign_out"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:layout_margin="@dimen/_10sdp"
-                    android:textSize="@dimen/_14ssp"/>
-            </LinearLayout>
-        </RelativeLayout>
+                <View
+                    android:id="@+id/view_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_2sdp"
+                    android:layout_below="@+id/linear_layout_account"
+                    android:background="@color/white" />
 
-    </ScrollView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/view_line"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:text="Account Setting"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14ssp" />
+
+                    <TextView
+                        android:id="@+id/tv_editProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:text="@string/edit_profile"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_changePass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:text="@string/change_password"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_History"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:text="@string/history"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_about"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:text="@string/about_us"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_signout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:text="@string/sign_out"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </RelativeLayout>
+
+        </ScrollView>
 
     </androidx.cardview.widget.CardView>
 

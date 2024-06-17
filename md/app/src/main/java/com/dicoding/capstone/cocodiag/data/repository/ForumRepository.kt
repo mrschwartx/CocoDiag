@@ -17,7 +17,7 @@ import java.io.File
 
 class ForumRepository private constructor(
     private val service: ApiService
-){
+) {
     fun getLatestPost() = liveData {
         emit(ResultState.Loading)
         try {

@@ -104,9 +104,11 @@ class ForumActivity : AppCompatActivity() {
                                 is ResultState.Loading -> {
                                     showLoading(true)
                                 }
+
                                 is ResultState.Error -> {
                                     showLoading(false)
                                 }
+
                                 is ResultState.Success -> {
                                     showLoading(false)
                                     setLatestPost()

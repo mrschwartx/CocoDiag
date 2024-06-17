@@ -14,7 +14,7 @@ import com.dicoding.capstone.cocodiag.features.settings.SettingsViewModel
 
 class HistoryActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityHistoryBinding
+    private lateinit var binding: ActivityHistoryBinding
 
 
     private val viewModel by viewModels<SettingsViewModel> {
@@ -30,7 +30,7 @@ class HistoryActivity : AppCompatActivity() {
 
     private fun setData() {
         viewModel.findHistory().observe(this) { result ->
-            when(result) {
+            when (result) {
                 is ResultState.Loading -> {
                     showLoading(true)
                 }

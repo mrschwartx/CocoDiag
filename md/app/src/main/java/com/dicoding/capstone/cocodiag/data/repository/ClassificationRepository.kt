@@ -11,7 +11,6 @@ import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.HttpException
 import java.io.File
 
@@ -32,7 +31,8 @@ class ClassificationRepository private constructor(
             emit(ResultState.Success(successResponse))
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
-            val predictionErrorResponse = Gson().fromJson(errorBody, PredictionErrorResponse::class.java)
+            val predictionErrorResponse =
+                Gson().fromJson(errorBody, PredictionErrorResponse::class.java)
             Log.d("classrepo-predict", "$predictionErrorResponse")
             emit(ResultState.Error(ErrorResponse(predictionErrorResponse.message)))
         }

@@ -57,8 +57,10 @@ class ForumPostAdapter(
         }
 
         holder.tvPostText.text = data.post.postText
-        holder.tvCountLike.text = if (data.post.countLike < 1) "0 like" else "${data.post.countLike}"
-        holder.tvCountComment.text = if (data.post.countComment < 1) "0 comment" else "${data.post.countComment} comments"
+        holder.tvCountLike.text =
+            if (data.post.countLike < 1) "0 like" else "${data.post.countLike}"
+        holder.tvCountComment.text =
+            if (data.post.countComment < 1) "0 comment" else "${data.post.countComment} comments"
 
         data.post.createdAt.let { createdAt ->
             val currentMillis = System.currentTimeMillis()
@@ -76,6 +78,7 @@ class ForumPostAdapter(
                     val sdf = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
                     sdf.format(date)
                 }
+
                 days > 0 -> "$days day${if (days > 1) "s" else ""} ago"
                 hours > 0 -> "$hours hour${if (hours > 1) "s" else ""} ago"
                 minutes > 0 -> "$minutes minute${if (minutes > 1) "s" else ""} ago"

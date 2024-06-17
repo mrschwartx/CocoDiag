@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.util.Pair
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityOptionsCompat
-import com.dicoding.capstone.cocodiag.features.main.MainActivity
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.InputValidator
 import com.dicoding.capstone.cocodiag.common.ResultState
@@ -18,6 +16,7 @@ import com.dicoding.capstone.cocodiag.data.local.model.UserModel
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInParam
 import com.dicoding.capstone.cocodiag.databinding.ActivitySignInBinding
 import com.dicoding.capstone.cocodiag.features.ViewModelFactory
+import com.dicoding.capstone.cocodiag.features.main.MainActivity
 import com.dicoding.capstone.cocodiag.features.signup.SignUpActivity
 
 class SignInActivity : AppCompatActivity() {
@@ -72,7 +71,7 @@ class SignInActivity : AppCompatActivity() {
                             context = this,
                             title = "Invalid Login Credentials",
                             message = "Email or password is wrong",
-                        )    { dialog, _ -> dialog.dismiss() }
+                        ) { dialog, _ -> dialog.dismiss() }
                     } else
                         showToast(this, result.error.message)
                 }
@@ -111,13 +110,13 @@ class SignInActivity : AppCompatActivity() {
     private fun navigateToSignUp() {
         val textSignUp = binding.tvSignUp
         textSignUp.setOnClickListener {
-            val options=ActivityOptions.makeSceneTransitionAnimation(
+            val options = ActivityOptions.makeSceneTransitionAnimation(
                 this@SignInActivity,
-                Pair(textSignUp,"tv_transition"),
-                Pair(binding.layoutTransitionSignin,"field_transition"),
+                Pair(textSignUp, "tv_transition"),
+                Pair(binding.layoutTransitionSignin, "field_transition"),
             )
             val intent = Intent(this@SignInActivity, SignUpActivity::class.java)
-            startActivity(intent,options.toBundle())
+            startActivity(intent, options.toBundle())
         }
     }
 

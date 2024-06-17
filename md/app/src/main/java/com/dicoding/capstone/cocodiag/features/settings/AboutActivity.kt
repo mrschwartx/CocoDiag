@@ -1,10 +1,7 @@
 package com.dicoding.capstone.cocodiag.features.settings
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.dicoding.capstone.cocodiag.R
 
 class AboutActivity : AppCompatActivity() {

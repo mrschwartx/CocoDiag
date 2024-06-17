@@ -1,19 +1,15 @@
 package com.dicoding.capstone.cocodiag.features.main.price
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.dicoding.capstone.cocodiag.R
-import com.dicoding.capstone.cocodiag.databinding.ItemArticleBinding
 import com.dicoding.capstone.cocodiag.databinding.ItemPriceBinding
 
 
 class PriceAdapter(private val priceItem: PriceItem) :
     RecyclerView.Adapter<PriceAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemPriceBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)
