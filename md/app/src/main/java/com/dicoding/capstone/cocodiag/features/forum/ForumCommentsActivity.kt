@@ -47,11 +47,11 @@ class ForumCommentsActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        startActivity(Intent(this@ForumCommentsActivity, ForumActivity::class.java))
-        finish()
-    }
+//    override fun onBackPressed() {
+//        super.onBackPressed()
+//        startActivity(Intent(this@ForumCommentsActivity, ForumActivity::class.java))
+//        finish()
+//    }
 
     private fun setForumPost() {
         val postId = intent.getStringExtra(EXTRA_POST_ID)

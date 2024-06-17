@@ -89,6 +89,24 @@ class ForumPostAdapter(
             holder.tvCreatedAt.text = timeAgo
         }
 
+        holder.ivUserProfile.setOnClickListener {
+            val intent = Intent(holder.itemView.context, ForumUserActivity::class.java)
+            intent.putExtra(ForumUserActivity.EXTRA_USER_POST_ID, data.user.userId)
+            holder.itemView.context.startActivity(intent)
+        }
+
+        holder.tvUserName.setOnClickListener {
+            val intent = Intent(holder.itemView.context, ForumUserActivity::class.java)
+            intent.putExtra(ForumUserActivity.EXTRA_USER_POST_ID, data.user.userId)
+            holder.itemView.context.startActivity(intent)
+        }
+
+        holder.tvUserEmail.setOnClickListener {
+            val intent = Intent(holder.itemView.context, ForumUserActivity::class.java)
+            intent.putExtra(ForumUserActivity.EXTRA_USER_POST_ID, data.user.userId)
+            holder.itemView.context.startActivity(intent)
+        }
+
         holder.layoutForumPostContent.setOnClickListener {
             val intent = Intent(holder.itemView.context, ForumCommentsActivity::class.java)
             intent.putExtra(ForumCommentsActivity.EXTRA_POST_ID, data.post.postId)

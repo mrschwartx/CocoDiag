@@ -26,6 +26,9 @@
         android:theme="@style/Theme.CocoDiag"
         tools:targetApi="31">
         <activity
+            android:name=".features.forum.ForumUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".features.forum.ForumCommentsActivity"
             android:exported="false" />
         <activity

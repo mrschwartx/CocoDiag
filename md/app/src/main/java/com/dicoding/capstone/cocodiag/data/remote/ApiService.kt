@@ -71,6 +71,9 @@ interface ApiService {
     @GET("forum")
     suspend fun findLatestPost(): ForumLatestPostResponse
 
+    @GET("forum/user/{user_id}")
+    suspend fun findPostByUser(@Path("user_id") userId: String): ForumLatestPostResponse
+
     @Multipart
     @POST("forum")
     suspend fun addPost(

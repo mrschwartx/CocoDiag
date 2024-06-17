@@ -41,6 +41,27 @@ class ForumRepository private constructor(
         }
     }
 
+    fun findPostByUser(param: String) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val latestPostResponse = service.findPostByUser(param)
+            Log.d("forumrepo-findPostByUser", "$latestPostResponse")
+            val postWithUserDetails = latestPostResponse.forums.map { res ->
+                val userResponse = service.findUserById(res.userId)
+                PostWithUserDetails(
+                    post = res,
+                    user = userResponse
+                )
+            }
+            emit(ResultState.Success(postWithUserDetails))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+            Log.e("forumrepo-findPostByUser", errorBody.toString())
+            emit(ResultState.Error(errorResponse))
+        }
+    }
+
     fun addPost(postText: String, postImage: File?) = liveData {
         emit(ResultState.Loading)
         try {

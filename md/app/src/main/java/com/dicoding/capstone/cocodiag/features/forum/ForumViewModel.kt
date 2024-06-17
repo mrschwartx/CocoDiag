@@ -26,6 +26,10 @@ class ForumViewModel(
         return forumRepository.getLatestPost()
     }
 
+    fun findPostByUser(param: String): LiveData<ResultState<List<PostWithUserDetails>>> {
+        return forumRepository.findPostByUser(param)
+    }
+
     fun findUserById(param: String): LiveData<ResultState<UserResponse>> {
         return userRepository.findById(param)
     }

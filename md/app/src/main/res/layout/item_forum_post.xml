@@ -80,6 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_4sdp"
                 app:cardCornerRadius="@dimen/_16sdp"
                 app:cardElevation="0dp"
                 app:layout_constraintBottom_toTopOf="@id/hl1_forum_post"
