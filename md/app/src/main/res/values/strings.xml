@@ -95,4 +95,6 @@ Engage with Experts and Peers in Our Coconut Farming Forum.</string>
     <string name="disease_gray_leaf_spot">Gray Leaf Spot</string>
     <string name="disease_stem_bleeding">Stem Bleeding</string>
     <string name="disease_leaf_root_rot">Leaf Rot</string>
+    <string name="history_screen_title">History</string>
+    <string name="history_screen_subtitle">Your classification records</string>
 </resources>

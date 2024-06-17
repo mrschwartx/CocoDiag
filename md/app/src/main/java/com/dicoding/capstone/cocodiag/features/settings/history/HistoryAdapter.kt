@@ -11,6 +11,9 @@ import com.bumptech.glide.Glide
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.getAuthenticatedGlideUrl
 import com.dicoding.capstone.cocodiag.data.remote.payload.HistoryResponse
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class HistoryAdapter(
     private val historyList: List<HistoryResponse>,
@@ -64,11 +67,18 @@ class HistoryAdapter(
 
     class HistoryViewHolder(itemView: View, token: String) : RecyclerView.ViewHolder(itemView) {
         private val tvLabel: TextView = itemView.findViewById(R.id.tv_disease_name_history)
+        private val createdLabel: TextView = itemView.findViewById(R.id.tv_disease_created_history)
         private val img : ImageView =itemView.findViewById(R.id.img_item_history)
         private val jwt = token
 
         fun bind(history: HistoryResponse) {
             tvLabel.text = history.label
+            history.createdAt.let { createdAt ->
+                val date = Date(createdAt * 1000L)
+                val sdf = SimpleDateFormat("HH:mm:ss, dd MMM yyyy ", Locale.getDefault())
+                val formattedDate = sdf.format(date)
+                createdLabel.text = "Calssified at $formattedDate"
+            }
             Glide.with(itemView.context)
                 .load(getAuthenticatedGlideUrl(history.imageUrl, jwt))
                 .into(img)

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.ResultState
+import com.dicoding.capstone.cocodiag.common.getAuthenticatedGlideUrl
 import com.dicoding.capstone.cocodiag.common.getListExtra
 import com.dicoding.capstone.cocodiag.common.setBottomNavBar
 import com.dicoding.capstone.cocodiag.common.showToast
@@ -49,9 +50,9 @@ class ClassificationResultActivity : AppCompatActivity() {
         val ivImageResult = binding.ivClassImage
         val imageUriString = intent.getStringExtra(EXTRA_IMAGE)
         if (imageUriString != null) {
-            val imageUri = Uri.parse(imageUriString)
+            val token = viewModel.getUser().token!!
             Glide.with(this)
-                .load(imageUri)
+                .load(getAuthenticatedGlideUrl(imageUriString, token))
                 .into(ivImageResult)
         } else {
             showToast(this, "No Image")

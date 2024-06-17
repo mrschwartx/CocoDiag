@@ -49,6 +49,7 @@
             android:layout_alignParentEnd="true"
             android:text="@string/title_main"
             android:textColor="@color/white"
+            android:textAlignment="center"
             android:textSize="@dimen/_11ssp"
             android:textStyle="bold" />
 
@@ -61,6 +62,7 @@
             android:layout_alignParentEnd="true"
             android:text="@string/title_main"
             android:textColor="@color/white"
+            android:textAlignment="center"
             android:textSize="@dimen/_11ssp"
             android:textStyle="bold" />
 

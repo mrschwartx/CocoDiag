@@ -2,6 +2,7 @@ package com.dicoding.capstone.cocodiag.features.settings.history
 
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,13 +32,15 @@ class HistoryActivity : AppCompatActivity() {
         viewModel.findHistory().observe(this) { result ->
             when(result) {
                 is ResultState.Loading -> {
-
+                    showLoading(true)
                 }
 
                 is ResultState.Error -> {
+                    showLoading(false)
                 }
 
                 is ResultState.Success -> {
+                    showLoading(false)
                     val token = viewModel.getUser().token!!
 
                     val rv: RecyclerView = binding.rvHistory
@@ -48,5 +51,9 @@ class HistoryActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }
