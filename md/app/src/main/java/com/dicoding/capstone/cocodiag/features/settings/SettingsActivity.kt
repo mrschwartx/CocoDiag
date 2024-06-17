@@ -61,6 +61,7 @@ class SettingsActivity : AppCompatActivity() {
             Glide.with(this)
                 .load(getAuthenticatedGlideUrl(currentUser.imageProfile, currentUser.token))
                 .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL))
+                .placeholder(R.drawable.image_profile)
                 .into(binding.ivProfileImage)
         }
 

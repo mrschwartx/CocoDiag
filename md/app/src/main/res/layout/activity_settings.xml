@@ -1,165 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".features.settings.SettingsActivity">
+    tools:context=".features.settings.SettingsActivity"
+    android:background="@drawable/settingbg2">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:id="@+id/scroll_view"
+        android:layout_alignParentTop="true">
 
-        <ImageView
-            android:id="@+id/ic_setting"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:background="@drawable/baseline_setting_24"
-            android:backgroundTint="@color/green"
-            android:contentDescription="ic_setting"
-            android:scaleType="fitXY" />
-
-        <TextView
-            android:id="@+id/tv_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:text="@string/setting"
-            android:textColor="@color/green"
-            android:textSize="@dimen/_28ssp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/_20sdp"
-        android:layout_weight="1"
-        android:elevation="4dp"
-        app:cardBackgroundColor="@color/green"
-        app:cardCornerRadius="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ic_setting">
-
-        <ScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <RelativeLayout
+            android:layout_height="wrap_content">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/linear_layout_account"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_settings"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/_13sdp"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:text="@string/setting"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_30ssp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"/>
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/iv_profile_image"
-                        android:layout_width="@dimen/_40sdp"
-                        android:layout_height="@dimen/_40sdp"
-                        android:layout_marginStart="@dimen/_13sdp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/image_profile" />
-
-                    <TextView
-                        android:id="@+id/tv_profile_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:text="John Doe Berkman"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_16ssp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/view_line"
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_2sdp"
-                    android:layout_below="@+id/linear_layout_account"
-                    android:background="@color/white" />
+                    android:layout_height="@dimen/_60sdp"
+                    android:elevation="@dimen/_10sdp"
+                    android:layout_margin="@dimen/_20sdp"
+                    app:cardCornerRadius="@dimen/_10sdp">
 
-                <LinearLayout
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/iv_profile_image"
+                            android:layout_width="@dimen/_45sdp"
+                            android:layout_height="@dimen/_45sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/image_profile"
+                            android:layout_gravity="center"/>
+
+                        <TextView
+                            android:id="@+id/tv_profile_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:text="John Doe Berkman"
+                            android:textColor="@color/green"
+                            android:textSize="@dimen/_22ssp"
+                            android:textStyle="bold"
+                            />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/view_line"
-                    android:orientation="vertical">
+                    android:elevation="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    app:cardCornerRadius="@dimen/_10sdp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:text="Account Setting"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp" />
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv_editProfile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:text="@string/edit_profile"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tv_editProfile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:text="@string/edit_profile"
+                            android:textColor="@color/green"
+                            android:textSize="@dimen/_17ssp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"/>
 
-                    <TextView
-                        android:id="@+id/tv_changePass"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:text="@string/change_password"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp"
-                        android:textStyle="bold" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:background="@color/green"
+                            android:layout_marginStart="@dimen/_20sdp"
+                            android:layout_marginEnd="@dimen/_20sdp"
+                            />
 
-                    <TextView
-                        android:id="@+id/tv_History"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:text="@string/history"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tv_changePass"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:text="@string/change_password"
+                            android:textColor="@color/green"
+                            android:textSize="@dimen/_17ssp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"
+                            />
 
-                    <TextView
-                        android:id="@+id/tv_about"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:text="@string/about_us"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp"
-                        android:textStyle="bold" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:background="@color/green"
+                            android:layout_marginStart="@dimen/_20sdp"
+                            android:layout_marginEnd="@dimen/_20sdp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_History"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:text="@string/history"
+                            android:textColor="@color/green"
+                            android:textSize="@dimen/_17ssp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:background="@color/green"
+                            android:layout_marginStart="@dimen/_20sdp"
+                            android:layout_marginEnd="@dimen/_20sdp"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_about"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:text="@string/about_us"
+                            android:textColor="@color/green"
+                            android:textSize="@dimen/_17ssp"
+                            android:textStyle="bold"
+                            android:layout_gravity="center"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:elevation="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_20sdp">
 
                     <TextView
                         android:id="@+id/tv_signout"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_margin="@dimen/_10sdp"
                         android:text="@string/sign_out"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </RelativeLayout>
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/_17sdp"
+                        android:textStyle="bold"
+                        android:layout_gravity="center"/>
 
-        </ScrollView>
+                </androidx.cardview.widget.CardView>
 
-    </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -171,9 +194,8 @@
         app:itemIconSize="@dimen/_20sdp"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/navbar" />
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/navbar"
+        />
 
-</LinearLayout>
+</RelativeLayout>
