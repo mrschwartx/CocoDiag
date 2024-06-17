@@ -3,8 +3,11 @@ package com.dicoding.capstone.cocodiag.features.forum
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
@@ -67,16 +70,28 @@ class ForumCommentsActivity : AppCompatActivity() {
                         showLoading(false)
                         val post = result.data
                         setPost(post)
-                        viewModel.findUserById(post.userId).observe(this) { result ->
-                            when (result) {
+                        viewModel.findUserById(post.userId).observe(this) { resUser ->
+                            when (resUser) {
                                 is ResultState.Loading -> {}
                                 is ResultState.Error -> {}
                                 is ResultState.Success -> {
-                                    setUser(result.data)
+                                    setUser(resUser.data)
                                 }
                             }
                         }
-
+                        viewModel.findCommentByPostId(post.postId).observe(this) { resComment ->
+                            when (resComment) {
+                                is ResultState.Loading -> {}
+                                is ResultState.Error -> {}
+                                is ResultState.Success -> {
+                                    val token = viewModel.getUser().token!!
+                                    val rv: RecyclerView = binding.rvComments
+                                    val adapter = ForumCommentAdapter(resComment.data, token)
+                                    rv.layoutManager = LinearLayoutManager(this)
+                                    rv.adapter = adapter
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -149,8 +164,9 @@ class ForumCommentsActivity : AppCompatActivity() {
                     is ResultState.Loading -> {}
                     is ResultState.Error -> {}
                     is ResultState.Success -> {
-                        startActivity(Intent(this, ForumCommentsActivity::class.java))
-                        finish()
+                        setForumPost()
+                        hideKeyboard()
+                        binding.editTextInput.text?.clear()
                     }
                 }
             }
@@ -159,6 +175,14 @@ class ForumCommentsActivity : AppCompatActivity() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        val currentFocusedView = currentFocus
+        if (currentFocusedView != null) {
+            inputMethodManager.hideSoftInputFromWindow(currentFocusedView.windowToken, 0)
+        }
     }
 
     companion object {

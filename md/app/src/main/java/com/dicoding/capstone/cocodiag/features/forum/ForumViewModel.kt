@@ -41,6 +41,8 @@ class ForumViewModel(
 
     fun createComment(param: CommentRequest) = forumRepository.createComment(param)
 
+    fun findCommentByPostId(param: String) = forumRepository.getComment(param)
+
     fun getUser(): UserModel {
         val user = runBlocking {
             userPref.getUser().first()

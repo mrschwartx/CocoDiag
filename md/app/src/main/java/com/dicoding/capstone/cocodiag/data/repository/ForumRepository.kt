@@ -3,6 +3,7 @@ package com.dicoding.capstone.cocodiag.data.repository
 import android.util.Log
 import androidx.lifecycle.liveData
 import com.dicoding.capstone.cocodiag.common.ResultState
+import com.dicoding.capstone.cocodiag.data.local.model.CommentWithUserDetails
 import com.dicoding.capstone.cocodiag.data.local.model.PostWithUserDetails
 import com.dicoding.capstone.cocodiag.data.remote.ApiService
 import com.dicoding.capstone.cocodiag.data.remote.payload.CommentRequest
@@ -106,6 +107,27 @@ class ForumRepository private constructor(
             val errorBody = e.response()?.errorBody()?.string()
             val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
             Log.e("forumrepo-createcomment", errorBody.toString())
+            emit(ResultState.Error(errorResponse))
+        }
+    }
+
+    fun getComment(param: String) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val comments = service.getCommentByPostId(param)
+            Log.d("forumrepo-getlatest-post", "$comments")
+            val commentWithUserDetails = comments.comments.map { res ->
+                val userResponse = service.findUserById(res.userId)
+                CommentWithUserDetails(
+                    comment = res,
+                    user = userResponse
+                )
+            }
+            emit(ResultState.Success(commentWithUserDetails))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+            Log.e("forumrepo-getcomment", errorBody.toString())
             emit(ResultState.Error(errorResponse))
         }
     }

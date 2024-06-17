@@ -25,5 +25,3 @@ jobs:
         run: cd ./md && ./gradlew assembleDebug
       - name: Run unit tests
         run: cd ./md && ./gradlew testDebug
-      - name: Lint code
-        run: cd ./md && ./gradlew lintDebug

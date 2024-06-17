@@ -72,5 +72,5 @@ data class CommentResponse(
     val userId: String,
 
     @field:SerializedName("created_at")
-    val createdAt: String
+    val createdAt: Long
 )

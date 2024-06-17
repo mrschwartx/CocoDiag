@@ -86,4 +86,7 @@ interface ApiService {
 
     @POST("/forum/comment")
     suspend fun createComment(@Body param: CommentRequest): CommentListResponse
+
+    @GET("/forum/{post_id}/comments")
+    suspend fun getCommentByPostId(@Path("post_id") postId: String): CommentListResponse
 }
