@@ -1,5 +1,6 @@
 package com.dicoding.capstone.cocodiag.features.forum
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Handler
 import android.os.Looper
@@ -58,7 +59,7 @@ class ForumPostAdapter(
 
         holder.tvPostText.text = data.post.postText
         holder.tvCountLike.text =
-            if (data.post.countLike < 1) "0 like" else "${data.post.countLike}"
+            if (data.post.countLike < 1) "0 like" else "${data.post.countLike} likes"
         holder.tvCountComment.text =
             if (data.post.countComment < 1) "0 comment" else "${data.post.countComment} comments"
 
@@ -88,6 +89,12 @@ class ForumPostAdapter(
             holder.tvCreatedAt.text = timeAgo
         }
 
+        holder.layoutForumPostContent.setOnClickListener {
+            val intent = Intent(holder.itemView.context, ForumCommentsActivity::class.java)
+            intent.putExtra(ForumCommentsActivity.EXTRA_POST_ID, data.post.postId)
+            holder.itemView.context.startActivity(intent)
+        }
+
         holder.likeLayout.setOnClickListener {
             animateLikeLayout(holder.likeLayout)
             onLikeClickListener(data)
@@ -107,6 +114,8 @@ class ForumPostAdapter(
         val tvCountLike: TextView = itemView.findViewById(R.id.tv_forum_post_like)
         val tvCountComment: TextView = itemView.findViewById(R.id.tv_forum_post_comment)
         val tvCreatedAt: TextView = itemView.findViewById(R.id.tv_forum_post_created_at)
+        val layoutForumPostContent: LinearLayout =
+            itemView.findViewById(R.id.layout_forum_post_content)
         val likeLayout: LinearLayout = itemView.findViewById(R.id.likeLayout)
     }
 

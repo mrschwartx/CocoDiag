@@ -13,7 +13,6 @@ import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.common.getAuthenticatedGlideUrl
 import com.dicoding.capstone.cocodiag.common.setBottomNavBar
 import com.dicoding.capstone.cocodiag.common.showToast
-import com.dicoding.capstone.cocodiag.data.local.model.PostWithUserDetails
 import com.dicoding.capstone.cocodiag.data.remote.payload.LikePostRequest
 import com.dicoding.capstone.cocodiag.databinding.ActivityForumBinding
 import com.dicoding.capstone.cocodiag.features.ViewModelFactory
@@ -29,7 +28,6 @@ class ForumActivity : AppCompatActivity() {
 
     private lateinit var userId: String
     private lateinit var userImage: String
-    private val posts = mutableListOf<PostWithUserDetails>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +36,7 @@ class ForumActivity : AppCompatActivity() {
         setBottomNavBar(this@ForumActivity, binding.bottomNavigation, R.id.nav_forum)
         setCurrentUser()
         setLatestPost()
+        showLoading(false)
 
         binding.ctCurrentProfile.setOnClickListener {
             val moveIntent = Intent(this, EditProfileActivity::class.java)
@@ -53,7 +52,7 @@ class ForumActivity : AppCompatActivity() {
     }
 
     private fun setCurrentUser() {
-        viewModel.findById().observe(this) { result ->
+        viewModel.findUserById(viewModel.getUser().id).observe(this) { result ->
             when (result) {
                 is ResultState.Loading -> {
                     showProfileLoading(true)
@@ -70,7 +69,7 @@ class ForumActivity : AppCompatActivity() {
                     showProfileLoading(false)
                     binding.ivCurrentProfile.visibility = View.VISIBLE
 
-                    userId = result.data.userId ?: ""
+                    userId = result.data.userId
                     userImage = result.data.imageProfile ?: ""
 
                     if (userImage != "") {
@@ -88,29 +87,27 @@ class ForumActivity : AppCompatActivity() {
         viewModel.findLatestPost().observe(this) { result ->
             when (result) {
                 is ResultState.Loading -> {
-                    // TODO: implement animate
+                    showLoading(true)
                 }
 
                 is ResultState.Error -> {
-                    // TODO: implement dialog message
+                    showLoading(false)
                 }
 
                 is ResultState.Success -> {
+                    showLoading(false)
                     val token = viewModel.getUser().token!!
                     val rv: RecyclerView = binding.rvPosts
                     val adapter = ForumPostAdapter(result.data, token) { data ->
                         viewModel.setLike(LikePostRequest(data.post.postId, true)).observe(this) {
                             when (it) {
                                 is ResultState.Loading -> {
-                                    showLoading(true)
                                 }
 
                                 is ResultState.Error -> {
-                                    showLoading(false)
                                 }
 
                                 is ResultState.Success -> {
-                                    showLoading(false)
                                     setLatestPost()
                                 }
                             }

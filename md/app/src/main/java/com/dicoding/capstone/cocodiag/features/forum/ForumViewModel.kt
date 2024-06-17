@@ -25,9 +25,8 @@ class ForumViewModel(
         return forumRepository.getLatestPost()
     }
 
-    fun findById(): LiveData<ResultState<UserResponse>> {
-        val userId = getUserId()
-        return userRepository.findById(userId)
+    fun findUserById(param: String): LiveData<ResultState<UserResponse>> {
+        return userRepository.findById(param)
     }
 
     fun addPost(postText: String, postImage: File?): LiveData<ResultState<ForumPostResponse>> {
@@ -36,6 +35,8 @@ class ForumViewModel(
 
     // TODO: set unlike and ui changed
     fun setLike(param: LikePostRequest) = forumRepository.setLike(param)
+
+    fun findPostById(param: String) = forumRepository.findPostById(param)
 
     fun getUser(): UserModel {
         val user = runBlocking {

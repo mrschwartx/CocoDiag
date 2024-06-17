@@ -81,6 +81,20 @@ class ForumRepository private constructor(
         }
     }
 
+    fun findPostById(param: String) = liveData {
+        emit(ResultState.Loading)
+        try {
+            val response = service.findPostById(param)
+            Log.d("forumrepo-findbyid", "$response")
+            emit(ResultState.Success(response))
+        } catch (e: HttpException) {
+            val errorBody = e.response()?.errorBody()?.string()
+            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
+            Log.e("forumrepo-findbyid", errorBody.toString())
+            emit(ResultState.Error(errorResponse))
+        }
+    }
+
     companion object {
         @Volatile
         private var instance: ForumRepository? = null
