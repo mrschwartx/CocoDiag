@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/_7sdp">
+
         <ImageView
             android:id="@+id/img_article"
             android:layout_width="@dimen/_50sdp"
@@ -25,8 +26,8 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars"
             android:scaleType="fitXY"
-            android:contentDescription="@string/image_article"
-            />
+            android:contentDescription="@string/image_article" />
+
         <TextView
             android:id="@+id/title_article"
             android:layout_width="wrap_content"
@@ -38,6 +39,7 @@
             android:layout_marginStart="@dimen/_7sdp"
             android:textStyle="bold"
             android:maxLines="1"/>
+
         <TextView
             android:id="@+id/desc_article"
             android:layout_width="wrap_content"

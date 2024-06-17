@@ -89,4 +89,10 @@ Instantly Identify Coconut Plant Diseases with Our Advanced Scanning Feature.</s
 Enhance Your Knowledge with Our Well-Researched Coconut Articles.</string>
     <string name= "splash_forum">Join the Discussion! \n
 Engage with Experts and Peers in Our Coconut Farming Forum.</string>
+
+    <string name="disease_bud_root_dropping">Bud Rot Dropping</string>
+    <string name="disease_bud_rot">Bud Rot</string>
+    <string name="disease_gray_leaf_spot">Gray Leaf Spot</string>
+    <string name="disease_stem_bleeding">Stem Bleeding</string>
+    <string name="disease_leaf_root_rot">Leaf Rot</string>
 </resources>

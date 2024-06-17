@@ -54,62 +54,191 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/img_penyakit1"
-                        android:layout_width="@dimen/_120sdp"
-                        android:layout_height="@dimen/_120sdp"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_13sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginStart="@dimen/_14sdp"
-                        android:background="@drawable/penyakit1"
-                        android:contentDescription="penyakit1" />
+                        android:scrollbars="horizontal" />
 
-                    <ImageView
-                        android:id="@+id/img_penyakit2"
-                        android:layout_width="@dimen/_120sdp"
-                        android:layout_height="@dimen/_120sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_13sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@drawable/penyaki2"
-                        android:contentDescription="penyakit2" />
+                        app:cardCornerRadius="@dimen/_8sdp">
 
-                    <ImageView
-                        android:id="@+id/img_penyakit3"
-                        android:layout_width="@dimen/_120sdp"
-                        android:layout_height="@dimen/_120sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@drawable/penyakit1"
-                        android:contentDescription="penyakit1" />
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                    <ImageView
-                        android:id="@+id/img_penyakit4"
-                        android:layout_width="@dimen/_120sdp"
-                        android:layout_height="@dimen/_120sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
+                            <ImageView
+                                android:layout_width="@dimen/_130sdp"
+                                android:layout_height="@dimen/_130sdp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/bud_root_dropping" />
+
+                            <TextView
+                                android:layout_width="@dimen/_130sdp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:background="@color/green"
+                                android:padding="@dimen/_4sdp"
+                                android:text="@string/disease_bud_root_dropping"
+                                android:textAlignment="center"
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/_12sdp" />
+
+                        </FrameLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_13sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginEnd="@dimen/_14sdp"
-                        android:background="@drawable/penyaki2"
-                        android:contentDescription="penyakit2" />
+                        app:cardCornerRadius="@dimen/_8sdp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="@dimen/_130sdp"
+                                android:layout_height="@dimen/_130sdp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/bud_root" />
+
+                            <TextView
+                                android:layout_width="@dimen/_130sdp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:background="@color/green"
+                                android:padding="@dimen/_4sdp"
+                                android:text="@string/disease_bud_rot"
+                                android:textAlignment="center"
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/_12sdp" />
+
+                        </FrameLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_13sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:cardCornerRadius="@dimen/_8sdp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="@dimen/_130sdp"
+                                android:layout_height="@dimen/_130sdp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/gray_leaf" />
+
+                            <TextView
+                                android:layout_width="@dimen/_130sdp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:background="@color/green"
+                                android:padding="@dimen/_4sdp"
+                                android:text="@string/disease_gray_leaf_spot"
+                                android:textAlignment="center"
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/_12sdp" />
+
+                        </FrameLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_13sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:cardCornerRadius="@dimen/_8sdp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/img_penyakit1"
+                                android:layout_width="@dimen/_130sdp"
+                                android:layout_height="@dimen/_130sdp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/stem_bleeding" />
+
+                            <TextView
+                                android:id="@+id/text_below_image"
+                                android:layout_width="@dimen/_130sdp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:background="@color/green"
+                                android:padding="@dimen/_4sdp"
+                                android:text="@string/disease_stem_bleeding"
+                                android:textAlignment="center"
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/_12sdp" />
+
+                        </FrameLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_13sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_13sdp"
+                        app:cardCornerRadius="@dimen/_8sdp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="@dimen/_130sdp"
+                                android:layout_height="@dimen/_130sdp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/leaf_rot" />
+
+                            <TextView
+                                android:layout_width="@dimen/_130sdp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:background="@color/green"
+                                android:padding="@dimen/_4sdp"
+                                android:text="@string/disease_leaf_root_rot"
+                                android:textAlignment="center"
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/_12sdp" />
+
+                        </FrameLayout>
+
+                    </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
             </HorizontalScrollView>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="horizontal"
-                android:layout_below="@id/imageContainer"
-                android:layout_marginStart="@dimen/_13sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                />
 
             <TextView
                 android:id="@+id/article_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/rv_price"
+                android:layout_below="@+id/imageContainer"
                 android:text="@string/article"
                 android:textColor="@color/black"
                 android:textStyle="bold"
