@@ -111,7 +111,7 @@
         <LinearLayout
             android:id="@+id/likeLayout"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_12sdp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:clickable="true"
@@ -123,14 +123,15 @@
             <ImageView
                 android:id="@+id/iv_like"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_18sdp"
                 android:src="@drawable/ic_like_30" />
 
             <TextView
                 android:id="@+id/tv_forum_post_like"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_18sdp"
                 android:layout_marginStart="4dp"
+                android:gravity="center_vertical"
                 android:text="@string/like"
                 android:textSize="@dimen/_11ssp" />
 
@@ -139,7 +140,7 @@
         <LinearLayout
             android:id="@+id/commentLayout"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_12sdp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:clickable="true"
             android:focusable="true"
@@ -150,14 +151,15 @@
             <ImageView
                 android:id="@+id/iv_comment"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_18sdp"
                 android:src="@drawable/ic_comment_30" />
 
             <TextView
                 android:id="@+id/tv_forum_post_comment"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_18sdp"
                 android:text="@string/comment"
+                android:gravity="center_vertical"
                 android:textSize="@dimen/_11ssp" />
 
         </LinearLayout>
@@ -165,10 +167,11 @@
         <TextView
             android:id="@+id/tv_forum_post_created_at"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_12sdp"
+            android:layout_height="@dimen/_18sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:text="@string/forum_post_created_at"
             android:textSize="@dimen/_11ssp"
+            android:gravity="center_vertical"
             app:layout_constraintBottom_toBottomOf="@+id/commentLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/commentLayout" />

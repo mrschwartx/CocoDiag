@@ -94,9 +94,14 @@ class ForumActivity : AppCompatActivity() {
                     val adapter = ForumPostAdapter(result.data, token) { data ->
                         viewModel.setLike(LikePostRequest(data.post.postId, true)).observe(this) {
                             when (it) {
-                                is ResultState.Loading -> {}
-                                is ResultState.Error -> {}
+                                is ResultState.Loading -> {
+                                    showLoading(true)
+                                }
+                                is ResultState.Error -> {
+                                    showLoading(false)
+                                }
                                 is ResultState.Success -> {
+                                    showLoading(false)
                                     setLatestPost()
                                 }
                             }
@@ -112,5 +117,9 @@ class ForumActivity : AppCompatActivity() {
 
     private fun showProfileLoading(isLoading: Boolean) {
         binding.pbCurrentProfile.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }
