@@ -6,6 +6,7 @@ import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.data.remote.ApiService
 import com.dicoding.capstone.cocodiag.data.remote.payload.ClassificationResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.ErrorResponse
+import com.dicoding.capstone.cocodiag.data.remote.payload.PredictionErrorResponse
 import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -31,9 +32,9 @@ class ClassificationRepository private constructor(
             emit(ResultState.Success(successResponse))
         } catch (e: HttpException) {
             val errorBody = e.response()?.errorBody()?.string()
-            val errorResponse = Gson().fromJson(errorBody, ErrorResponse::class.java)
-            Log.d("classrepo-predict", "$errorResponse")
-            emit(ResultState.Error(errorResponse))
+            val predictionErrorResponse = Gson().fromJson(errorBody, PredictionErrorResponse::class.java)
+            Log.d("classrepo-predict", "$predictionErrorResponse")
+            emit(ResultState.Error(ErrorResponse(predictionErrorResponse.message)))
         }
     }
 

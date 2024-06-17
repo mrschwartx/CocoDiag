@@ -6,3 +6,8 @@ data class ErrorResponse(
     @field:SerializedName("message")
     val message: String
 )
+
+data class PredictionErrorResponse(
+    @field:SerializedName("error")
+    val message: String
+)

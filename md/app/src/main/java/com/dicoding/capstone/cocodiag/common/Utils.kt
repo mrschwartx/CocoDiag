@@ -35,12 +35,14 @@ fun showNoInternetDialog(
     val view = TextView(context).apply {
         text = "Please check your internet connection and try again."
         gravity = Gravity.CENTER_VERTICAL
+        setPadding(36, 16, 36, 0)
     }
     val dialog = AlertDialog.Builder(context)
         .setIcon(R.drawable.ic_no_wifi)
         .setTitle("No Internet Connection")
         .setView(view)
         .setPositiveButton("Retry", onRetry)
+        .setCancelable(false)
         .create()
 
     dialog.show()
@@ -55,6 +57,7 @@ fun showErrorMessageDialog(
     val view = TextView(context).apply {
         text = message
         gravity = Gravity.CENTER_VERTICAL
+        setPadding(36, 16, 36, 0)
     }
 
     val dialog = AlertDialog.Builder(context)
@@ -62,6 +65,7 @@ fun showErrorMessageDialog(
         .setTitle(title)
         .setView(view)
         .setPositiveButton("OK", onCancel)
+        .setCancelable(false)
         .create()
 
     dialog.show()

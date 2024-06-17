@@ -32,6 +32,8 @@ import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.common.putExtraList
 import com.dicoding.capstone.cocodiag.common.setBottomNavBar
+import com.dicoding.capstone.cocodiag.common.showErrorMessageDialog
+import com.dicoding.capstone.cocodiag.common.showNoInternetDialog
 import com.dicoding.capstone.cocodiag.common.showToast
 import com.dicoding.capstone.cocodiag.common.uriToFile
 import com.dicoding.capstone.cocodiag.data.remote.payload.ClassificationResponse
@@ -64,6 +66,7 @@ class CameraActivity : AppCompatActivity() {
         binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setBottomNavBar(this@CameraActivity, binding.bottomNavigation, R.id.nav_camera)
+        checkNetwork()
 
         // Use Image
         binding.btnGallery.setOnClickListener {
@@ -187,11 +190,19 @@ class CameraActivity : AppCompatActivity() {
                         }
 
                         is ResultState.Error -> {
-                            val moveIntent = Intent(this@CameraActivity, CameraActivity::class.java)
-                            startActivity(moveIntent)
-                            finish()
                             showLoading(false)
-                            showToast(this, result.error.message)
+                            showErrorMessageDialog(
+                                context = this,
+                                title = "Classification Failed",
+                                message = result.error.message,
+                            ) { dialog, _ ->
+                                dialog.dismiss()
+                                val moveIntent =
+                                    Intent(this@CameraActivity, CameraActivity::class.java)
+                                startActivity(moveIntent)
+                                finish()
+
+                            }
                         }
 
                         is ResultState.Success -> {
@@ -284,6 +295,14 @@ class CameraActivity : AppCompatActivity() {
 
     private fun getTimestamp(): String {
         return SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(System.currentTimeMillis())
+    }
+
+    private fun checkNetwork() {
+        viewModel.isOnline.observe(this) {
+            if (!it) showNoInternetDialog(this) { dialog, which ->
+                checkNetwork()
+            }
+        }
     }
 
     companion object {

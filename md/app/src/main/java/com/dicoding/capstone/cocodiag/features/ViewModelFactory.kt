@@ -43,7 +43,7 @@ class ViewModelFactory(
                 SettingsViewModel(authRepo, userRepo, classRepo, userPref) as T
             }
             modelClass.isAssignableFrom(ClassificationViewModel::class.java) -> {
-                ClassificationViewModel(classRepo, userPref) as T
+                ClassificationViewModel(classRepo, userPref, connectivity) as T
             }
             modelClass.isAssignableFrom(ForumViewModel::class.java) -> {
                 ForumViewModel(userRepo, forumRepo, userPref) as T
