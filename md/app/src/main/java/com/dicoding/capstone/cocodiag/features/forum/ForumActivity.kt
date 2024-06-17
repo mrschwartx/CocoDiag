@@ -17,6 +17,7 @@ import com.dicoding.capstone.cocodiag.data.local.model.PostWithUserDetails
 import com.dicoding.capstone.cocodiag.data.remote.payload.LikePostRequest
 import com.dicoding.capstone.cocodiag.databinding.ActivityForumBinding
 import com.dicoding.capstone.cocodiag.features.ViewModelFactory
+import com.dicoding.capstone.cocodiag.features.settings.EditProfileActivity
 
 class ForumActivity : AppCompatActivity() {
 
@@ -37,6 +38,12 @@ class ForumActivity : AppCompatActivity() {
         setBottomNavBar(this@ForumActivity, binding.bottomNavigation, R.id.nav_forum)
         setCurrentUser()
         setLatestPost()
+
+        binding.ctCurrentProfile.setOnClickListener {
+            val moveIntent = Intent(this, EditProfileActivity::class.java)
+            startActivity(moveIntent)
+            finish()
+        }
 
         binding.fabAddPost.setOnClickListener {
             val moveIntent = Intent(this@ForumActivity, ForumAddActivity::class.java)

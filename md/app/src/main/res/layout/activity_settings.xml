@@ -59,32 +59,37 @@
                 android:id="@+id/linear_layout_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_13sdp"
                 android:orientation="horizontal">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_profile_image"
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
-                    android:background="@drawable/baseline_android_24"
-                    android:backgroundTint="@color/white"
-                    android:layout_marginStart="@dimen/_30sdp"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    />
+                    android:layout_marginStart="@dimen/_13sdp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/image_profile" />
+
                 <TextView
+                    android:id="@+id/tv_profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="John Doe Berkman"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_8sdp"
                     android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_10ssp"
-                    android:layout_marginTop="@dimen/_30sdp"
-                    android:layout_marginStart="@dimen/_10sdp"/>
+                    android:textSize="@dimen/_16ssp" />
+
             </LinearLayout>
+
             <View
                 android:id="@+id/view_line"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_2sdp"
                 android:background="@color/white"
                 android:layout_below="@+id/linear_layout_account"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

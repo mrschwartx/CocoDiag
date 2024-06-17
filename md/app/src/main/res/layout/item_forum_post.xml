@@ -9,17 +9,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginTop="@dimen/_8sdp">
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="4dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_forum_user_profile"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/image_profile"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_profile"
             app:layout_constraintBottom_toBottomOf="@+id/tv_forum_user_email"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_forum_user_name" />
@@ -89,8 +89,8 @@
                     android:id="@+id/iv_forum_post_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_place_holder"
                     android:scaleType="fitCenter"
+                    android:src="@drawable/ic_place_holder"
                     android:visibility="gone" />
 
             </androidx.cardview.widget.CardView>
@@ -158,8 +158,8 @@
                 android:id="@+id/tv_forum_post_comment"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_18sdp"
-                android:text="@string/comment"
                 android:gravity="center_vertical"
+                android:text="@string/comment"
                 android:textSize="@dimen/_11ssp" />
 
         </LinearLayout>
@@ -169,9 +169,9 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_18sdp"
             android:layout_marginEnd="@dimen/_8sdp"
+            android:gravity="center_vertical"
             android:text="@string/forum_post_created_at"
             android:textSize="@dimen/_11ssp"
-            android:gravity="center_vertical"
             app:layout_constraintBottom_toBottomOf="@+id/commentLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/commentLayout" />
