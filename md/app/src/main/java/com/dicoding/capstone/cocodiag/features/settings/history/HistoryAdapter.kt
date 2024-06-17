@@ -75,9 +75,9 @@ class HistoryAdapter(
             tvLabel.text = history.label
             history.createdAt.let { createdAt ->
                 val date = Date(createdAt * 1000L)
-                val sdf = SimpleDateFormat("HH:mm:ss, dd MMM yyyy ", Locale.getDefault())
+                val sdf = SimpleDateFormat("dd MMM yyyy ", Locale.getDefault())
                 val formattedDate = sdf.format(date)
-                createdLabel.text = "Calssified at $formattedDate"
+                createdLabel.text = "Classified at $formattedDate"
             }
             Glide.with(itemView.context)
                 .load(getAuthenticatedGlideUrl(history.imageUrl, jwt))
