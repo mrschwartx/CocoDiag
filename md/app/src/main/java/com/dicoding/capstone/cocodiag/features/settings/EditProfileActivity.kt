@@ -51,6 +51,10 @@ class EditProfileActivity : AppCompatActivity() {
             launcherIntentGallery.launch(chooser)
         }
 
+        binding.btnCancel.setOnClickListener{
+            startActivity(Intent(this@EditProfileActivity, SettingsActivity::class.java))
+        }
+
         binding.btnSave.setOnClickListener {
             val name = binding.edName.text.toString()
             val email = binding.edEmail.text.toString()
@@ -79,7 +83,7 @@ class EditProfileActivity : AppCompatActivity() {
             val token = viewModel.getUser().token!!
             Glide.with(this)
                 .load(getAuthenticatedGlideUrl(userImageUrl, token))
-                .into(binding.ivEditProfile)
+                .into(binding.cvImageProfile)
         }
     }
 
@@ -123,7 +127,7 @@ class EditProfileActivity : AppCompatActivity() {
                     val src = ImageDecoder.createSource(this.contentResolver, uri)
                     ImageDecoder.decodeBitmap(src).copy(Bitmap.Config.RGBA_F16, true)
                 }
-                binding.ivEditProfile.setImageBitmap(imageBitmap)
+                binding.cvImageProfile.setImageBitmap(imageBitmap)
             }
         }
     }
