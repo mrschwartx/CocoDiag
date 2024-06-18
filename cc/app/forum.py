@@ -4,8 +4,8 @@ from config.firebase_config import db
 from firebase_admin import storage
 import logging
 from datetime import datetime
-import uuid
 from urllib.parse import urlparse
+from config.save_image import allowed_file, save_image
 
 forum_bp = Blueprint('forum_bp', __name__)
 
@@ -23,16 +23,11 @@ def create_post():
         if not user_doc.exists:
             raise Exception("User not found")
 
-
+        image_url = None
         if post_image_file:
-            image_filename = f"{uuid.uuid4()}-{post_image_file.filename}"
-            firebase_bucket = storage.bucket('cocodiag.appspot.com')
-            blob = firebase_bucket.blob(f"forums/{user_id}/{image_filename}")
-            post_image_file.seek(0)
-            blob.upload_from_file(post_image_file, content_type= post_image_file.content_type)
-            image_url = blob.public_url
-        else:
-            image_url = None
+            if not allowed_file(post_image_file.filename):
+                return jsonify({'error': 'Invalid file extension'}), 400
+            image_url = save_image(post_image_file, user_id, 'forums')
 
         doc_ref = db.collection('forum').document()
         doc_ref.set({
@@ -86,6 +81,28 @@ def get_post(post_id):
         return jsonify(post_data), 200
     except Exception as e:
         logging.error(f"Get post error: {e}")
+        return jsonify({"message": str(e)}), 400
+    
+@forum_bp.route('/forum/user/<user_id>', methods=['GET'])
+def get_posts_by_user(user_id):
+    try:
+        user_ref = db.collection('users').document(user_id)
+        user_doc = user_ref.get()
+        if not user_doc.exists:
+            raise Exception("User not found")
+
+        posts_ref = db.collection('forum').where('user_id', '==', user_id).order_by('created_at', direction='DESCENDING')
+        posts = posts_ref.stream()
+
+        forums = []
+        for post in posts:
+            post_data = post.to_dict()
+            post_data["post_id"] = post.id
+            forums.append(post_data)
+
+        return jsonify({"forums": forums}), 200
+    except Exception as e:
+        logging.error(f"Get posts by user error: {e}")
         return jsonify({"message": str(e)}), 400
 
 @forum_bp.route('/forum/<post_id>', methods=['DELETE'])
@@ -194,7 +211,30 @@ def create_comment():
     except Exception as e:
         logging.error(f"Create comment error: {e}")
         return jsonify({"message": str(e)}), 400
+    
+@forum_bp.route('/forum/<post_id>/comments', methods=['GET'])
+def get_comments_by_post(post_id):
+    try:
+        post_ref = db.collection('forum').document(post_id)
+        post_doc = post_ref.get()
 
+        if not post_doc.exists:
+            raise Exception("Post not found")
+
+        comments_ref = post_ref.collection('comments').order_by('created_at', direction='DESCENDING')
+        comments = comments_ref.stream()
+
+        comments_list = [{"user_id": comment.get('user_id'), 
+                          "comment_id": comment.id, 
+                          "comment": comment.get('comment'), 
+                          "created_at": comment.get('created_at')} 
+                          for comment in comments]
+
+        return jsonify({"post_id": post_id, "comments": comments_list}), 200
+    except Exception as e:
+        logging.error(f"Get comments by post error: {e}")
+        return jsonify({"message": str(e)}), 400
+    
 @forum_bp.route('/comment/<comment_id>', methods=['DELETE'])
 @jwt_required()
 def delete_comment(comment_id):

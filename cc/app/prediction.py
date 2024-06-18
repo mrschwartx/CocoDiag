@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify
-from firebase_admin import storage
 from google.cloud import storage as gcs_storage
 import tensorflow as tf
 import numpy as np
@@ -10,7 +9,7 @@ import time
 from flask_jwt_extended import jwt_required, get_jwt_identity
 import json
 from config.firebase_config import db
-import uuid
+from config.save_image import allowed_file, save_image
 
 prediction_bp = Blueprint('prediction_bp', __name__)
 
@@ -63,8 +62,11 @@ def predict():
     file = request.files['imageFile']
     if file.filename == '':
         return jsonify({'error': 'Empty file'}), 400
-
-    try:
+    
+    if not allowed_file(file.filename):
+        return jsonify({'error': 'Invalid file extension'}), 400
+    
+    try: 
         image = Image.open(io.BytesIO(file.read()))
         processed_image = prepare_image(image, target_size=(224, 224))
         predictions = model.predict(processed_image)
@@ -80,7 +82,7 @@ def predict():
 
         disease_info = class_info.get(predicted_class)
 
-        response = {
+        response_data = {
             'label': predicted_class,
             'accuracy': f"{accuracy:.2%}",
             'name': disease_info['name'],
@@ -91,24 +93,20 @@ def predict():
         }
 
         user_id = get_jwt_identity()
-
-        image_filename = f"{uuid.uuid4()}-{file.filename}"
-        firebase_bucket = storage.bucket('cocodiag.appspot.com')
-        blob = firebase_bucket.blob(f'uploads/{user_id}/{image_filename}')
         file.seek(0)
-        blob.upload_from_file(file, content_type=file.content_type)
-        image_url = blob.public_url
-
+        image_url = save_image(file, user_id, 'uploads')
+        
         doc_ref = db.collection('history').document()
         doc_ref.set({
             "user_id": user_id,
             "image": file.filename,
-            "created_at": response['created_at'],
-            "result": response,
+            "created_at": response_data['created_at'],
+            "result": response_data,
             "image_url": image_url
         })
 
-        return jsonify(response)
+        return jsonify(response_data)
+    
     except Exception as e:
         logging.error(f"Prediction error: {str(e)}")
         return jsonify({'error': str(e)}), 500
