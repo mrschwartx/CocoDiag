@@ -90,7 +90,7 @@
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
@@ -99,23 +99,29 @@
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_35sdp"
                     android:layout_marginStart="@dimen/_30sdp"
-                    android:layout_marginEnd="@dimen/_20sdp"
                     android:text="SAVE"
                     android:textStyle="bold"
                     app:cornerRadius="@dimen/_7sdp"
-                    android:textSize="@dimen/_14ssp"/>
+                    android:textSize="@dimen/_14ssp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_alignParentStart="true"
+                    />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_cancel"
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_35sdp"
-                    android:layout_marginStart="@dimen/_40sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:text="Cancel"
+                    android:layout_marginStart="@dimen/_42sdp"
+                    android:text="CANCEL"
                     android:textStyle="bold"
                     app:cornerRadius="@dimen/_7sdp"
-                    android:textSize="@dimen/_14ssp"/>
-            </LinearLayout>
+                    android:textSize="@dimen/_14ssp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_30sdp"
+                    android:layout_toLeftOf="@id/btn_save"
+                    />
+            </RelativeLayout>
 
         </LinearLayout>
     </ScrollView>
