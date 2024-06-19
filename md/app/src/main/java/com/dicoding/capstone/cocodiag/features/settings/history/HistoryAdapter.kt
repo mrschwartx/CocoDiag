@@ -30,7 +30,6 @@ class HistoryAdapter(
         holder.bind(history)
 
         holder.itemView.setOnClickListener {
-
             val intent = Intent(holder.itemView.context, DetailHistoryActivity::class.java)
             val controls = history.controls
             val controlsString = when (controls) {
@@ -58,12 +57,11 @@ class HistoryAdapter(
             intent.putExtra("NAME", history.name)
             intent.putExtra("CONTROLS", controlsString)
             intent.putExtra("SYMPTOMS", symptomsString)
-            intent.putExtra(
-                "IM  bb                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          AGE_URL",
-                history.imageUrl
-            )
+            intent.putExtra("IMAGE_URL", history.imageUrl)
+            intent.putExtra("TOKEN", token)
             holder.itemView.context.startActivity(intent)
         }
+
     }
 
 

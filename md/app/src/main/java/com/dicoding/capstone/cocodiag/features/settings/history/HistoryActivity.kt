@@ -24,7 +24,6 @@ class HistoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHistoryBinding.inflate(layoutInflater)
-        supportActionBar?.show()
         setContentView(binding.root)
         setData()
     }
