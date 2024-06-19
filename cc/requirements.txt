@@ -10,3 +10,4 @@ numpy==1.26.0
 selenium==4.21.0
 webdriver-manager==4.0.1
 firebase-admin==6.5.0
+email-validator==2.1.2
