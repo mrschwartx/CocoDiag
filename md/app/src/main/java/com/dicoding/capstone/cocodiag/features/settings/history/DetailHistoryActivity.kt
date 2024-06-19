@@ -20,13 +20,11 @@ class DetailHistoryActivity : AppCompatActivity() {
 
         token = intent.getStringExtra("TOKEN") ?: ""
         val label = intent.getStringExtra("LABEL")
-        val name = intent.getStringExtra("NAME")
         val controls = intent.getStringExtra("CONTROLS")
         val symptoms = intent.getStringExtra("SYMPTOMS")
         val imgUrl = intent.getStringExtra("IMAGE_URL")?:""
 
-        binding.tvLabel.text = label
-        binding.tvName.text = name
+        binding.tvLabel.text = "Symptoms of $label"
         binding.descSymptoms.text = symptoms
         binding.descControls.text = controls
 
