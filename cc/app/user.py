@@ -3,6 +3,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from config.firebase_config import auth, db
 import logging
 from config.save_image import allowed_file, save_image
+from email_validator import validate_email, EmailNotValidError
 
 user_bp = Blueprint('user_bp', __name__)
 
@@ -15,9 +16,21 @@ def update_user():
         data = request.form
         name = data.get('name')
         email = data.get('email')
-        password = data.get('password')
-        
+        password = data.get('password')        
         image_profile_file = request.files.get('imageProfile')
+
+        if not name:
+            return jsonify({'error': 'Name cannot be empty'}), 400
+        if not email:
+            return jsonify({'error': 'Email cannot be empty'}), 400
+        if not password:
+            return jsonify({'error': 'Password cannot be empty'}), 400
+
+        try:
+            valid = validate_email(email, check_deliverability=False)
+            email = valid.normalized
+        except EmailNotValidError as e:
+            return jsonify({'error': str(e)}), 400
 
         image_url = None
         if image_profile_file:

@@ -17,6 +17,9 @@ def create_post():
     post_text = data.get('post_text')
     post_image_file = request.files.get('post_image')
 
+    if not post_text:
+        return jsonify({'error': 'Post text cannot be empty'}), 400
+
     try:
         user_ref = db.collection('users').document(user_id)
         user_doc = user_ref.get()
@@ -49,6 +52,7 @@ def create_post():
         return jsonify({"message": str(e)}), 400
 
 @forum_bp.route('/forum', methods=['GET'])
+@jwt_required()
 def get_latest_posts():
     limit = request.args.get('limit', 20)
     try:
@@ -67,6 +71,7 @@ def get_latest_posts():
         return jsonify({"message": str(e)}), 400
 
 @forum_bp.route('/forum/<post_id>', methods=['GET'])
+@jwt_required()
 def get_post(post_id):
     try:
         post_ref = db.collection('forum').document(post_id)
@@ -84,6 +89,7 @@ def get_post(post_id):
         return jsonify({"message": str(e)}), 400
     
 @forum_bp.route('/forum/user/<user_id>', methods=['GET'])
+@jwt_required()
 def get_posts_by_user(user_id):
     try:
         user_ref = db.collection('users').document(user_id)
@@ -148,6 +154,7 @@ def like_unlike_post():
     data = request.get_json()
     post_id = data.get('post_id')
     like = data.get('like')
+    user_id = get_jwt_identity()
 
     try:
         post_ref = db.collection('forum').document(post_id)
@@ -156,14 +163,25 @@ def like_unlike_post():
         if not post_doc.exists:
             raise Exception("Post not found")
 
-        post_data = post_doc.to_dict()
-        if like:
-            post_data["count_like"] += 1
-        else:
-            post_data["count_like"] -= 1
+        like_ref = post_ref.collection('likes').document(user_id)
+        like_doc = like_ref.get()
 
-        post_ref.update({"count_like": post_data["count_like"]})
-        post_data["post_id"] = post_doc.id
+        # Like
+        if like and not like_doc.exists:
+            post_ref.update({"count_like": post_doc.to_dict()["count_like"] + 1})
+            like_ref.set({"liked": True, "created_at": datetime.now()})
+        # Unlike
+        elif not like and like_doc.exists:
+            post_ref.update({"count_like": post_doc.to_dict()["count_like"] - 1})
+            like_ref.delete()
+        # Handling
+        elif like and like_doc.exists:
+            return jsonify({"message": "You have already liked this post"}), 400
+        elif not like and not like_doc.exists:
+            return jsonify({"message": "You haven't liked this post"}), 400
+
+        post_data = post_ref.get().to_dict()
+        post_data["post_id"] = post_id
 
         return jsonify(post_data), 200
     except Exception as e:
@@ -213,6 +231,7 @@ def create_comment():
         return jsonify({"message": str(e)}), 400
     
 @forum_bp.route('/forum/<post_id>/comments', methods=['GET'])
+@jwt_required()
 def get_comments_by_post(post_id):
     try:
         post_ref = db.collection('forum').document(post_id)
@@ -240,23 +259,27 @@ def get_comments_by_post(post_id):
 def delete_comment(comment_id):
     user_id = get_jwt_identity()
     try:
-        posts_ref = db.collection('forum').stream()
-        comment_ref = None
-        for post in posts_ref:
-            comment_doc_ref = db.collection('forum').document(post.id).collection('comments').document(comment_id)
-            comment_doc = comment_doc_ref.get()
-            if comment_doc.exists:
-                comment_ref = comment_doc_ref
-                break
+        comment_query = db.collection_group('comments').where('__name__', '==', comment_id).limit(1)
+        comment_docs = list(comment_query.stream())
 
-        if not comment_ref:
+        if not comment_docs:
             raise Exception("Comment not found")
 
-        comment_data = comment_doc.to_dict()
+        comment_ref = comment_docs[0].reference
+        comment_data = comment_docs[0].to_dict()
+
         if comment_data["user_id"] != user_id:
             return jsonify({"message": "You are not authorized to delete this comment"}), 403
 
         comment_ref.delete()
+
+        post_ref = comment_ref.parent.parent
+        post_doc = post_ref.get()
+        if post_doc.exists:
+            post_data = post_doc.to_dict()
+            count_comment = max(post_data.get("count_comment", 0) - 1, 0)
+            post_ref.update({"count_comment": count_comment})
+
         return jsonify({"message": "comment has been deleted"}), 200
     except Exception as e:
         logging.error(f"Delete comment error: {e}")

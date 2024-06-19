@@ -4,6 +4,7 @@ from config.firebase_config import auth, db
 from config.secret_manager import access_secret_version
 import requests
 import logging
+from email_validator import validate_email, EmailNotValidError
 
 auth_bp = Blueprint('auth_bp', __name__)
 
@@ -15,6 +16,19 @@ def signup():
     name = data.get('name')
     email = data.get('email')
     password = data.get('password')
+
+    if not name:
+            return jsonify({'error': 'Name cannot be empty'}), 400
+    if not email:
+        return jsonify({'error': 'Email cannot be empty'}), 400
+    if not password:
+        return jsonify({'error': 'Password cannot be empty'}), 400
+    
+    try:
+        valid = validate_email(email)
+        email = valid.normalized
+    except EmailNotValidError as e:
+        raise ValueError(str(e))
 
     try:
         user = auth.create_user(
@@ -44,6 +58,17 @@ def signin():
     data = request.get_json()
     email = data.get('email')
     password = data.get('password')
+
+    if not email:
+        return jsonify({'error': 'Email cannot be empty'}), 400
+    if not password:
+        return jsonify({'error': 'Password cannot be empty'}), 400
+    
+    try:
+        valid = validate_email(email)
+        email = valid.normalized
+    except EmailNotValidError as e:
+        raise ValueError(str(e))
 
     try:
         payload = {
