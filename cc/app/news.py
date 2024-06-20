@@ -17,7 +17,7 @@ def get_news():
         blob = bucket.blob(file_path)
         data = blob.download_as_text()
         articles = json.loads(data)
-        return jsonify({"articles": articles})
+        return jsonify(articles)
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
