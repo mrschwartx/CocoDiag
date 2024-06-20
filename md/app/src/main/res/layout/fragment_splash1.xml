@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -36,8 +37,7 @@
         android:src="@drawable/circle"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/_7sdp"
-        />
+        android:layout_marginBottom="@dimen/_7sdp" />
 
     <ImageView
         android:id="@+id/circle2"
@@ -48,7 +48,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginEnd="@dimen/_5sdp"
         android:layout_marginStart="@dimen/_5sdp"
-        android:layout_marginBottom="@dimen/_7sdp"/>
+        android:layout_marginBottom="@dimen/_7sdp" />
 
     <ImageView
         android:layout_toEndOf="@id/circle2"
@@ -57,7 +57,7 @@
         android:src="@drawable/circle"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/_7sdp"/>
+        android:layout_marginBottom="@dimen/_7sdp" />
 
 
 </RelativeLayout>
