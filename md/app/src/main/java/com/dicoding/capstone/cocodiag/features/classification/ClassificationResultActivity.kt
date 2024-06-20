@@ -51,7 +51,7 @@ class ClassificationResultActivity : AppCompatActivity() {
         if (imageUriString != null) {
             val token = viewModel.getUser().token!!
             Glide.with(this)
-                .load(getAuthenticatedGlideUrl(imageUriString, token))
+                .load(imageUriString)
                 .into(ivImageResult)
         } else {
             showToast(this, "No Image")
