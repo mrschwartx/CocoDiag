@@ -8,7 +8,6 @@ import com.dicoding.capstone.cocodiag.data.local.UserPreference
 import com.dicoding.capstone.cocodiag.data.local.model.UserModel
 import com.dicoding.capstone.cocodiag.data.remote.payload.HistoryListResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInParam
-import com.dicoding.capstone.cocodiag.data.remote.payload.UpdatePasswordParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.UpdateUserParam
 import com.dicoding.capstone.cocodiag.data.remote.payload.UserResponse
 import com.dicoding.capstone.cocodiag.data.repository.AuthRepository
@@ -31,16 +30,16 @@ class SettingsViewModel(
 
     fun updateUser(param: UpdateUserParam) = userRepository.update(param)
 
-    fun updatePassword(newPassword: String): LiveData<ResultState<UserResponse>> {
-        val currentUser = getUser()
-        val param = UpdatePasswordParam(
-            name = currentUser.name,
-            email = currentUser.email,
-            imageProfile = currentUser.imageProfile,
-            newPassword = newPassword,
-        )
-        return userRepository.updatePassword(param)
-    }
+//    fun updatePassword(newPassword: String): LiveData<ResultState<UserResponse>> {
+//        val currentUser = getUser()
+//        val param = UpdateUserParam(
+//            name = currentUser.name,
+//            email = currentUser.email,
+//            password = newPassword,
+//            imageProfile = currentUser.imageProfile,
+//        )
+//        return userRepository.update(param)
+//    }
 
     fun reSignIn(param: SignInParam) = authRepository.signIn(param)
 

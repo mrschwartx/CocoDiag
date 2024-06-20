@@ -43,6 +43,7 @@ interface ApiService {
     suspend fun updateUser(
         @Part("name") name: RequestBody,
         @Part("email") email: RequestBody,
+        @Part("password") password: RequestBody,
         @Part imageProfile: MultipartBody.Part?
     ): UserResponse
 

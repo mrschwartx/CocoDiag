@@ -38,6 +38,7 @@ class UserRepository private constructor(
                 val response = service.updateUser(
                     param.name.toRequestBody("text/plain".toMediaType()),
                     param.email.toRequestBody("text/plain".toMediaType()),
+                    param.password.toRequestBody("text/plain".toMediaType()),
                     MultipartBody.Part.createFormData(
                         "imageProfile",
                         param.imageProfile.name,
@@ -51,6 +52,7 @@ class UserRepository private constructor(
                 val response = service.updateUser(
                     param.name.toRequestBody("text/plain".toMediaType()),
                     param.email.toRequestBody("text/plain".toMediaType()),
+                    param.password.toRequestBody("text/plain".toMediaType()),
                     null
                 )
                 Log.d("userrepo-update", "$response")

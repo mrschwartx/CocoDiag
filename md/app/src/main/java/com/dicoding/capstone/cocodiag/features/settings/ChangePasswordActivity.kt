@@ -1,5 +1,6 @@
 package com.dicoding.capstone.cocodiag.features.settings
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -9,8 +10,15 @@ import com.dicoding.capstone.cocodiag.common.ResultState
 import com.dicoding.capstone.cocodiag.common.showToast
 import com.dicoding.capstone.cocodiag.data.local.model.UserModel
 import com.dicoding.capstone.cocodiag.data.remote.payload.SignInParam
+import com.dicoding.capstone.cocodiag.data.remote.payload.UpdateUserParam
 import com.dicoding.capstone.cocodiag.databinding.ActivityChangePasswordBinding
 import com.dicoding.capstone.cocodiag.features.ViewModelFactory
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okio.buffer
+import okio.sink
+import java.io.File
+import java.io.IOException
 
 class ChangePasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChangePasswordBinding
@@ -45,7 +53,14 @@ class ChangePasswordActivity : AppCompatActivity() {
     }
 
     private fun changePassword(param: String) {
-        viewModel.updatePassword(param).observe(this) { result ->
+        val currentUser = viewModel.getUser()
+        val body = UpdateUserParam(
+            name = currentUser.name,
+            email = currentUser.email,
+            password = param,
+            imageProfile = null
+        )
+        viewModel.updateUser(body).observe(this) { result ->
             when (result) {
                 is ResultState.Loading -> {
                     setDisableBtnSave(true)
@@ -63,7 +78,6 @@ class ChangePasswordActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 
     private fun reSignIn(param: SignInParam) {
@@ -151,6 +165,32 @@ class ChangePasswordActivity : AppCompatActivity() {
         } else {
             binding.btnSave.text = getString(R.string.save)
             binding.btnSave.isEnabled = true
+        }
+    }
+
+    private fun downloadImageToFile(context: Context, imageUrl: String, fileName: String): File? {
+        val client = OkHttpClient()
+        val token = viewModel.getUser().token
+
+        val request = Request.Builder()
+            .addHeader("Authorization", "Bearer $token")
+            .url(imageUrl)
+            .build()
+
+        return try {
+            val response = client.newCall(request).execute()
+            if (!response.isSuccessful) throw IOException("Failed to download file: $response")
+
+            val file = File(context.cacheDir, fileName)
+            val sink = file.sink()
+            val bufferedSink = sink.buffer()
+            bufferedSink.writeAll(response.body!!.source())
+            bufferedSink.close()
+
+            file
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 }

@@ -58,12 +58,13 @@ class EditProfileActivity : AppCompatActivity() {
         binding.btnSave.setOnClickListener {
             val name = binding.edName.text.toString()
             val email = binding.edEmail.text.toString()
+            val password = viewModel.getUser().password
 
             if (validateInput(name, email)) {
                 if (userImage != null) {
-                    updateData(UpdateUserParam(name, email, uriToFile(userImage!!, this)))
+                    updateData(UpdateUserParam(name, email, password, uriToFile(userImage!!, this)))
                 } else {
-                    updateData(UpdateUserParam(name, email, null))
+                    updateData(UpdateUserParam(name, email, password, null))
                 }
             }
         }
