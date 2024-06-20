@@ -9,17 +9,18 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/ct_current_profile"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/_33sdp"
+        android:layout_height="@dimen/_33sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_4sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:clickable="true"
         android:focusable="true"
-        app:cardCornerRadius="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_sc_subtitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_sc_title">
+        app:cardCornerRadius="@dimen/_30sdp"
+        app:layout_constraintEnd_toEndOf="@id/top_layout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardElevation="@dimen/_2sdp"
+        >
 
         <ProgressBar
             android:id="@+id/pb_current_profile"
@@ -45,30 +46,39 @@
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/tv_sc_title"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/forum_title"
-        android:textSize="@dimen/_16ssp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/tv_sc_subtitle"
-        app:layout_constraintEnd_toStartOf="@+id/ct_current_profile"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/green">
 
-    <TextView
-        android:id="@+id/tv_sc_subtitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/forum_subtitle"
-        android:textSize="@dimen/_11ssp"
-        app:layout_constraintEnd_toStartOf="@+id/ct_current_profile"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_sc_title" />
+        <TextView
+            android:id="@+id/tv_sc_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forum"
+            android:textSize="@dimen/_16ssp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            />
+
+        <TextView
+            android:id="@+id/tv_sc_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forum_subtitle"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_11ssp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_posts"
@@ -78,7 +88,7 @@
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_sc_subtitle" />
+        app:layout_constraintTop_toBottomOf="@+id/top_layout" />
 
     <ProgressBar
         android:id="@+id/progress_Bar"
