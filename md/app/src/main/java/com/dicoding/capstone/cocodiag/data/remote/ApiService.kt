@@ -1,6 +1,6 @@
 package com.dicoding.capstone.cocodiag.data.remote
 
-import com.dicoding.capstone.cocodiag.data.local.model.ArticleModel
+import com.dicoding.capstone.cocodiag.data.remote.payload.ArticleResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.ClassificationResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.CommentListResponse
 import com.dicoding.capstone.cocodiag.data.remote.payload.CommentRequest
@@ -66,7 +66,7 @@ interface ApiService {
     ): Response<Unit>
 
     @GET("getNews")
-    suspend fun getNews(): List<ArticleModel>
+    suspend fun getNews(): ArticleResponse
 
     @GET("getPrice")
     suspend fun getPrice(): PriceItem

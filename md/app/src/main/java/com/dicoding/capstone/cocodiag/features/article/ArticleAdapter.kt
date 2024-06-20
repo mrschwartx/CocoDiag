@@ -10,7 +10,9 @@ import com.dicoding.capstone.cocodiag.R
 import com.dicoding.capstone.cocodiag.data.local.model.ArticleModel
 import com.dicoding.capstone.cocodiag.databinding.ItemArticleBinding
 
-class ArticleAdapter(private val articles: List<ArticleModel>) :
+class ArticleAdapter(
+    private val articles: List<ArticleModel>
+) :
     RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,10 +35,10 @@ class ArticleAdapter(private val articles: List<ArticleModel>) :
 
         fun bind(article: ArticleModel) {
             binding.titleArticle.text = article.title
-            binding.descArticle.text = article.description
+            binding.descArticle.text = article.content
 
             Glide.with(binding.root.context)
-                .load(article.urlToImage)
+                .load(article.imageUrl)
                 .placeholder(R.drawable.logo_no_text)
                 .into(binding.imgArticle)
 

@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 val newsResponse = apiService.getNews()
-                handleNewsResponse(newsResponse)
+                handleNewsResponse(newsResponse.articles)
                 binding.progressBar.visibility = View.GONE
             } catch (e: Exception) {
                 binding.progressBar.visibility = View.VISIBLE
