@@ -47,7 +47,6 @@ class SignInActivity : AppCompatActivity() {
             }
         }
 
-        signUpGoogle()
         navigateToSignUp()
     }
 
@@ -95,15 +94,6 @@ class SignInActivity : AppCompatActivity() {
                     finish()
                 }
             }
-        }
-    }
-
-    private fun signUpGoogle() {
-        val btnSignIn = binding.btnGoogle
-        btnSignIn.setOnClickListener {
-            val intent = Intent(this@SignInActivity, MainActivity::class.java)
-            startActivity(intent)
-            finish()
         }
     }
 
