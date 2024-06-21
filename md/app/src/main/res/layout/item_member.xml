@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    card_view:cardCornerRadius="8dp"
+    android:elevation="@dimen/_10sdp">
+
+    <LinearLayout
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/img_member"
+            android:layout_width="@dimen/_130sdp"
+            android:layout_height="@dimen/_170sdp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:src="@drawable/image_profile"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/name_member"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textSize="@dimen/_13ssp"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:textColor="@color/green3"/>
+
+        <TextView
+            android:id="@+id/university"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="University"
+            android:textSize="@dimen/_11ssp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:textColor="@color/green3"/>
+
+        <TextView
+            android:id="@+id/path"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Path"
+            android:textSize="@dimen/_11ssp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:textColor="@color/green3"
+            />
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

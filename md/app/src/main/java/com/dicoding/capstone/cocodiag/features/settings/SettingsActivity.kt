@@ -12,6 +12,7 @@ import com.dicoding.capstone.cocodiag.common.getAuthenticatedGlideUrl
 import com.dicoding.capstone.cocodiag.common.setBottomNavBar
 import com.dicoding.capstone.cocodiag.databinding.ActivitySettingsBinding
 import com.dicoding.capstone.cocodiag.features.ViewModelFactory
+import com.dicoding.capstone.cocodiag.features.settings.about.AboutActivity
 import com.dicoding.capstone.cocodiag.features.settings.history.HistoryActivity
 import com.dicoding.capstone.cocodiag.features.signin.SignInActivity
 

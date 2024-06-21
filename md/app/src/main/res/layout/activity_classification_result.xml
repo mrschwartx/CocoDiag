@@ -94,6 +94,7 @@
                 android:text="@string/class_prediction"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
+                android:textStyle="bold"
                 android:textSize="@dimen/_11ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

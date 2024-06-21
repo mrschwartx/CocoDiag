@@ -15,6 +15,7 @@ import com.dicoding.capstone.cocodiag.features.classification.CameraActivity
 import com.dicoding.capstone.cocodiag.features.forum.ForumActivity
 import com.dicoding.capstone.cocodiag.features.main.MainActivity
 import com.dicoding.capstone.cocodiag.features.settings.SettingsActivity
+import com.dicoding.capstone.cocodiag.features.settings.about.Member
 import com.google.android.material.navigation.NavigationBarView
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -61,6 +62,17 @@ fun AppCompatActivity.setBottomNavBar(
         }
     }
 }
+
+val List<Member>.defaultMember:List<Member>
+    get()= listOf(
+        Member("Putri Nur Fadillah","Politeknik Negeri Ketapang","ML",R.drawable.putry),
+        Member("Reyana Hilda Arti","Universitas Tanjungpura","ML",R.drawable.reyana),
+        Member("Silva Octaviacantika","Universitas Yarsi","ML",R.drawable.silpa),
+        Member("Muhamad Ivan Fadillah","Universitas Yarsi","CC",R.drawable.ipan2),
+        Member("Affandra Fahrezi","Universitas Pembangunan Nasional Veteran Jakarta","CC",R.drawable.affandra),
+        Member("Muhammad Sutan Baihaqi","Universitas Yarsi","MD",R.drawable.sutan),
+        Member("Agus Syahril Mubarok","Universitas Islam Al-Ihya Kuningan","MD",R.drawable.aguss)
+    )
 
 // Extension function to add list to bundle
 fun <T> Intent.putExtraList(key: String, list: List<T>) {

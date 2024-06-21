@@ -44,7 +44,7 @@
             android:name=".features.article.WebViewArticleActivity"
             android:exported="false" />
         <activity
-            android:name=".features.settings.AboutActivity"
+            android:name=".features.settings.about.AboutActivity"
             android:exported="false" />
         <activity
             android:name=".features.settings.ChangePasswordActivity"
