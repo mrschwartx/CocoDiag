@@ -17,26 +17,23 @@
 
 ### Slideshow
 
-<div style="display: flex; justify-content: center; align-items: center; height: 100%; background-color: white; padding: 4px;">
+<div style="background-color: white; padding: 20px; text-align: center;">
   <img src="./md/misc/slide/output.gif" alt="Slideshow" style="max-width: 100%; height: auto;">
 </div>
 
-
 ### Bangkit Product Capstone [Team: C241-PS469]
 
-- Themes: <b>Smart Agri-Fishery Solution: Agrotech and Fisheries Technology Integration</b>
+<b>Smart Agri-Fishery Solution: Agrotech and Fisheries Technology Integration</b>
 
-- Members
-
-    | Author                    | Student ID      | University                                         | Learning Path   |
-    |---------------------------|-----------------|----------------------------------------------------|-----------------|
-    | [Putri Nur Fadillah](https://www.linkedin.com/in/putri-nur-fadillah-69101b262)        | M743D4KX3312     | Politeknik Negeri Ketapang                         | Machine Learning |
-    | [Reyana Hilda Arti](https://www.linkedin.com/in/reyana-hilda-arti-258112279)         | M324D4KX3212    | Universitas Tanjungpura                            | Machine Learning |
-    | [Silva Octaviacantika](https://www.linkedin.com/in/silva-octaviacantika)      | M335D4KX1627    | Universitas Yarsi                                  | Machine Learning |
-    | [Muhamad Ivan Fadillah](https://www.linkedin.com/in/muhamad-ivan-fadillah)     | C335D4KY0015    | Universitas Yarsi                                  | Cloud Computing |
-    | [Affandra Fahrezi](https://www.linkedin.com/in/affandra-fahrezi)          | C295D4KY1243    | Universitas Pembangunan Nasional Veteran Jakarta   | Cloud Computing |
-    | [Muhammad Sutan Baihaqi](https://www.linkedin.com/in/muhammad-sutan-baihaqi)    | A335D4KY3488    | Universitas Yarsi                                  | Mobile Development |
-    | [Agus Syahril Mubarok](https://www.linkedin.com/in/agussmkertjhaan)      | A758D4KY4451    | Universitas Islam Al-Ihya Kuningan                 | Mobile Development |
+| Author                    | Student ID      | University                                         | Learning Path   |
+|---------------------------|-----------------|----------------------------------------------------|-----------------|
+| [Putri Nur Fadillah](https://www.linkedin.com/in/putri-nur-fadillah-69101b262)        | M743D4KX3312     | Politeknik Negeri Ketapang                         | Machine Learning |
+| [Reyana Hilda Arti](https://www.linkedin.com/in/reyana-hilda-arti-258112279)         | M324D4KX3212    | Universitas Tanjungpura                            | Machine Learning |
+| [Silva Octaviacantika](https://www.linkedin.com/in/silva-octaviacantika)      | M335D4KX1627    | Universitas Yarsi                                  | Machine Learning |
+| [Muhamad Ivan Fadillah](https://www.linkedin.com/in/muhamad-ivan-fadillah)     | C335D4KY0015    | Universitas Yarsi                                  | Cloud Computing |
+| [Affandra Fahrezi](https://www.linkedin.com/in/affandra-fahrezi)          | C295D4KY1243    | Universitas Pembangunan Nasional Veteran Jakarta   | Cloud Computing |
+| [Muhammad Sutan Baihaqi](https://www.linkedin.com/in/muhammad-sutan-baihaqi)    | A335D4KY3488    | Universitas Yarsi                                  | Mobile Development |
+| [Agus Syahril Mubarok](https://www.linkedin.com/in/agussmkertjhaan)      | A758D4KY4451    | Universitas Islam Al-Ihya Kuningan                 | Mobile Development |
 
 
 ### References
