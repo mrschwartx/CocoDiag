@@ -17,9 +17,9 @@
 
 ### Slideshow
 
-<div style="background-color: white; padding: 20px; text-align: center;">
-  <img src="./md/misc/slide/output.gif" alt="Slideshow" style="max-width: 100%; height: auto;">
-</div>
+<p align="center">
+  <img src="./md/misc/slide/output.gif" alt="Slideshow" width="200px">
+</p>
 
 ### Bangkit Product Capstone [Team: C241-PS469]
 
@@ -34,7 +34,6 @@
 | [Affandra Fahrezi](https://www.linkedin.com/in/affandra-fahrezi)          | C295D4KY1243    | Universitas Pembangunan Nasional Veteran Jakarta   | Cloud Computing |
 | [Muhammad Sutan Baihaqi](https://www.linkedin.com/in/muhammad-sutan-baihaqi)    | A335D4KY3488    | Universitas Yarsi                                  | Mobile Development |
 | [Agus Syahril Mubarok](https://www.linkedin.com/in/agussmkertjhaan)      | A758D4KY4451    | Universitas Islam Al-Ihya Kuningan                 | Mobile Development |
-
 
 ### References
 
